@@ -1,57 +1,49 @@
 import React, { useState, useEffect } from "react";
-import { Word } from "@/components/typography/Word";
+import { useNavigate } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
+import { AISignal } from "@/components/AISignal";
 
 export const LoginPage: React.FC = () => {
-  const [circleVisible, setCircleVisible] = useState(false);
-  const [wordVisible, setWordVisible] = useState(false);
+  const navigate = useNavigate();
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    // Start circle animation after a brief delay
-    const circleTimer = setTimeout(() => {
-      setCircleVisible(true);
-    }, 100);
-
-    // Start word reveal after circle begins
-    const wordTimer = setTimeout(() => {
-      setWordVisible(true);
-    }, 600);
-
-    return () => {
-      clearTimeout(circleTimer);
-      clearTimeout(wordTimer);
-    };
+    const timer = setTimeout(() => setVisible(true), 100);
+    return () => clearTimeout(timer);
   }, []);
 
-  return (
-    <div className="min-h-screen w-full bg-dark-900 flex items-center justify-center overflow-hidden">
-      {/* Animated blur circle */}
-      <div
-        className={`absolute w-[400px] h-[400px] rounded-full transition-all duration-[1500ms] ease-out ${
-          circleVisible
-            ? "opacity-100 scale-100 blur-[80px]"
-            : "opacity-0 scale-50 blur-[120px]"
-        }`}
-        style={{
-          background: "radial-gradient(circle, var(--color-coral-500) 0%, var(--color-coral-600) 40%, transparent 70%)",
-        }}
-      />
+  const handleContinue = () => {
+    navigate("/", { viewTransition: true });
+  };
 
-      {/* SYNTH word */}
-      <div
-        className={`relative z-10 transition-opacity duration-500 ${
-          wordVisible ? "opacity-100" : "opacity-0"
-        }`}
-        style={{
-          ["--letter-width" as string]: "110px",
-          ["--letter-height" as string]: "96px",
-        }}
-      >
-        <Word
-          letters={["s", "y", "n", "t", "h"]}
-          autoReveal={wordVisible}
-          className="[&_svg]:fill-dark-50"
-        />
+  return (
+    <div className="min-h-screen w-full bg-cream-100 flex flex-col overflow-hidden">
+      {/* Main content area */}
+      <div className="flex-1 flex items-center justify-center relative">
+        {/* AISignal visualization with arrow button */}
+        <div
+          className={`transition-opacity duration-1000 relative ${
+            visible ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <div
+            className="text-cream-400"
+            style={{ viewTransitionName: 'ai-signal' }}
+          >
+            <AISignal state="idle" size={400} showOrbitCircles={false} />
+          </div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <button
+              onClick={handleContinue}
+              className="w-14 h-14 rounded-full bg-cream-800 hover:bg-cream-700 flex items-center justify-center transition-all"
+              style={{ viewTransitionName: 'center-action' }}
+            >
+              <ArrowRight className="w-6 h-6 text-cream-100" />
+            </button>
+          </div>
+        </div>
       </div>
+
     </div>
   );
 };

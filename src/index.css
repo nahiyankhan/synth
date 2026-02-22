@@ -1,9 +1,6 @@
 @import url("https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap");
 @import "tailwindcss";
 
-/* Default styles for x-* component classes (fallback when no design language active) */
-@import "./lib/json-render/default-styles.css";
-
 /* ==========================================================================
  * APP UI THEME
  *
@@ -374,10 +371,11 @@
 
   /* View Transition API */
   @supports (view-transition-name: none) {
+    /* Background crossfade */
     ::view-transition-old(root),
     ::view-transition-new(root) {
-      animation-duration: 0.2s;
-      animation-timing-function: ease-in-out;
+      animation-duration: 0.5s;
+      animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     }
     ::view-transition-old(root) { animation-name: fade-out; }
     ::view-transition-new(root) { animation-name: fade-in; }
@@ -388,6 +386,20 @@
     ::view-transition-old(gallery-card-spacing) {
       animation-duration: 0.2s;
       animation-timing-function: ease-in-out;
+    }
+
+    /* AISignal morph between pages */
+    ::view-transition-old(ai-signal),
+    ::view-transition-new(ai-signal) {
+      animation-duration: 0.6s;
+      animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Center action button morph */
+    ::view-transition-old(center-action),
+    ::view-transition-new(center-action) {
+      animation-duration: 0.5s;
+      animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     @keyframes fade-out {

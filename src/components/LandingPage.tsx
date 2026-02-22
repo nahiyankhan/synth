@@ -1,10 +1,12 @@
 /**
  * LandingPage - Select or create a design language
- * Dark theme inspired by eBay Playbook
+ * Circular layout with languages orbiting the center
  */
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { Plus, X, ArrowRight } from "lucide-react";
+import { AISignal } from "@/components/AISignal";
 import {
   getAllDesignLanguages,
   DesignLanguageMetadata,
@@ -15,10 +17,20 @@ interface LandingPageProps {
   onSelectLanguage: (id: string) => void;
 }
 
+const SAMPLE_PROMPTS = [
+  "A minimal design system for a meditation app",
+  "Bold and playful brand for a children's education platform",
+  "Enterprise SaaS with a professional, trustworthy feel",
+  "Luxury fashion brand with elegant typography",
+  "Cyberpunk aesthetic for a gaming platform",
+  "Warm and organic feel for a sustainable food brand",
+];
+
 export const LandingPage: React.FC<LandingPageProps> = ({
   onSelectLanguage,
 }) => {
   const navigate = useNavigate();
+  const inputRef = useRef<HTMLInputElement>(null);
   const [savedLanguages, setSavedLanguages] = useState<
     DesignLanguageMetadata[]
   >([]);
@@ -29,7 +41,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({
     language: DesignLanguageMetadata | null;
   }>({ isOpen: false, language: null });
   const [isVisible, setIsVisible] = useState(false);
-  const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
+  const [isCreateMode, setIsCreateMode] = useState(false);
+  const [prompt, setPrompt] = useState("");
 
   useEffect(() => {
     const loadLanguages = async () => {
@@ -45,25 +58,18 @@ export const LandingPage: React.FC<LandingPageProps> = ({
     loadLanguages();
   }, []);
 
-  // Fade in title on mount
+  // Fade in on mount
   useEffect(() => {
-    setIsVisible(true);
+    const timer = setTimeout(() => setIsVisible(true), 50);
+    return () => clearTimeout(timer);
   }, []);
 
-  // Staggered card animation
+  // Focus input when entering create mode
   useEffect(() => {
-    const totalCards = savedLanguages.length + 1; // +1 for "Create New" card
-    const timers: NodeJS.Timeout[] = [];
-
-    for (let i = 0; i < totalCards; i++) {
-      const timer = setTimeout(() => {
-        setVisibleCards((prev) => new Set(prev).add(i));
-      }, i * 80);
-      timers.push(timer);
+    if (isCreateMode && inputRef.current) {
+      inputRef.current.focus();
     }
-
-    return () => timers.forEach((t) => clearTimeout(t));
-  }, [savedLanguages]);
+  }, [isCreateMode]);
 
   const handleSelectWithTransition = (id: string) => {
     setIsTransitioning(true);
@@ -72,16 +78,36 @@ export const LandingPage: React.FC<LandingPageProps> = ({
     }, 300);
   };
 
-  const handleGenerateNew = () => {
+  const handleToggleCreateMode = () => {
+    setIsCreateMode(!isCreateMode);
+    if (isCreateMode) {
+      setPrompt("");
+    }
+  };
+
+  const handleSubmitPrompt = (selectedPrompt?: string) => {
+    const finalPrompt = selectedPrompt || prompt;
+    if (!finalPrompt.trim()) return;
+
     setIsTransitioning(true);
     setTimeout(() => {
-      navigate("/editor/create");
+      navigate("/editor/create", { state: { prompt: finalPrompt } });
     }, 300);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && prompt.trim()) {
+      handleSubmitPrompt();
+    }
+    if (e.key === "Escape") {
+      setIsCreateMode(false);
+      setPrompt("");
+    }
   };
 
   const handleDeleteClick = (
     e: React.MouseEvent,
-    language: DesignLanguageMetadata
+    language: DesignLanguageMetadata,
   ) => {
     e.stopPropagation();
     setDeleteConfirmation({ isOpen: true, language });
@@ -105,14 +131,30 @@ export const LandingPage: React.FC<LandingPageProps> = ({
     }
   };
 
+  // Calculate position for each item in the orbit
+  const getOrbitPosition = (
+    index: number,
+    total: number,
+    radius: number = 180,
+  ) => {
+    const angleOffset = -90; // Start from top
+    const angle = angleOffset + (360 / total) * index;
+    const radians = (angle * Math.PI) / 180;
+
+    return {
+      x: Math.cos(radians) * radius,
+      y: Math.sin(radians) * radius,
+    };
+  };
+
   if (error) {
     return (
-      <div className="h-screen w-full overflow-y-auto bg-dark-900 flex items-center justify-center">
+      <div className="h-screen w-full overflow-y-auto bg-cream-100 flex items-center justify-center">
         <div className="text-center space-y-6">
-          <p className="text-sm text-red-400">{error}</p>
+          <p className="text-sm text-red-500">{error}</p>
           <button
             onClick={() => window.location.reload()}
-            className="text-sm text-dark-400 hover:text-dark-50 transition-colors"
+            className="text-sm text-cream-600 hover:text-cream-800 transition-colors"
           >
             retry
           </button>
@@ -123,141 +165,155 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
   return (
     <div
-      className={`min-h-screen w-full overflow-y-auto bg-dark-900 transition-opacity duration-300 ${
+      className={`min-h-screen w-full bg-cream-100 transition-opacity duration-300 ${
         isTransitioning ? "opacity-0" : "opacity-100"
       }`}
     >
-      {/* Hero Section */}
-      <div className="px-12 pt-12 pb-12">
-        <h1
-          className={`text-7xl font-bold tracking-tight text-dark-50 lowercase mb-4 transition-all duration-700 ease-out ${
-            isVisible ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <span className=" text-dark-400">dla-01.</span> design Language Agent
-        </h1>
-      </div>
-
-      {/* Cards Section */}
-      <div className="px-12 pb-12">
-        <div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 auto-rows-[280px]">
-            {/* Generate New Card - Accent colored */}
+      {/* Centered orbital layout */}
+      <div className="h-screen w-full flex items-center justify-center">
+        <div className="relative">
+          {/* Center: AISignal + Create/Close button */}
+          <div className="relative flex items-center justify-center">
             <div
-              onClick={handleGenerateNew}
-              className={`flex flex-col gap-3 text-left group cursor-pointer transition-all duration-500 ease-out ${
-                visibleCards.has(0)
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-4"
-              }`}
+              className="text-cream-400"
+              style={{ viewTransitionName: "ai-signal" }}
             >
-              {/* Card */}
-              <div className="relative bg-accent-green rounded-2xl w-full h-[240px] hover:brightness-110 transition-all duration-200 overflow-hidden flex items-center justify-center">
-                <div className="w-10 h-10 rounded-full bg-black/10 flex items-center justify-center">
-                  <svg
-                    className="w-5 h-5 text-black"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M12 4v16m8-8H4"
-                    />
-                  </svg>
-                </div>
-              </div>
-
-              {/* Title below card */}
-              <div className="text-xl font-medium tracking-wide text-white lowercase px-1">
-                Create New
-              </div>
+              <AISignal
+                state={isCreateMode ? "thinking" : "idle"}
+                size={120}
+                showOrbitCircles={false}
+              />
             </div>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <button
+                onClick={handleToggleCreateMode}
+                className={`w-14 h-14 rounded-full flex items-center justify-center transition-all ${
+                  isCreateMode
+                    ? "bg-cream-300 hover:bg-cream-400"
+                    : "bg-cream-800 hover:bg-cream-700"
+                }`}
+                style={{ viewTransitionName: "center-action" }}
+                title={isCreateMode ? "Cancel" : "Create new design language"}
+              >
+                {isCreateMode ? (
+                  <X className="w-6 h-6 text-cream-700" />
+                ) : (
+                  <Plus className="w-6 h-6 text-cream-100" />
+                )}
+              </button>
+            </div>
+          </div>
 
-            {/* Saved Languages */}
-            {savedLanguages.map((lang, index) => (
+          {/* Orbiting language circles - hidden in create mode */}
+          {savedLanguages.map((lang, index) => {
+            const pos = getOrbitPosition(index, savedLanguages.length);
+            return (
               <div
                 key={lang.id}
-                onClick={() => handleSelectWithTransition(lang.id)}
-                className={`flex flex-col gap-3 text-left group cursor-pointer transition-all duration-500 ease-out ${
-                  visibleCards.has(index + 1)
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-4"
+                className={`absolute top-1/2 left-1/2 transition-all duration-500 ease-out ${
+                  isVisible && !isCreateMode
+                    ? "opacity-100 scale-100"
+                    : "opacity-0 scale-50"
                 }`}
+                style={{
+                  transform: `translate(calc(-50% + ${pos.x}px), calc(-50% + ${pos.y}px))`,
+                  transitionDelay: isCreateMode ? "0ms" : `${index * 80}ms`,
+                }}
               >
-                {/* Card */}
                 <div
-                  className="relative rounded-2xl w-full h-[240px] hover:brightness-110 transition-all duration-200 overflow-hidden flex items-center justify-end p-6"
+                  onClick={() => handleSelectWithTransition(lang.id)}
+                  onContextMenu={(e) => {
+                    e.preventDefault();
+                    handleDeleteClick(e, lang);
+                  }}
+                  className="group relative w-20 h-20 rounded-full cursor-pointer hover:scale-110 transition-transform"
                   style={{
                     backgroundColor: lang.primaryColor || "#2d2d2d",
                   }}
+                  title={lang.name}
                 >
-
-                  {/* Delete button - positioned in bottom-left */}
-                  <div className="absolute bottom-6 left-6">
-                    <button
-                      onClick={(e) => handleDeleteClick(e, lang)}
-                      className="w-10 h-10 rounded-full bg-black/10 hover:bg-red-500/20 flex items-center justify-center transition-all opacity-0 group-hover:opacity-100"
-                      title="Delete"
-                    >
-                      <svg
-                        className="w-4 h-4 text-black/50 group-hover:text-red-400"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                        />
-                      </svg>
-                    </button>
+                  {/* Language initial */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="text-xl font-semibold text-black/50">
+                      {lang.name.charAt(0).toUpperCase()}
+                    </span>
                   </div>
 
-                  {/* Arrow - positioned in bottom-right */}
-                  <div className="absolute bottom-6 right-6">
-                    <div className="w-10 h-10 rounded-full bg-black/10 group-hover:bg-black/20 flex items-center justify-center transition-colors">
-                      <svg
-                        className="w-4 h-4 text-black/50 group-hover:text-black/70"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M13 7l5 5m0 0l-5 5m5-5H6"
-                        />
-                      </svg>
-                    </div>
+                  {/* Hover label */}
+                  <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span className="text-sm text-cream-700">{lang.name}</span>
                   </div>
-                </div>
-
-                {/* Title below card */}
-                <div className="text-xl font-medium tracking-wide text-white lowercase px-1">
-                  {lang.name}
                 </div>
               </div>
-            ))}
+            );
+          })}
+
+          {/* Sample prompt pills - shown in create mode */}
+          {SAMPLE_PROMPTS.map((samplePrompt, index) => {
+            const pos = getOrbitPosition(index, SAMPLE_PROMPTS.length, 280);
+            return (
+              <div
+                key={index}
+                className={`absolute top-1/2 left-1/2 transition-all duration-500 ease-out ${
+                  isCreateMode ? "opacity-100 scale-100" : "opacity-0 scale-75"
+                }`}
+                style={{
+                  transform: `translate(calc(-50% + ${pos.x}px), calc(-50% + ${pos.y}px))`,
+                  transitionDelay: isCreateMode ? `${index * 60}ms` : "0ms",
+                }}
+              >
+                <button
+                  onClick={() => handleSubmitPrompt(samplePrompt)}
+                  className="px-5 py-2.5 rounded-full bg-cream-200 hover:bg-cream-300 text-cream-800 text-sm w-[400px] text-center transition-colors whitespace-normal leading-tight"
+                >
+                  {samplePrompt}
+                </button>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Chat input bar - shown in create mode */}
+      <div
+        className={`fixed bottom-0 left-0 right-0 p-6 transition-all duration-300 ${
+          isCreateMode
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-full pointer-events-none"
+        }`}
+      >
+        <div className="max-w-2xl mx-auto">
+          <div className="flex items-center gap-3 bg-white rounded-full shadow-lg border border-cream-200 pl-6 pr-2 py-2">
+            <input
+              ref={inputRef}
+              type="text"
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+              onKeyDown={handleKeyDown}
+              placeholder="Describe your design language..."
+              className="flex-1 bg-transparent outline-none text-cream-900 placeholder:text-cream-400"
+            />
+            <button
+              onClick={() => handleSubmitPrompt()}
+              disabled={!prompt.trim()}
+              className="w-10 h-10 rounded-full bg-cream-800 hover:bg-cream-700 disabled:bg-cream-300 flex items-center justify-center transition-colors"
+            >
+              <ArrowRight className="w-5 h-5 text-cream-100" />
+            </button>
           </div>
         </div>
       </div>
 
       {/* Delete Confirmation Modal */}
       {deleteConfirmation.isOpen && deleteConfirmation.language && (
-        <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 animate-in fade-in duration-200">
-          <div className="bg-dark-800 border border-dark-700 rounded-2xl p-8 max-w-md w-full mx-4 animate-in zoom-in-95 duration-200">
-            <h3 className="text-2xl font-medium text-dark-50 mb-4">
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 animate-in fade-in duration-200">
+          <div className="bg-cream-50 border border-cream-300 rounded-2xl p-8 max-w-md w-full mx-4 animate-in zoom-in-95 duration-200 shadow-xl">
+            <h3 className="text-2xl font-medium text-cream-900 mb-4">
               Delete design language?
             </h3>
-            <p className="text-sm text-dark-400 mb-6">
+            <p className="text-sm text-cream-600 mb-6">
               Are you sure you want to delete "
-              <span className="font-medium text-dark-50">
+              <span className="font-medium text-cream-900">
                 {deleteConfirmation.language.name}
               </span>
               "? This action cannot be undone.
@@ -265,7 +321,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
             <div className="flex gap-3 justify-end">
               <button
                 onClick={handleCancelDelete}
-                className="px-5 py-2.5 text-sm text-dark-300 hover:text-dark-50 transition-colors rounded-lg hover:bg-dark-700"
+                className="px-5 py-2.5 text-sm text-cream-600 hover:text-cream-900 transition-colors rounded-lg hover:bg-cream-200"
               >
                 Cancel
               </button>

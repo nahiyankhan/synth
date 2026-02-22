@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import { useGlobalChat } from '@/context/ChatContext';
 import {
   Conversation,
@@ -137,6 +138,7 @@ const ToolInvocationDisplay: React.FC<{ toolPart: ToolPartForDisplay }> = ({ too
  * Main chat panel component
  */
 export const GlobalChat = () => {
+  const location = useLocation();
   const {
     messages,
     input,
@@ -149,6 +151,11 @@ export const GlobalChat = () => {
     pageContext,
     status,
   } = useGlobalChat();
+
+  // Hide chat on login page
+  if (location.pathname === '/login') {
+    return null;
+  }
 
   if (!isOpen) {
     return <ChatToggle />;
