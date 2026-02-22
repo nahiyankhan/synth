@@ -313,23 +313,6 @@ const getContextAwarePrompts = (
     );
   } else if (currentView === "content") {
     basePrompts.push(
-      // Exploration (filesystem)
-      {
-        category: "Content (Current View)",
-        label: "Explore: List content files",
-        prompt: "Show me all content guideline files",
-      },
-      {
-        category: "Content (Current View)",
-        label: "Explore: Read voice guidelines",
-        prompt: "What's in the voice and tone guidelines?",
-      },
-      {
-        category: "Content (Current View)",
-        label: "Explore: Search for examples",
-        prompt: "Find examples in the content guidelines",
-      },
-      // Standard operations
       {
         category: "Content (Current View)",
         label: "View content guide",
@@ -339,11 +322,6 @@ const getContextAwarePrompts = (
         category: "Content (Current View)",
         label: "Summarize tone",
         prompt: "Summarize the tone of voice guidelines",
-      },
-      {
-        category: "Content (Current View)",
-        label: "Audit text sample",
-        prompt: "Audit this text: 'Click here now to get started!'",
       }
     );
   } else if (currentView === "pages") {
@@ -820,17 +798,6 @@ const SAMPLE_PROMPTS: SamplePrompt[] = [
     prompt:
       "Generate 11-step color scale from #EF4444 as base.color.red.{step}",
   },
-  {
-    category: "Tool Tests",
-    label: "Test: Audit text",
-    prompt:
-      "Audit this text: 'Click here now to get started with our amazing product! Sign up today!'",
-  },
-  {
-    category: "Tool Tests",
-    label: "Test: Search guidelines",
-    prompt: "Search guidelines for 'error messages'",
-  },
 
   // ============================================
   // NAVIGATION (Experimental Pages)
@@ -882,8 +849,6 @@ const SAMPLE_PROMPTS: SamplePrompt[] = [
  *    - generate_color_scale, check_lightness_scale, check_color_contrast
  *    - group_colors_by_hue, select_colors
  *
- * ✅ Content Tools (2):
- *    - auditText, searchGuidelines
  *
  * ✅ Meta/Discovery Tools (4):
  *    - get_design_system_operations, get_operation_info, execute_operation

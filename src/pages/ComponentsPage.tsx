@@ -1,6 +1,5 @@
 import React from "react";
 import { ComponentsView } from "../components/ComponentsView";
-import { VoiceControlBar } from "../components/VoiceControlBar";
 import { ToolCallDisplay } from "../components/ToolCallDisplay";
 import { DevPanel } from "../components/DevPanel";
 import { useViewPage } from "../hooks/useViewPage";
@@ -8,15 +7,12 @@ import { useViewPage } from "../hooks/useViewPage";
 export const ComponentsPage: React.FC = () => {
   const {
     navigate,
-    appState,
     currentEvent,
     previousEvent,
     currentLanguageMetadata,
     graph,
     viewMode,
     isVisible,
-    startSession,
-    stopSession,
     handleExecutePrompt,
     isLoading,
     isProcessingText,
@@ -77,13 +73,6 @@ export const ComponentsPage: React.FC = () => {
       <ToolCallDisplay
         currentEvent={currentEvent}
         previousEvent={previousEvent}
-      />
-
-      {/* Voice Control Bar */}
-      <VoiceControlBar
-        appState={appState}
-        onStartSession={startSession}
-        onStopSession={stopSession}
       />
 
       {/* Dev Panel */}

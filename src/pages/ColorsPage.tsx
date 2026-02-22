@@ -3,11 +3,9 @@ import { ColorView } from "../components/ColorView";
 import { ColorListView } from "../components/ColorListView";
 import { ColorSankeyView } from "../components/color/ColorSankeyView";
 import { ColorViewModeToolbar, ColorViewModeType } from "../components/ColorViewModeToolbar";
-import { VoiceControlBar } from "../components/VoiceControlBar";
 import { ToolCallDisplay } from "../components/ToolCallDisplay";
 import { DevPanel } from "../components/DevPanel";
 import { ToolResultOverlay } from "../components/tool-results";
-import { ViewSwitcher } from "../components/ViewSwitcher";
 import { useViewPage } from "../hooks/useViewPage";
 
 export const ColorsPage: React.FC = () => {
@@ -15,7 +13,6 @@ export const ColorsPage: React.FC = () => {
 
   const {
     navigate,
-    appState,
     currentEvent,
     previousEvent,
     currentLanguageMetadata,
@@ -26,11 +23,7 @@ export const ColorsPage: React.FC = () => {
     toolUIState,
     closeOverlay,
     isVisible,
-    startSession,
-    stopSession,
     handleExecutePrompt,
-    handleToolCall,
-    currentView,
     isLoading,
     isProcessingText,
   } = useViewPage({ currentView: "colors" });
@@ -123,13 +116,6 @@ export const ColorsPage: React.FC = () => {
       <ToolCallDisplay
         currentEvent={currentEvent}
         previousEvent={previousEvent}
-      />
-
-      {/* Voice Control Bar */}
-      <VoiceControlBar
-        appState={appState}
-        onStartSession={startSession}
-        onStopSession={stopSession}
       />
 
       {/* Dev Panel */}

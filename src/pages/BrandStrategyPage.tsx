@@ -1,5 +1,4 @@
 import React from "react";
-import { VoiceControlBar } from "../components/VoiceControlBar";
 import { ToolCallDisplay } from "../components/ToolCallDisplay";
 import { DevPanel } from "../components/DevPanel";
 import { ToolResultOverlay } from "../components/tool-results";
@@ -8,17 +7,13 @@ import { useViewPage } from "../hooks/useViewPage";
 export const BrandStrategyPage: React.FC = () => {
   const {
     navigate,
-    appState,
     currentEvent,
     previousEvent,
     currentLanguageMetadata,
     toolUIState,
     closeOverlay,
     isVisible,
-    startSession,
-    stopSession,
     handleExecutePrompt,
-    handleToolCall,
     isLoading,
     isProcessingText,
   } = useViewPage({ currentView: "visual-direction" });
@@ -238,13 +233,6 @@ export const BrandStrategyPage: React.FC = () => {
       <ToolCallDisplay
         currentEvent={currentEvent}
         previousEvent={previousEvent}
-      />
-
-      {/* Voice Control Bar */}
-      <VoiceControlBar
-        appState={appState}
-        onStartSession={startSession}
-        onStopSession={stopSession}
       />
 
       {/* Dev Panel */}

@@ -4,7 +4,6 @@ import { AppProvider, useApp } from "./context/AppContext";
 import { DesignLanguageProvider } from "./context/DesignLanguageContext";
 import { ToolUIProvider } from "./context/ToolUIContext";
 import { ToolCallProvider } from "./context/ToolCallContext";
-import { VoiceSettingsProvider } from "./context/VoiceSettingsContext";
 import { ChatProvider } from "./context/ChatContext";
 import { useApiKey } from "./hooks/useApiKey";
 import { useInitialization } from "./hooks/useInitialization";
@@ -60,17 +59,15 @@ const AppRoutes: React.FC = () => {
 const App: React.FC = () => {
   return (
     <BrowserRouter>
-      <VoiceSettingsProvider>
-          <AppProvider>
-            <DesignLanguageProvider>
-              <ToolUIProvider>
-                <ToolCallProvider>
-                  <AppRoutes />
-                </ToolCallProvider>
-              </ToolUIProvider>
-            </DesignLanguageProvider>
-          </AppProvider>
-        </VoiceSettingsProvider>
+      <AppProvider>
+        <DesignLanguageProvider>
+          <ToolUIProvider>
+            <ToolCallProvider>
+              <AppRoutes />
+            </ToolCallProvider>
+          </ToolUIProvider>
+        </DesignLanguageProvider>
+      </AppProvider>
     </BrowserRouter>
   );
 };

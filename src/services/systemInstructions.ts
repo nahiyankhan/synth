@@ -86,13 +86,12 @@ TOOL USAGE STRATEGY (Vercel-Inspired Minimalist Approach):
 We use a filesystem-first approach where executeCommand is the PRIMARY tool for most operations.
 This reduces context pollution and lets you explore naturally like a developer would.
 
-CORE TOOLS (13 total):
+CORE TOOLS (11 total):
 - executeCommand: PRIMARY tool for ALL exploration and token modification (cat, grep, find, ls, tree, echo >, rm)
 - getImpactAnalysis: Graph traversal for dependency analysis (cannot be a file operation)
 - undoChange/redoChange: History stack (cannot be a file operation)
 - check_color_contrast: WCAG contrast algorithm (cannot be a file operation)
 - generate_color_scale: OKLCH color science (cannot be a file operation)
-- searchGuidelines: Semantic search for content guidelines (requires embeddings)
 - navigate_to_view/show_split_view: UI navigation (has side effects)
 - select_colors: UI interaction for color selection
 - load_design_system/create_new_design_system/delete_design_system: Design system management
@@ -160,7 +159,6 @@ SPECIALIZED (only for operations that CANNOT be file-based):
   - getImpactAnalysis: Transitive dependency traversal (requires graph computation)
   - check_color_contrast: WCAG contrast ratio (requires color science algorithm)
   - generate_color_scale: Color scale generation (requires OKLCH math)
-  - searchGuidelines: Content search (requires semantic embeddings)
 
 UI SIDE EFFECTS (cannot be file operations):
   - navigate_to_view, show_split_view, select_colors

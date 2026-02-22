@@ -1,24 +1,18 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { SizesView } from "../components/SpacingView";
-import { VoiceControlBar } from "../components/VoiceControlBar";
 import { ToolCallDisplay } from "../components/ToolCallDisplay";
 import { DevPanel } from "../components/DevPanel";
 import { ToolResultOverlay } from "../components/tool-results";
 import { useToolCall } from "../context/ToolCallContext";
-import { ViewSwitcher } from "../components/ViewSwitcher";
-import { useApp } from "../context/AppContext";
 import { useDesignLanguage } from "../context/DesignLanguageContext";
 import { useToolUI } from "../context/ToolUIContext";
 import { useDesignLanguageLoader } from "../hooks/useDesignLanguageLoader";
-import { useVoiceSession } from "../hooks/useVoiceSession";
 import { useToolCallHandler } from "../hooks/useToolCallHandler";
 import { useTextSession } from "../hooks/useTextSession";
-import { AppState } from "../types/app";
 
 export const SizesPage: React.FC = () => {
   const navigate = useNavigate();
-  const { appState, setAppState, logs, addLog } = useApp();
   const { currentEvent, previousEvent } = useToolCall();
   const [isVisible, setIsVisible] = useState(false);
 
@@ -32,10 +26,9 @@ export const SizesPage: React.FC = () => {
     setVoiceSearchResults,
   } = useDesignLanguage();
 
-  const [textInput, setTextInput] = useState<string>("");
   const [isProcessingText, setIsProcessingText] = useState<boolean>(false);
 
-  const { state: toolUIState, showResult, closeOverlay } = useToolUI();
+  const { state: toolUIState, closeOverlay } = useToolUI();
 
   const refreshUI = useCallback(() => {}, []);
 
@@ -53,11 +46,6 @@ export const SizesPage: React.FC = () => {
     setMultiView,
   });
 
-  const { startSession, stopSession } = useVoiceSession(toolCallHandler, {
-    currentView: "sizes",
-  });
-
-  // Wrap handleToolCall for VoiceControlBar (without session ref)
   const handleToolCall = useCallback(
     async (toolCall: any) => {
       await toolCallHandler(toolCall, { current: null });
@@ -65,24 +53,27 @@ export const SizesPage: React.FC = () => {
     [toolCallHandler]
   );
 
-  // Text session (chat mode) - uses same context-aware tools as voice
   const { sendMessage: sendTextMessage } = useTextSession(toolCallHandler, {
     currentView: "sizes",
   });
 
-  // DevPanel also uses context-aware text session (same as chat mode)
   const handleExecutePrompt = useCallback(
     async (prompt: string) => {
-      await sendTextMessage(prompt);
+      setIsProcessingText(true);
+      try {
+        await sendTextMessage(prompt);
+      } finally {
+        setIsProcessingText(false);
+      }
     },
     [sendTextMessage]
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     setIsVisible(true);
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!selectedLanguage) {
       navigate("/");
     }
@@ -153,13 +144,6 @@ export const SizesPage: React.FC = () => {
         previousEvent={previousEvent}
       />
 
-      {/* Voice Control Bar */}
-      <VoiceControlBar
-        appState={appState}
-        onStartSession={startSession}
-        onStopSession={stopSession}
-      />
-
       {/* Dev Panel */}
       <DevPanel
         onExecutePrompt={handleExecutePrompt}
@@ -168,14 +152,11 @@ export const SizesPage: React.FC = () => {
       />
 
       {/* Tool Result Overlay */}
-      {toolUIState.isVisible && (
-        <ToolResultOverlay
-          result={toolUIState.result}
-          onClose={closeOverlay}
-          appState={appState}
-        />
-      )}
+      <ToolResultOverlay
+        result={toolUIState.activeResult}
+        isOpen={toolUIState.isOverlayOpen}
+        onClose={closeOverlay}
+      />
     </div>
   );
 };
-

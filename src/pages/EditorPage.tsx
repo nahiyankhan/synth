@@ -15,7 +15,6 @@ import { useToolCall } from "../context/ToolCallContext";
 import { useDesignLanguage } from "../context/DesignLanguageContext";
 import { useToolUI } from "../context/ToolUIContext";
 import { useDesignLanguageLoader } from "../hooks/useDesignLanguageLoader";
-import { useVoiceSession } from "../hooks/useVoiceSession";
 import { useToolCallHandler } from "../hooks/useToolCallHandler";
 import { useTextSession } from "../hooks/useTextSession";
 import { AppState } from "../types/app";
@@ -39,8 +38,6 @@ export const EditorPage: React.FC = () => {
     setGraph,
     setToolHandlers,
     setFilteredNodes,
-    voiceSearchResults,
-    setVoiceSearchResults,
     viewMode,
   } = useDesignLanguage();
 
@@ -95,15 +92,10 @@ export const EditorPage: React.FC = () => {
   });
 
   const handleToolCall = useCallback(
-    async (toolCall: any, sessionRef: React.MutableRefObject<any>) => {
-      await toolCallHandler(toolCall, sessionRef);
+    async (toolCall: any) => {
+      await toolCallHandler(toolCall, { current: null });
     },
     [toolCallHandler]
-  );
-
-  const { startSession, stopSession, sendProactiveMessage } = useVoiceSession(
-    handleToolCall,
-    { currentView: "gallery" }
   );
 
   const { sendMessage: sendTextMessage } = useTextSession(handleToolCall, {
@@ -121,39 +113,6 @@ export const EditorPage: React.FC = () => {
     },
     [sendTextMessage]
   );
-
-  // Proactive follow-up when search results are shown
-  useEffect(() => {
-    if (
-      !voiceSearchResults ||
-      appState !== AppState.LISTENING ||
-      !sendProactiveMessage
-    )
-      return;
-
-    const timeoutId = setTimeout(() => {
-      const count = voiceSearchResults.length;
-      if (count === 0) {
-        sendProactiveMessage(
-          "No results found for that search. Say: 'Hmm, I didn't find any matches for that. Try a different search term, or I can show you all colors, typography, or size tokens. What would help?'"
-        );
-      } else if (count > 50) {
-        sendProactiveMessage(
-          `Search returned ${count} results - that's a lot! Say: 'I found ${count} tokens matching your search. Would you like me to narrow it down by type, like just colors or sizes? Or search for something more specific?'`
-        );
-      } else if (count === 1) {
-        sendProactiveMessage(
-          "Found exactly one token! Say: 'Perfect! I found one token that matches. Would you like to update it, see its details, or check what depends on it?'"
-        );
-      } else {
-        sendProactiveMessage(
-          `Found ${count} tokens. Say: 'I found ${count} tokens that match. Would you like to update any of them, or would you like me to explain what they do?'`
-        );
-      }
-    }, 2000);
-
-    return () => clearTimeout(timeoutId);
-  }, [voiceSearchResults, appState, sendProactiveMessage]);
 
   const handleBack = useCallback(() => {
     setSelectedLanguage(null);
@@ -237,11 +196,8 @@ export const EditorPage: React.FC = () => {
       segments={segments}
       isVisible={isVisible}
       dark
-      appState={appState}
       currentEvent={currentEvent}
       previousEvent={previousEvent}
-      onStartSession={startSession}
-      onStopSession={stopSession}
       onExecutePrompt={handleExecutePrompt}
       isProcessing={isProcessingText}
       currentView="gallery"

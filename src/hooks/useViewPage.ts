@@ -12,7 +12,6 @@ import { useToolCall } from '../context/ToolCallContext';
 import { useDesignLanguage } from '../context/DesignLanguageContext';
 import { useToolUI } from '../context/ToolUIContext';
 import { useDesignLanguageLoader } from './useDesignLanguageLoader';
-import { useVoiceSession } from './useVoiceSession';
 import { useToolCallHandler } from './useToolCallHandler';
 import { useTextSession } from './useTextSession';
 
@@ -54,13 +53,11 @@ export interface UseViewPageReturn {
   // UI state
   isVisible: boolean;
 
-  // Voice/Text session handlers
-  startSession: () => void;
-  stopSession: () => void;
+  // Text session handlers
   handleTextSubmit: (e: React.FormEvent) => Promise<void>;
   handleExecutePrompt: (prompt: string) => Promise<void>;
 
-  // Tool call handler for VoiceControlBar
+  // Tool call handler
   handleToolCall: (toolCall: any) => Promise<void>;
 
   // Current view for context
@@ -124,12 +121,7 @@ export function useViewPage(options: UseViewPageOptions): UseViewPageReturn {
     setMultiView,
   });
 
-  // Voice session
-  const { startSession, stopSession } = useVoiceSession(handleToolCall, {
-    currentView,
-  });
-
-  // Text session (chat mode) - uses same context-aware tools as voice
+  // Text session (chat mode)
   const { sendMessage: sendTextMessage } = useTextSession(handleToolCall, {
     currentView,
   });
@@ -205,8 +197,6 @@ export function useViewPage(options: UseViewPageOptions): UseViewPageReturn {
     setTextInput,
     isProcessingText,
     isVisible,
-    startSession,
-    stopSession,
     handleTextSubmit,
     handleExecutePrompt,
     handleToolCall: wrappedToolCall,

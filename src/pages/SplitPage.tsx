@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { ColorView } from "../components/ColorView";
 import { TypographyView } from "../components/TypographyView";
@@ -6,16 +6,13 @@ import { SizesView } from "../components/SpacingView";
 import { ComponentsView } from "../components/ComponentsView";
 import { ContentView } from "../components/ContentView";
 import { PagesView } from "../components/PagesView";
-import { VoiceControlBar } from "../components/VoiceControlBar";
 import { ToolCallDisplay } from "../components/ToolCallDisplay";
 import { DevPanel } from "../components/DevPanel";
 import { ToolResultOverlay } from "../components/tool-results";
 import { useToolCall } from "../context/ToolCallContext";
-import { useApp } from "../context/AppContext";
 import { useDesignLanguage } from "../context/DesignLanguageContext";
 import { useToolUI } from "../context/ToolUIContext";
 import { useDesignLanguageLoader } from "../hooks/useDesignLanguageLoader";
-import { useVoiceSession } from "../hooks/useVoiceSession";
 import { useToolCallHandler } from "../hooks/useToolCallHandler";
 import { useTextSession } from "../hooks/useTextSession";
 import { StyleGraph } from "../core/StyleGraph";
@@ -81,7 +78,6 @@ const renderView = (
 export const SplitPage: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { appState, setAppState, logs, addLog } = useApp();
   const { currentEvent, previousEvent } = useToolCall();
   const [isVisible, setIsVisible] = useState(false);
 
@@ -121,16 +117,10 @@ export const SplitPage: React.FC = () => {
     setMultiView,
   });
 
-  const { startSession, stopSession } = useVoiceSession(handleToolCall, {
-    currentView: null, // SplitPage has dynamic views
-  });
-
-  // Text session (chat mode) - uses same context-aware tools as voice
   const { sendMessage: sendTextMessage } = useTextSession(handleToolCall, {
-    currentView: null, // SplitPage has dynamic views
+    currentView: null,
   });
 
-  // DevPanel also uses context-aware text session (same as chat mode)
   const handleExecutePrompt = useCallback(
     async (prompt: string) => {
       setIsProcessingText(true);
@@ -146,19 +136,18 @@ export const SplitPage: React.FC = () => {
   const leftView = searchParams.get("left") as ViewType | null;
   const rightView = searchParams.get("right") as ViewType | null;
 
-  React.useEffect(() => {
+  useEffect(() => {
     setIsVisible(true);
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!selectedLanguage) {
       navigate("/");
     }
   }, [selectedLanguage, navigate]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!leftView || !rightView) {
-      // If missing params, redirect to gallery
       navigate("/editor");
     }
   }, [leftView, rightView, navigate]);
@@ -177,7 +166,7 @@ export const SplitPage: React.FC = () => {
   }
 
   if (!leftView || !rightView) {
-    return null; // Will redirect
+    return null;
   }
 
   return (
@@ -266,14 +255,6 @@ export const SplitPage: React.FC = () => {
         previousEvent={previousEvent}
       />
 
-      {/* Voice Control Bar */}
-      <VoiceControlBar
-        appState={appState}
-        onStartSession={startSession}
-        onStopSession={stopSession}
-        dark
-      />
-
       {/* Dev Panel */}
       <DevPanel
         onExecutePrompt={handleExecutePrompt}
@@ -282,13 +263,11 @@ export const SplitPage: React.FC = () => {
       />
 
       {/* Tool Result Overlay */}
-      {toolUIState.isVisible && (
-        <ToolResultOverlay
-          result={toolUIState.result}
-          onClose={closeOverlay}
-          appState={appState}
-        />
-      )}
+      <ToolResultOverlay
+        result={toolUIState.activeResult}
+        isOpen={toolUIState.isOverlayOpen}
+        onClose={closeOverlay}
+      />
     </div>
   );
 };

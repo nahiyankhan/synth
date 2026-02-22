@@ -1,15 +1,12 @@
 import React from "react";
 import { TypographyView } from "../components/TypographyView";
-import { VoiceControlBar } from "../components/VoiceControlBar";
 import { ToolCallDisplay } from "../components/ToolCallDisplay";
 import { DevPanel } from "../components/DevPanel";
-import { ViewSwitcher } from "../components/ViewSwitcher";
 import { useViewPage } from "../hooks/useViewPage";
 
 export const TypographyPage: React.FC = () => {
   const {
     navigate,
-    appState,
     currentEvent,
     previousEvent,
     currentLanguageMetadata,
@@ -17,14 +14,8 @@ export const TypographyPage: React.FC = () => {
     viewMode,
     voiceSearchResults,
     setVoiceSearchResults,
-    toolUIState,
-    closeOverlay,
     isVisible,
-    startSession,
-    stopSession,
     handleExecutePrompt,
-    handleToolCall,
-    currentView,
     isLoading,
     isProcessingText,
   } = useViewPage({ currentView: "typography" });
@@ -88,13 +79,6 @@ export const TypographyPage: React.FC = () => {
       <ToolCallDisplay
         currentEvent={currentEvent}
         previousEvent={previousEvent}
-      />
-
-      {/* Voice Control Bar */}
-      <VoiceControlBar
-        appState={appState}
-        onStartSession={startSession}
-        onStopSession={stopSession}
       />
 
       {/* Dev Panel */}

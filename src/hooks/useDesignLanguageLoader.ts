@@ -169,9 +169,9 @@ export const useDesignLanguageLoader = (
         setFilteredNodes(nodes);
 
         // Initialize content service with loaded content data
-        initContentService(contentData);
-        if (contentData) {
-          addLog(`✓ Loaded ${contentData.chunks.length} content guidelines`);
+        initContentService(contentData?.markdown || null);
+        if (contentData?.markdown) {
+          addLog('✓ Loaded content guidelines');
         }
 
         setAppState(AppState.IDLE);

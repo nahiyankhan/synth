@@ -35,9 +35,9 @@ export const useInitialization = () => {
           try {
             const response = await fetch('/data/design-system.json');
             const data = await response.json();
-            if (data.content) {
-              console.log(`✓ Loaded ${data.content.chunks.length} content guidelines${data.content.markdown ? ' with markdown' : ''}`);
-              return data.content;
+            if (data.content?.markdown) {
+              console.log('✓ Loaded content guidelines');
+              return { markdown: data.content.markdown };
             }
           } catch (error) {
             console.warn('Could not load content data:', error);
@@ -68,7 +68,7 @@ export const useInitialization = () => {
         } else {
           // Check if existing data has markdown/content - if not, update it
           const existingContent = await loadContentData("default");
-          if (!existingContent || !existingContent.markdown || !existingContent.chunks?.length) {
+          if (!existingContent || !existingContent.markdown) {
             console.log("Updating content data...");
             const contentData = await loadContentFromStatic();
             if (contentData) {
@@ -88,10 +88,10 @@ export const useInitialization = () => {
                 jsonData,
                 contentData
               );
-              console.log(`✓ Content data updated (${contentData.chunks.length} guidelines)`);
+              console.log('✓ Content data updated');
             }
           } else {
-            console.log(`✓ Content data already loaded (${existingContent.chunks.length} guidelines)`);
+            console.log('✓ Content data already loaded');
           }
         }
       } catch (error: any) {

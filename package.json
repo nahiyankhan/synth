@@ -19,7 +19,6 @@
     "@ai-sdk/react": "^3.0.79",
     "@ai-sdk/ui-utils": "^1.2.11",
     "@anthropic-ai/sdk": "^0.71.2",
-    "@google/genai": "^1.30.0",
     "@hookform/resolvers": "^3.9.1",
     "@json-render/core": "^0.2.0",
     "@json-render/react": "^0.2.0",

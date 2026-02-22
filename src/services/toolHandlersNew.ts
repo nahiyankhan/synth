@@ -10,8 +10,6 @@ import { ALL_TOOL_DEFINITIONS } from '../tools/definitions';
 import { TOOL_SCHEMAS } from '../tools/schemas';
 import { ToolResponse } from '../types/toolRegistry';
 import { ToolHandlers as LegacyToolHandlers } from './toolHandlers';
-import { AuditTextHandler } from '../tools/handlers/content/AuditTextHandler';
-import { SearchGuidelinesHandler } from '../tools/handlers/content/SearchGuidelinesHandler';
 import { VirtualFileSystem } from './virtualFileSystem';
 import { ExecuteCommandHandler } from '../tools/handlers/filesystem/ExecuteCommandHandler';
 
@@ -32,19 +30,17 @@ export class ToolHandlers {
    */
   private registerAllTools(): void {
     const factory = new HandlerFactory(this.legacyHandlers);
-    
+
     // Filter out custom tools from factory creation (they have custom handlers)
-    const customToolNames = ['auditText', 'searchGuidelines', 'executeCommand'];
+    const customToolNames = ['executeCommand'];
     const legacyToolDefinitions = ALL_TOOL_DEFINITIONS.filter(
       def => !customToolNames.includes(def.name)
     );
-    
+
     const handlers = factory.createAllHandlers(legacyToolDefinitions, TOOL_SCHEMAS);
     this.registry.registerMany(handlers);
-    
+
     // Register custom tool handlers
-    this.registry.register(new AuditTextHandler());
-    this.registry.register(new SearchGuidelinesHandler());
     this.registry.register(new ExecuteCommandHandler(this.graph));
   }
 

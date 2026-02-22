@@ -1,20 +1,16 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { PagesView } from "../components/PagesView";
-import { VoiceControlBar } from "../components/VoiceControlBar";
 import { ToolCallDisplay } from "../components/ToolCallDisplay";
 import { DevPanel } from "../components/DevPanel";
 import { useToolCall } from "../context/ToolCallContext";
-import { useApp } from "../context/AppContext";
 import { useDesignLanguage } from "../context/DesignLanguageContext";
 import { useDesignLanguageLoader } from "../hooks/useDesignLanguageLoader";
-import { useVoiceSession } from "../hooks/useVoiceSession";
 import { useToolCallHandler } from "../hooks/useToolCallHandler";
 import { useTextSession } from "../hooks/useTextSession";
 
 export const PagesViewPage: React.FC = () => {
   const navigate = useNavigate();
-  const { appState, setAppState, logs, addLog } = useApp();
   const { currentEvent, previousEvent } = useToolCall();
   const [isVisible, setIsVisible] = useState(false);
 
@@ -46,16 +42,10 @@ export const PagesViewPage: React.FC = () => {
     setMultiView,
   });
 
-  const { startSession, stopSession } = useVoiceSession(handleToolCall, {
-    currentView: "pages",
-  });
-
-  // Text session (chat mode) - uses same context-aware tools as voice
   const { sendMessage: sendTextMessage } = useTextSession(handleToolCall, {
     currentView: "pages",
   });
 
-  // DevPanel also uses context-aware text session (same as chat mode)
   const handleExecutePrompt = useCallback(
     async (prompt: string) => {
       setIsProcessingText(true);
@@ -68,11 +58,11 @@ export const PagesViewPage: React.FC = () => {
     [sendTextMessage]
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     setIsVisible(true);
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!selectedLanguage) {
       navigate("/");
     }
@@ -133,13 +123,6 @@ export const PagesViewPage: React.FC = () => {
       <ToolCallDisplay
         currentEvent={currentEvent}
         previousEvent={previousEvent}
-      />
-
-      {/* Voice Control Bar */}
-      <VoiceControlBar
-        appState={appState}
-        onStartSession={startSession}
-        onStopSession={stopSession}
       />
 
       {/* Dev Panel */}

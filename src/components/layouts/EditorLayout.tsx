@@ -1,21 +1,16 @@
 import React from "react";
-import { VoiceControlBar } from "../VoiceControlBar";
 import { ToolCallDisplay } from "../ToolCallDisplay";
 import { DevPanel } from "../DevPanel";
 import { ToolResultOverlay } from "../tool-results";
 import { PageHeader, BreadcrumbSegment } from "./PageHeader";
-import { AppState } from "../../types/app";
 
 export interface EditorLayoutProps {
   children: React.ReactNode;
   segments: BreadcrumbSegment[];
   isVisible?: boolean;
   dark?: boolean;
-  appState: AppState;
   currentEvent: unknown;
   previousEvent: unknown;
-  onStartSession: () => void;
-  onStopSession: () => void;
   onExecutePrompt: (prompt: string) => Promise<void>;
   isProcessing: boolean;
   currentView: string;
@@ -31,11 +26,8 @@ export const EditorLayout: React.FC<EditorLayoutProps> = ({
   segments,
   isVisible = true,
   dark = false,
-  appState,
   currentEvent,
   previousEvent,
-  onStartSession,
-  onStopSession,
   onExecutePrompt,
   isProcessing,
   currentView,
@@ -56,13 +48,6 @@ export const EditorLayout: React.FC<EditorLayoutProps> = ({
       <ToolCallDisplay
         currentEvent={currentEvent}
         previousEvent={previousEvent}
-      />
-
-      <VoiceControlBar
-        appState={appState}
-        onStartSession={onStartSession}
-        onStopSession={onStopSession}
-        dark={dark}
       />
 
       <DevPanel

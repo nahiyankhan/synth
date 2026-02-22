@@ -7,16 +7,15 @@
  *
  * Philosophy: "Model + file system + goal. Add complexity only when proven necessary."
  *
- * We've consolidated 40+ tools down to ~12 core tools:
+ * We've consolidated 40+ tools down to ~11 core tools:
  * 1. executeCommand - Replaces all query/export tools (cat, grep, find, ls, tree)
  * 2. getImpactAnalysis - Graph traversal (cannot be file ops)
  * 3. undoChange/redoChange - State machine (cannot be file ops)
  * 4. check_color_contrast - WCAG algorithm (cannot be file ops)
  * 5. generate_color_scale - OKLCH color science (cannot be file ops)
- * 6. searchGuidelines - Semantic embeddings (cannot be file ops)
- * 7. navigate_to_view - UI side effects (cannot be file ops)
- * 8. select_colors - UI interaction (cannot be file ops)
- * 9. Navigation tools - UI side effects for design system management
+ * 6. navigate_to_view - UI side effects (cannot be file ops)
+ * 7. select_colors - UI interaction (cannot be file ops)
+ * 8. Navigation tools - UI side effects for design system management
  */
 
 import { ToolDefinition } from '../../types/toolRegistry';
@@ -37,8 +36,6 @@ import {
   SELECT_COLORS_TOOL,
 } from './colorView.tools';
 
-// Semantic search (requires embeddings)
-import { SEARCH_GUIDELINES_TOOL } from './content.tools';
 
 // UI navigation (side effects that cannot be file operations)
 import {
@@ -62,7 +59,6 @@ import { NAVIGATION_TOOLS } from './navigation.tools';
 import { COLOR_VIEW_TOOLS } from './colorView.tools';
 import { TYPOGRAPHY_VIEW_TOOLS } from './typography.tools';
 import { SPACING_VIEW_TOOLS } from './spacing.tools';
-import { CONTENT_TOOLS } from './content.tools';
 
 // Export deprecated tool arrays for backwards compatibility
 export {
@@ -76,7 +72,6 @@ export {
   COLOR_VIEW_TOOLS,
   TYPOGRAPHY_VIEW_TOOLS,
   SPACING_VIEW_TOOLS,
-  CONTENT_TOOLS,
   FILESYSTEM_TOOLS,
 };
 
@@ -91,7 +86,6 @@ export * from './navigation.tools';
 export * from './colorView.tools';
 export * from './typography.tools';
 export * from './spacing.tools';
-export * from './content.tools';
 export * from './filesystem.tools';
 
 // ============================================================================
@@ -116,9 +110,6 @@ export const CORE_TOOL_DEFINITIONS: ToolDefinition[] = [
   // Color science (algorithmic)
   CHECK_COLOR_CONTRAST_TOOL,
   GENERATE_COLOR_SCALE_CV_TOOL,
-
-  // Semantic search (embeddings)
-  SEARCH_GUIDELINES_TOOL,
 
   // UI navigation & interaction
   NAVIGATE_TO_VIEW_TOOL,
@@ -155,7 +146,6 @@ export const ALL_TOOL_DEFINITIONS: ToolDefinition[] = USE_MINIMALIST_TOOLS
       ...COLOR_VIEW_TOOLS,
       ...TYPOGRAPHY_VIEW_TOOLS,
       ...SPACING_VIEW_TOOLS,
-      ...CONTENT_TOOLS,
       ...FILESYSTEM_TOOLS,
     ];
 
@@ -168,7 +158,6 @@ export const TOOLS_BY_CATEGORY = USE_MINIMALIST_TOOLS
       analyze: [GET_IMPACT_ANALYSIS_TOOL],
       history: [UNDO_CHANGE_TOOL, REDO_CHANGE_TOOL],
       colorScience: [CHECK_COLOR_CONTRAST_TOOL, GENERATE_COLOR_SCALE_CV_TOOL],
-      content: [SEARCH_GUIDELINES_TOOL],
       navigation: [
         NAVIGATE_TO_VIEW_TOOL,
         SHOW_SPLIT_VIEW_TOOL,
@@ -189,7 +178,6 @@ export const TOOLS_BY_CATEGORY = USE_MINIMALIST_TOOLS
       colorView: COLOR_VIEW_TOOLS,
       typographyView: TYPOGRAPHY_VIEW_TOOLS,
       spacingView: SPACING_VIEW_TOOLS,
-      content: CONTENT_TOOLS,
       filesystem: FILESYSTEM_TOOLS,
     };
 
