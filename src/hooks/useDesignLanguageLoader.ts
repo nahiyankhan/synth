@@ -8,7 +8,7 @@ import {
   loadContentData,
 } from "@/services/designLanguageDB";
 import { StyleGraph } from "@/core/StyleGraph";
-import { EnhancedToolHandlers } from "@/services/enhancedToolHandlers";
+import { ToolRegistryAdapter } from "@/services/ToolRegistryAdapter";
 import { initContentService } from "@/services/contentService";
 import { applyDesignLanguageCSS } from "@/services/themeService";
 
@@ -160,8 +160,8 @@ export const useDesignLanguageLoader = (
         styleGraph.importFromJSON(jsonData);
         setGraph(styleGraph);
 
-        // Initialize enhanced tool handlers with pagination/filtering
-        const handlers = new EnhancedToolHandlers(styleGraph);
+        // Initialize tool handlers using registry-based adapter
+        const handlers = new ToolRegistryAdapter(styleGraph);
         setToolHandlers(handlers);
 
         // Get core tokens (exclude specs by default)

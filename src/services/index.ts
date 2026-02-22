@@ -1,6 +1,5 @@
 // Services barrel export
-export { ToolHandlers } from './toolHandlers';
-export { EnhancedToolHandlers } from './enhancedToolHandlers';
+export { ToolRegistryAdapter } from './ToolRegistryAdapter';
 export { dbService } from './dbService';
 export { themeService } from './themeService';
 export { modelRouter } from './modelRouter';

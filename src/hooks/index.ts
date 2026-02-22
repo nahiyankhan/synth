@@ -16,3 +16,6 @@ export { useViewPage } from './useViewPage';
 // Generation hooks
 export { useSSEConnection } from './generation/useSSEConnection';
 export { useGenerationPhases } from './generation/useGenerationPhases';
+
+// Design language hooks
+export { useDesignLanguageQuery } from './useDesignLanguageQuery';

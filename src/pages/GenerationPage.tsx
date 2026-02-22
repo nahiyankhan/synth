@@ -15,7 +15,7 @@ import { useToolCall } from "@/context/ToolCallContext";
 import { useDesignLanguage } from "@/context/DesignLanguageContext";
 import { useDesignGeneration } from "@/hooks/useDesignGeneration";
 import { AppState } from "@/types/app";
-import { EnhancedToolHandlers } from "@/services/enhancedToolHandlers";
+import { ToolRegistryAdapter } from "@/services/ToolRegistryAdapter";
 
 export const GenerationPage: React.FC = () => {
   const navigate = useNavigate();
@@ -72,7 +72,7 @@ export const GenerationPage: React.FC = () => {
       setCurrentLanguageMetadata(metadata);
       setFilteredNodes(liveGraph.getNodes({ excludeSpecs: true }));
 
-      const handlers = new EnhancedToolHandlers(liveGraph);
+      const handlers = new ToolRegistryAdapter(liveGraph);
       setToolHandlers(handlers);
     },
   });

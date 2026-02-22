@@ -1,9 +1,9 @@
 import { StyleGraph } from "@/core/StyleGraph";
-import { ToolHandlers } from "@/services/toolHandlers";
+import { IToolHandlers } from "@/context/DesignLanguageDataContext";
 
 export interface DesignSystemToolHandler {
   functionCall: any;
-  toolHandlers: ToolHandlers;
+  toolHandlers: IToolHandlers;
   sessionPromiseRef: React.MutableRefObject<any> | null;
   addLog: (message: string) => void;
   graph: StyleGraph | null;

@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { renderHook } from '@testing-library/react';
 import { useToolCallHandler } from './useToolCallHandler';
 import { createMockGraph, createMockSessionPromiseRef, createMockFunctionCall } from '@/test-utils/mockData';
-import { ToolHandlers } from '@/services/toolHandlers';
+import { ToolRegistryAdapter } from '@/services/ToolRegistryAdapter';
 
 // Mock dependencies
 vi.mock('react-router-dom', () => ({
@@ -24,9 +24,11 @@ vi.mock('../context/DesignLanguageContext', () => ({
     const graph = createMockGraph();
     return {
       graph,
-      toolHandlers: new ToolHandlers(graph),
+      toolHandlers: new ToolRegistryAdapter(graph),
       setVoiceSearchResults: vi.fn(),
       setSelectedLanguage: vi.fn(),
+      setSelectedNodes: vi.fn(),
+      setAutoSelectFilteredNodes: vi.fn(),
     };
   },
 }));

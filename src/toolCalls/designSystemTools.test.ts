@@ -1,10 +1,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { handleDesignSystemTool } from './designSystemTools';
-import { ToolHandlers } from '@/services/toolHandlers';
+import { ToolRegistryAdapter } from '@/services/ToolRegistryAdapter';
 import { createMockGraph, createMockSessionPromiseRef, createMockFunctionCall } from '@/test-utils/mockData';
 
 describe('DesignSystemTools', () => {
-  let toolHandlers: ToolHandlers;
+  let toolHandlers: ToolRegistryAdapter;
   let addLog: ReturnType<typeof vi.fn>;
   let refreshUI: ReturnType<typeof vi.fn>;
   let setVoiceSearchResults: ReturnType<typeof vi.fn>;
@@ -14,7 +14,7 @@ describe('DesignSystemTools', () => {
 
   beforeEach(() => {
     graph = createMockGraph();
-    toolHandlers = new ToolHandlers(graph);
+    toolHandlers = new ToolRegistryAdapter(graph);
     addLog = vi.fn();
     refreshUI = vi.fn();
     setVoiceSearchResults = vi.fn();
