@@ -8,12 +8,12 @@
  * (window as any).dbDebug = dbDebug;
  */
 
-import { getAllSessions, getSessionItems } from "../services/dbService";
+import { getAllSessions, getSessionItems } from "@/services/dbService";
 import {
   getAllDesignLanguages,
   loadDesignLanguageData,
   loadDesignLanguageMetadata,
-} from "../services/designLanguageDB";
+} from "@/services/designLanguageDB";
 
 /**
  * View all voice sessions

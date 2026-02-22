@@ -5,11 +5,11 @@
 
 import { useState, useCallback, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useDesignLanguage } from '../context/DesignLanguageContext';
-import { useToolCall } from '../context/ToolCallContext';
-import { useApp } from '../context/AppContext';
-import { getApiKeyHeaders } from '../utils/apiKeyStorage';
-import type { ImageAttachment } from '../types/multimodal';
+import { useDesignLanguage } from '@/context/DesignLanguageContext';
+import { useToolCall } from '@/context/ToolCallContext';
+import { useApp } from '@/context/AppContext';
+import { getApiKeyHeaders } from '@/utils/apiKeyStorage';
+import type { ImageAttachment } from '@/types/multimodal';
 
 interface Message {
   id: string;

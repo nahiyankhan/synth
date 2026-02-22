@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useApiKey } from '../hooks/useApiKey';
-import { XIcon } from '../components/icons';
+import { useApiKey } from '@/hooks/useApiKey';
+import { XIcon } from '@/components/icons';
 
 export const SettingsPage: React.FC = () => {
   const navigate = useNavigate();

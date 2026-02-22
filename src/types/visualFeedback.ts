@@ -3,7 +3,7 @@
  * Supports multi-option proposals, before/after comparisons, and animated transitions
  */
 
-import { OKLCHColor } from '../services/colorScience';
+import { OKLCHColor } from '@/services/colorScience';
 
 /**
  * Color-specific types

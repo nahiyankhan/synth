@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDesignLanguage } from "../context/DesignLanguageContext";
-import { useApp } from "../context/AppContext";
-import { ALL_TOOL_DEFINITIONS } from "../tools/definitions";
-import { getToolsForView } from "../services/toolFilter";
+import { useDesignLanguage } from "@/context/DesignLanguageContext";
+import { useApp } from "@/context/AppContext";
+import { ALL_TOOL_DEFINITIONS } from "@/tools/definitions";
+import { getToolsForView } from "@/services/toolFilter";
 import { XIcon } from "./icons";
 
 interface DevPanelProps {

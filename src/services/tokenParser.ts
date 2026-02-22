@@ -19,7 +19,7 @@ import {
   ModeMap,
   isReference,
   isModeMap,
-} from "../types/styleGraph";
+} from "@/types/styleGraph";
 import { hexToOKLCH } from "./colorScience";
 
 interface ParsedToken {

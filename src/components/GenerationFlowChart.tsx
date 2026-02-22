@@ -6,13 +6,13 @@
  */
 
 import React from "react";
-import type { GenerationStatus } from "../hooks/useDesignGeneration";
+import type { GenerationStatus } from "@/hooks/useDesignGeneration";
 import {
   GENERATION_PHASES,
   type PhaseConfig,
   type PhaseKey,
   PHASE_BY_KEY,
-} from "../constants/generationPhases";
+} from "@/constants/generationPhases";
 import {
   VisualDirectionPreview,
   TailwindColorsPreview,

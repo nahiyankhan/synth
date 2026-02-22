@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImpactAnalysisResult } from '../../types/aiTools';
+import { ImpactAnalysisResult } from '@/types/aiTools';
 import { ToolResultHeader } from './ToolResultHeader';
 
 interface ImpactAnalysisViewProps {

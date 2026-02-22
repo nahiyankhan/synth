@@ -3,7 +3,7 @@
  * Operations for analyzing and understanding the design system
  */
 
-import { ToolDefinition } from '../../types/toolRegistry';
+import { ToolDefinition } from '@/types/toolRegistry';
 
 export const GET_IMPACT_ANALYSIS_TOOL: ToolDefinition = {
   name: 'getImpactAnalysis',

@@ -4,8 +4,8 @@
  */
 
 import React from 'react';
-import { formatRelativeTime, formatDate } from '../../utils/dateFormatters';
-import { XIcon } from '../icons';
+import { formatRelativeTime, formatDate } from '@/utils/dateFormatters';
+import { XIcon } from '@/components/icons';
 
 interface NavigationResultProps {
   result: {

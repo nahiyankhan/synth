@@ -1,15 +1,15 @@
 import { useEffect, useRef } from "react";
-import { initDB } from "../services/dbService";
+import { initDB } from "@/services/dbService";
 import {
   initDesignLanguageDB,
   saveDesignLanguage,
   designLanguageExists,
   loadContentData,
-} from "../services/designLanguageDB";
-import { StyleGraph } from "../core/StyleGraph";
-import { useApp } from "../context/AppContext";
-import { AppState } from "../types/app";
-import { ContentData } from "../types/content";
+} from "@/services/designLanguageDB";
+import { StyleGraph } from "@/core/StyleGraph";
+import { useApp } from "@/context/AppContext";
+import { AppState } from "@/types/app";
+import { ContentData } from "@/types/content";
 
 export const useInitialization = () => {
   const { setAppState, addLog } = useApp();

@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { handleDesignSystemTool } from './designSystemTools';
-import { ToolHandlers } from '../services/toolHandlers';
-import { createMockGraph, createMockSessionPromiseRef, createMockFunctionCall } from '../test-utils/mockData';
+import { ToolHandlers } from '@/services/toolHandlers';
+import { createMockGraph, createMockSessionPromiseRef, createMockFunctionCall } from '@/test-utils/mockData';
 
 describe('DesignSystemTools', () => {
   let toolHandlers: ToolHandlers;

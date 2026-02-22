@@ -8,9 +8,9 @@
  */
 
 import React, { useMemo, useState, useRef, useEffect } from "react";
-import { StyleGraph } from "../core/StyleGraph";
-import { StyleNode, isModeMap } from "../types/styleGraph";
-import { hexToOKLCH, OKLCHColor } from "../services/colorScience";
+import { StyleGraph } from "@/core/StyleGraph";
+import { StyleNode, isModeMap } from "@/types/styleGraph";
+import { hexToOKLCH, OKLCHColor } from "@/services/colorScience";
 import { XIcon } from "./icons";
 
 interface ColorViewProps {

@@ -3,10 +3,10 @@
  * Finds and replaces patterns across token paths or values
  */
 
-import { ToolHandler } from '../../../core/ToolHandler';
-import { FIND_AND_REPLACE_TOOL } from '../../definitions/modify.tools';
-import { FindAndReplaceParams, FindAndReplaceParamsSchema } from '../../schemas/modify.schemas';
-import { StyleGraph } from '../../../core/StyleGraph';
+import { ToolHandler } from '@/core/ToolHandler';
+import { FIND_AND_REPLACE_TOOL } from '@/tools/definitions/modify.tools';
+import { FindAndReplaceParams, FindAndReplaceParamsSchema } from '@/tools/schemas/modify.schemas';
+import { StyleGraph } from '@/core/StyleGraph';
 
 interface FindAndReplaceMatch {
   path: string;

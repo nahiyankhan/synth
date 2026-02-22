@@ -14,7 +14,7 @@ import {
   STEP_TO_PREVIEW_KEY,
   PHASE_TO_PREVIEW_KEY,
   ALL_PHASE_KEYS,
-} from "../../constants/generationPhases";
+} from "@/constants/generationPhases";
 
 export type GenerationPhase = PhaseState;
 

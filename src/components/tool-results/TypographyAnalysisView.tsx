@@ -9,7 +9,7 @@ import {
   ReadabilityAnalysisResult,
   TypeHierarchyResult,
   LetterSpacingAnalysisResult
-} from '../../types/visualFeedback';
+} from '@/types/visualFeedback';
 
 // Simple SVG icons
 const Check: React.FC<{ className?: string }> = ({ className }) => (

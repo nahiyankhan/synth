@@ -3,11 +3,11 @@
  */
 
 import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { StyleGraph } from "../core/StyleGraph";
-import { StyleNode } from "../types/styleGraph";
+import { StyleGraph } from "@/core/StyleGraph";
+import { StyleNode } from "@/types/styleGraph";
 import { useColorGrouping } from "./color/useColorGrouping";
 import { ColorListItem, ColorSwatch } from "./color/ColorListItem";
-import { OKLCHColor } from "../services/colorScience";
+import { OKLCHColor } from "@/services/colorScience";
 
 interface ColorListViewProps {
   graph: StyleGraph;

@@ -3,10 +3,10 @@
  * Gets overall statistics about the design language
  */
 
-import { ToolHandler } from '../../../core/ToolHandler';
-import { GET_SYSTEM_STATS_TOOL } from '../../definitions/analyze.tools';
-import { GetSystemStatsParams, GetSystemStatsParamsSchema } from '../../schemas/analyze.schemas';
-import { StyleGraph } from '../../../core/StyleGraph';
+import { ToolHandler } from '@/core/ToolHandler';
+import { GET_SYSTEM_STATS_TOOL } from '@/tools/definitions/analyze.tools';
+import { GetSystemStatsParams, GetSystemStatsParamsSchema } from '@/tools/schemas/analyze.schemas';
+import { StyleGraph } from '@/core/StyleGraph';
 
 interface SystemStatsResult {
   totalNodes: number;

@@ -15,7 +15,7 @@ import {
   type ColorSeed,
   type GraySeed,
   TAILWIND_STEPS,
-} from '../../types/tailwindPalette';
+} from '@/types/tailwindPalette';
 
 // =============================================================================
 // Lightness Curves

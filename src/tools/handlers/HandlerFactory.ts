@@ -4,9 +4,9 @@
  * This allows us to migrate incrementally without rewriting all handlers at once
  */
 
-import { ToolHandler } from '../../core/ToolHandler';
-import { ToolDefinition, ToolResponse } from '../../types/toolRegistry';
-import { ToolHandlers } from '../../services/toolHandlers';
+import { ToolHandler } from '@/core/ToolHandler';
+import { ToolDefinition, ToolResponse } from '@/types/toolRegistry';
+import { ToolHandlers } from '@/services/toolHandlers';
 import { z } from 'zod';
 
 /**

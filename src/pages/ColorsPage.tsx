@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { ColorView } from "../components/ColorView";
-import { ColorListView } from "../components/ColorListView";
-import { ColorSankeyView } from "../components/color/ColorSankeyView";
-import { ColorViewModeToolbar, ColorViewModeType } from "../components/ColorViewModeToolbar";
-import { ToolCallDisplay } from "../components/ToolCallDisplay";
-import { DevPanel } from "../components/DevPanel";
-import { ToolResultOverlay } from "../components/tool-results";
-import { useViewPage } from "../hooks/useViewPage";
+import { ColorView } from "@/components/ColorView";
+import { ColorListView } from "@/components/ColorListView";
+import { ColorSankeyView } from "@/components/color/ColorSankeyView";
+import { ColorViewModeToolbar, ColorViewModeType } from "@/components/ColorViewModeToolbar";
+import { ToolCallDisplay } from "@/components/ToolCallDisplay";
+import { DevPanel } from "@/components/DevPanel";
+import { ToolResultOverlay } from "@/components/tool-results";
+import { useViewPage } from "@/hooks/useViewPage";
 
 export const ColorsPage: React.FC = () => {
   const [colorViewMode, setColorViewMode] = useState<ColorViewModeType>("canvas");

@@ -3,10 +3,10 @@
  * Generates a perceptually uniform color scale from a base color
  */
 
-import { ToolHandler } from '../../../core/ToolHandler';
-import { GENERATE_COLOR_SCALE_TOOL } from '../../definitions/create.tools';
-import { GenerateColorScaleParams, GenerateColorScaleParamsSchema } from '../../schemas/create.schemas';
-import { StyleGraph } from '../../../core/StyleGraph';
+import { ToolHandler } from '@/core/ToolHandler';
+import { GENERATE_COLOR_SCALE_TOOL } from '@/tools/definitions/create.tools';
+import { GenerateColorScaleParams, GenerateColorScaleParamsSchema } from '@/tools/schemas/create.schemas';
+import { StyleGraph } from '@/core/StyleGraph';
 
 interface ColorToken {
   path: string;

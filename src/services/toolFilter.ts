@@ -3,7 +3,7 @@
  * Single source of truth for which tools are available in which views
  */
 
-import { ToolDefinition } from '../types/toolRegistry';
+import { ToolDefinition } from '@/types/toolRegistry';
 
 export type ViewName = 'gallery' | 'colors' | 'typography' | 'sizes' | 'components' | 'content' | 'pages';
 

@@ -3,12 +3,12 @@
  * Retrieves detailed information about a specific token
  */
 
-import { ToolHandler } from '../../../core/ToolHandler';
-import { GET_TOKEN_TOOL } from '../../definitions/query.tools';
-import { GetTokenParams, GetTokenParamsSchema } from '../../schemas/query.schemas';
-import { TokenInfo } from '../../../types/aiTools';
-import { StyleGraph } from '../../../core/StyleGraph';
-import { StyleNode } from '../../../types/styleGraph';
+import { ToolHandler } from '@/core/ToolHandler';
+import { GET_TOKEN_TOOL } from '@/tools/definitions/query.tools';
+import { GetTokenParams, GetTokenParamsSchema } from '@/tools/schemas/query.schemas';
+import { TokenInfo } from '@/types/aiTools';
+import { StyleGraph } from '@/core/StyleGraph';
+import { StyleNode } from '@/types/styleGraph';
 
 export class GetTokenHandler extends ToolHandler<GetTokenParams, TokenInfo> {
   constructor(private graph: StyleGraph) {

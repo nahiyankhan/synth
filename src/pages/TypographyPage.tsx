@@ -1,8 +1,8 @@
 import React from "react";
-import { TypographyView } from "../components/TypographyView";
-import { ToolCallDisplay } from "../components/ToolCallDisplay";
-import { DevPanel } from "../components/DevPanel";
-import { useViewPage } from "../hooks/useViewPage";
+import { TypographyView } from "@/components/TypographyView";
+import { ToolCallDisplay } from "@/components/ToolCallDisplay";
+import { DevPanel } from "@/components/DevPanel";
+import { useViewPage } from "@/hooks/useViewPage";
 
 export const TypographyPage: React.FC = () => {
   const {

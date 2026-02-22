@@ -1,8 +1,8 @@
 import React from "react";
-import { ComponentsView } from "../components/ComponentsView";
-import { ToolCallDisplay } from "../components/ToolCallDisplay";
-import { DevPanel } from "../components/DevPanel";
-import { useViewPage } from "../hooks/useViewPage";
+import { ComponentsView } from "@/components/ComponentsView";
+import { ToolCallDisplay } from "@/components/ToolCallDisplay";
+import { DevPanel } from "@/components/DevPanel";
+import { useViewPage } from "@/hooks/useViewPage";
 
 export const ComponentsPage: React.FC = () => {
   const {

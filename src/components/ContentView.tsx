@@ -8,11 +8,11 @@ import React, { useMemo } from "react";
 import {
   getMarkdown,
   extractTableOfContents,
-} from "../services/contentService";
+} from "@/services/contentService";
 import { MarkdownViewer } from "./content/MarkdownViewer";
 import { TableOfContents } from "./content/TableOfContents";
 
-import { StyleMode } from "../types/styleGraph";
+import { StyleMode } from "@/types/styleGraph";
 
 interface ContentViewProps {
   viewMode: StyleMode;

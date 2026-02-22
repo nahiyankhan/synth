@@ -3,8 +3,8 @@
  * Core tools are loaded upfront, specialized tools are deferred
  */
 
-import { EnhancedToolDefinition } from "../types/enhancedTools";
-import { COLOR_VIEW_TOOLS } from "../toolCalls/colorViewTools";
+import { EnhancedToolDefinition } from "@/types/enhancedTools";
+import { COLOR_VIEW_TOOLS } from "@/toolCalls/colorViewTools";
 
 export const ENHANCED_OPERATIONS: Record<string, EnhancedToolDefinition> = {
   // ============================================

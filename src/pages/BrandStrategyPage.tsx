@@ -1,8 +1,8 @@
 import React from "react";
-import { ToolCallDisplay } from "../components/ToolCallDisplay";
-import { DevPanel } from "../components/DevPanel";
-import { ToolResultOverlay } from "../components/tool-results";
-import { useViewPage } from "../hooks/useViewPage";
+import { ToolCallDisplay } from "@/components/ToolCallDisplay";
+import { DevPanel } from "@/components/DevPanel";
+import { ToolResultOverlay } from "@/components/tool-results";
+import { useViewPage } from "@/hooks/useViewPage";
 
 export const BrandStrategyPage: React.FC = () => {
   const {

@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { renderHook } from '@testing-library/react';
 import { useToolCallHandler } from './useToolCallHandler';
-import { createMockGraph, createMockSessionPromiseRef, createMockFunctionCall } from '../test-utils/mockData';
-import { ToolHandlers } from '../services/toolHandlers';
+import { createMockGraph, createMockSessionPromiseRef, createMockFunctionCall } from '@/test-utils/mockData';
+import { ToolHandlers } from '@/services/toolHandlers';
 
 // Mock dependencies
 vi.mock('react-router-dom', () => ({

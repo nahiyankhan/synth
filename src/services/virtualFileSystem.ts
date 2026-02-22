@@ -9,8 +9,8 @@
  * https://vercel.com/blog/how-to-build-agents-with-filesystems-and-bash
  */
 
-import { StyleGraph } from '../core/StyleGraph';
-import { StyleNode, StyleChange } from '../types/styleGraph';
+import { StyleGraph } from '@/core/StyleGraph';
+import { StyleNode, StyleChange } from '@/types/styleGraph';
 
 export interface CommandResult {
   stdout: string;

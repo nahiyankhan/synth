@@ -6,11 +6,11 @@
  */
 
 import React, { useState, useMemo } from "react";
-import { StyleGraph } from "../../core/StyleGraph";
-import { StyleNode } from "../../types/styleGraph";
-import { hexToOKLCH, OKLCHColor, getAccessibleTextColor } from "../../services/colorScience";
+import { StyleGraph } from "@/core/StyleGraph";
+import { StyleNode } from "@/types/styleGraph";
+import { hexToOKLCH, OKLCHColor, getAccessibleTextColor } from "@/services/colorScience";
 import { shortenTokenName } from "./utils/token-name-utils";
-import { FilterBanner } from "../ui/filter-banner";
+import { FilterBanner } from "@/components/ui/filter-banner";
 
 interface LightDarkCompareViewProps {
   graph: StyleGraph;

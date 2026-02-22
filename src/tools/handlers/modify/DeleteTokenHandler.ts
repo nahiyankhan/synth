@@ -3,11 +3,11 @@
  * Deletes a design token (with optional force flag)
  */
 
-import { ToolHandler } from '../../../core/ToolHandler';
-import { DELETE_TOKEN_TOOL } from '../../definitions/modify.tools';
-import { DeleteTokenParams, DeleteTokenParamsSchema } from '../../schemas/modify.schemas';
-import { StyleGraph } from '../../../core/StyleGraph';
-import { ToolResponse } from '../../../types/toolRegistry';
+import { ToolHandler } from '@/core/ToolHandler';
+import { DELETE_TOKEN_TOOL } from '@/tools/definitions/modify.tools';
+import { DeleteTokenParams, DeleteTokenParamsSchema } from '@/tools/schemas/modify.schemas';
+import { StyleGraph } from '@/core/StyleGraph';
+import { ToolResponse } from '@/types/toolRegistry';
 
 interface DeleteTokenResult {
   path: string;

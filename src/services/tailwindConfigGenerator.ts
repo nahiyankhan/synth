@@ -7,9 +7,9 @@
  * Enhanced to aggressively remap all standard Tailwind classes to design tokens.
  */
 
-import { StyleGraph } from "../core/StyleGraph";
-import { StyleNode } from "../types/styleGraph";
-import { TAILWIND_STEPS } from "../types/tailwindPalette";
+import { StyleGraph } from "@/core/StyleGraph";
+import { StyleNode } from "@/types/styleGraph";
+import { TAILWIND_STEPS } from "@/types/tailwindPalette";
 
 interface TailwindColorMapping {
   [key: string]: {

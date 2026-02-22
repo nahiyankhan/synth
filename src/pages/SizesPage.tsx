@@ -1,15 +1,15 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { SizesView } from "../components/SpacingView";
-import { ToolCallDisplay } from "../components/ToolCallDisplay";
-import { DevPanel } from "../components/DevPanel";
-import { ToolResultOverlay } from "../components/tool-results";
-import { useToolCall } from "../context/ToolCallContext";
-import { useDesignLanguage } from "../context/DesignLanguageContext";
-import { useToolUI } from "../context/ToolUIContext";
-import { useDesignLanguageLoader } from "../hooks/useDesignLanguageLoader";
-import { useToolCallHandler } from "../hooks/useToolCallHandler";
-import { useTextSession } from "../hooks/useTextSession";
+import { SizesView } from "@/components/SpacingView";
+import { ToolCallDisplay } from "@/components/ToolCallDisplay";
+import { DevPanel } from "@/components/DevPanel";
+import { ToolResultOverlay } from "@/components/tool-results";
+import { useToolCall } from "@/context/ToolCallContext";
+import { useDesignLanguage } from "@/context/DesignLanguageContext";
+import { useToolUI } from "@/context/ToolUIContext";
+import { useDesignLanguageLoader } from "@/hooks/useDesignLanguageLoader";
+import { useToolCallHandler } from "@/hooks/useToolCallHandler";
+import { useTextSession } from "@/hooks/useTextSession";
 
 export const SizesPage: React.FC = () => {
   const navigate = useNavigate();

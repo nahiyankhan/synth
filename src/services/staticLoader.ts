@@ -5,7 +5,7 @@
  * instead of reading from the filesystem at runtime.
  */
 
-import { StyleNode } from "../types/styleGraph";
+import { StyleNode } from "@/types/styleGraph";
 import { hexToOKLCH } from "./colorScience";
 
 export interface ExportedDesignSystem {

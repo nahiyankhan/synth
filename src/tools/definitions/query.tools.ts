@@ -3,7 +3,7 @@
  * Read-only operations for querying the design system
  */
 
-import { ToolDefinition } from '../../types/toolRegistry';
+import { ToolDefinition } from '@/types/toolRegistry';
 
 export const GET_TOKEN_TOOL: ToolDefinition = {
   name: 'getToken',

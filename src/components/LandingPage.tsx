@@ -9,7 +9,7 @@ import {
   getAllDesignLanguages,
   DesignLanguageMetadata,
   deleteDesignLanguage,
-} from "../services/designLanguageDB";
+} from "@/services/designLanguageDB";
 
 interface LandingPageProps {
   onSelectLanguage: (id: string) => void;

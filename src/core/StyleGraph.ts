@@ -25,13 +25,13 @@ import {
   isReference,
   isModeMap,
   ModeMap,
-} from "../types/styleGraph";
+} from "@/types/styleGraph";
 import {
   loadDesignSystem,
   buildDependencyGraph,
   extractReferences,
-} from "../services/tokenParser";
-import { computeLayer } from "../utils/layerComputation";
+} from "@/services/tokenParser";
+import { computeLayer } from "@/utils/layerComputation";
 
 export class StyleGraph implements IStyleGraph {
   nodes: Map<string, StyleNode>;

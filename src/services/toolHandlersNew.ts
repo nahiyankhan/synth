@@ -3,15 +3,15 @@
  * Replaces the massive switch statement with a clean registry-based architecture
  */
 
-import { StyleGraph } from '../core/StyleGraph';
-import { ToolRegistry } from '../core/ToolRegistry';
-import { HandlerFactory } from '../tools/handlers/HandlerFactory';
-import { ALL_TOOL_DEFINITIONS } from '../tools/definitions';
-import { TOOL_SCHEMAS } from '../tools/schemas';
-import { ToolResponse } from '../types/toolRegistry';
+import { StyleGraph } from '@/core/StyleGraph';
+import { ToolRegistry } from '@/core/ToolRegistry';
+import { HandlerFactory } from '@/tools/handlers/HandlerFactory';
+import { ALL_TOOL_DEFINITIONS } from '@/tools/definitions';
+import { TOOL_SCHEMAS } from '@/tools/schemas';
+import { ToolResponse } from '@/types/toolRegistry';
 import { ToolHandlers as LegacyToolHandlers } from './toolHandlers';
 import { VirtualFileSystem } from './virtualFileSystem';
-import { ExecuteCommandHandler } from '../tools/handlers/filesystem/ExecuteCommandHandler';
+import { ExecuteCommandHandler } from '@/tools/handlers/filesystem/ExecuteCommandHandler';
 
 export class ToolHandlers {
   private registry: ToolRegistry;

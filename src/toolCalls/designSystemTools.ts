@@ -1,5 +1,5 @@
-import { StyleGraph } from "../core/StyleGraph";
-import { ToolHandlers } from "../services/toolHandlers";
+import { StyleGraph } from "@/core/StyleGraph";
+import { ToolHandlers } from "@/services/toolHandlers";
 
 export interface DesignSystemToolHandler {
   functionCall: any;

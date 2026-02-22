@@ -1,22 +1,22 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { ColorView } from "../components/ColorView";
-import { TypographyView } from "../components/TypographyView";
-import { SizesView } from "../components/SpacingView";
-import { ComponentsView } from "../components/ComponentsView";
-import { ContentView } from "../components/ContentView";
-import { PagesView } from "../components/PagesView";
-import { ToolCallDisplay } from "../components/ToolCallDisplay";
-import { DevPanel } from "../components/DevPanel";
-import { ToolResultOverlay } from "../components/tool-results";
-import { useToolCall } from "../context/ToolCallContext";
-import { useDesignLanguage } from "../context/DesignLanguageContext";
-import { useToolUI } from "../context/ToolUIContext";
-import { useDesignLanguageLoader } from "../hooks/useDesignLanguageLoader";
-import { useToolCallHandler } from "../hooks/useToolCallHandler";
-import { useTextSession } from "../hooks/useTextSession";
-import { StyleGraph } from "../core/StyleGraph";
-import { StyleMode } from "../types/styleGraph";
+import { ColorView } from "@/components/ColorView";
+import { TypographyView } from "@/components/TypographyView";
+import { SizesView } from "@/components/SpacingView";
+import { ComponentsView } from "@/components/ComponentsView";
+import { ContentView } from "@/components/ContentView";
+import { PagesView } from "@/components/PagesView";
+import { ToolCallDisplay } from "@/components/ToolCallDisplay";
+import { DevPanel } from "@/components/DevPanel";
+import { ToolResultOverlay } from "@/components/tool-results";
+import { useToolCall } from "@/context/ToolCallContext";
+import { useDesignLanguage } from "@/context/DesignLanguageContext";
+import { useToolUI } from "@/context/ToolUIContext";
+import { useDesignLanguageLoader } from "@/hooks/useDesignLanguageLoader";
+import { useToolCallHandler } from "@/hooks/useToolCallHandler";
+import { useTextSession } from "@/hooks/useTextSession";
+import { StyleGraph } from "@/core/StyleGraph";
+import { StyleMode } from "@/types/styleGraph";
 
 type ViewType =
   | "colors"

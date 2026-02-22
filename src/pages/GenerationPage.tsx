@@ -7,15 +7,15 @@
 
 import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { GenerationPromptView } from "../components/GenerationPromptView";
-import { GenerationErrorBoundary } from "../components/GenerationErrorBoundary";
-import { EditorLayout } from "../components/layouts/EditorLayout";
-import { useApp } from "../context/AppContext";
-import { useToolCall } from "../context/ToolCallContext";
-import { useDesignLanguage } from "../context/DesignLanguageContext";
-import { useDesignGeneration } from "../hooks/useDesignGeneration";
-import { AppState } from "../types/app";
-import { EnhancedToolHandlers } from "../services/enhancedToolHandlers";
+import { GenerationPromptView } from "@/components/GenerationPromptView";
+import { GenerationErrorBoundary } from "@/components/GenerationErrorBoundary";
+import { EditorLayout } from "@/components/layouts/EditorLayout";
+import { useApp } from "@/context/AppContext";
+import { useToolCall } from "@/context/ToolCallContext";
+import { useDesignLanguage } from "@/context/DesignLanguageContext";
+import { useDesignGeneration } from "@/hooks/useDesignGeneration";
+import { AppState } from "@/types/app";
+import { EnhancedToolHandlers } from "@/services/enhancedToolHandlers";
 
 export const GenerationPage: React.FC = () => {
   const navigate = useNavigate();

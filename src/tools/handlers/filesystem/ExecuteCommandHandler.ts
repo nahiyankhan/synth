@@ -10,12 +10,12 @@
  * following Vercel's approach: https://vercel.com/blog/how-to-build-agents-with-filesystems-and-bash
  */
 
-import { ToolHandler } from '../../../core/ToolHandler';
-import { ToolResponse } from '../../../types/toolRegistry';
-import { StyleGraph } from '../../../core/StyleGraph';
-import { StyleNode, StyleChange } from '../../../types/styleGraph';
-import { VirtualFileSystem, BrandContext, WriteCallbacks } from '../../../services/virtualFileSystem';
-import { EXECUTE_COMMAND_TOOL } from '../../definitions/filesystem.tools';
+import { ToolHandler } from '@/core/ToolHandler';
+import { ToolResponse } from '@/types/toolRegistry';
+import { StyleGraph } from '@/core/StyleGraph';
+import { StyleNode, StyleChange } from '@/types/styleGraph';
+import { VirtualFileSystem, BrandContext, WriteCallbacks } from '@/services/virtualFileSystem';
+import { EXECUTE_COMMAND_TOOL } from '@/tools/definitions/filesystem.tools';
 
 export interface ExecuteCommandParams {
   command: string;

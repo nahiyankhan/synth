@@ -3,7 +3,7 @@
  */
 
 import { describe, it, expect, beforeEach } from "vitest";
-import { StyleGraph } from "../core/StyleGraph";
+import { StyleGraph } from "@/core/StyleGraph";
 import {
   generateTailwindV4Config,
   generateTailwindWithTokens,

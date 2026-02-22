@@ -4,7 +4,7 @@
 
 import { useState, useCallback } from 'react';
 import { nanoid } from 'nanoid';
-import type { ImageAttachment } from '../types/multimodal';
+import type { ImageAttachment } from '@/types/multimodal';
 
 const MAX_IMAGES = 5;
 const VALID_TYPES = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/gif'];

@@ -13,7 +13,7 @@ import {
   type TailwindStep,
   type ColorScale11,
   TAILWIND_STEPS,
-} from '../../types/tailwindPalette';
+} from '@/types/tailwindPalette';
 
 // =============================================================================
 // Step Index Helpers

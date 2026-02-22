@@ -3,7 +3,7 @@
  * Centralized configuration for both voice and text-based interactions
  */
 
-import { StyleMode } from '../types/styleGraph';
+import { StyleMode } from '@/types/styleGraph';
 
 interface SystemInstructionOptions {
   languageName?: string;

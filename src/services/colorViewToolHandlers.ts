@@ -3,16 +3,16 @@
  * Implements color-specific analysis and manipulation tools
  */
 
-import { StyleGraph } from '../core/StyleGraph';
-import { StyleMode } from '../types/styleGraph';
+import { StyleGraph } from '@/core/StyleGraph';
+import { StyleMode } from '@/types/styleGraph';
 import { hexToOKLCH, oklchToHex, OKLCHColor } from './colorScience';
-import { ToolResponse } from '../types/toolRegistry';
+import { ToolResponse } from '@/types/toolRegistry';
 import {
   createSuccessResponse,
   createErrorResponse,
   createNotFoundResponse,
   createCatchErrorResponse,
-} from '../utils/toolResponseHelpers';
+} from '@/utils/toolResponseHelpers';
 import {
   ColorOptionProposal,
   ColorChangePreview,
@@ -21,7 +21,7 @@ import {
   ColorScaleProposal,
   ContrastCheckResult,
   HueGroupingResult
-} from '../types/visualFeedback';
+} from '@/types/visualFeedback';
 
 export class ColorViewToolHandlers {
   constructor(private graph: StyleGraph) {}

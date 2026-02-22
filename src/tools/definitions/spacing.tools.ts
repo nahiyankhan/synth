@@ -3,7 +3,7 @@
  * Contextual tools specific to spacing scale analysis and sizing
  */
 
-import { ToolDefinition } from '../../types/toolRegistry';
+import { ToolDefinition } from '@/types/toolRegistry';
 
 export const ANALYZE_SPACING_SCALE_TOOL: ToolDefinition = {
   name: 'analyze_spacing_scale',

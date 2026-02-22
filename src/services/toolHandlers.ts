@@ -4,17 +4,17 @@
  * Layered architecture: Discovery → Planning → Execution
  */
 
-import { StyleGraph } from "../core/StyleGraph";
-import { StyleNode, StyleMode } from "../types/styleGraph";
+import { StyleGraph } from "@/core/StyleGraph";
+import { StyleNode, StyleMode } from "@/types/styleGraph";
 import {
   TokenInfo,
   SearchResult,
   ImpactAnalysisResult,
   ToolResponse,
-} from "../types/aiTools";
-import { ExecuteCommandHandler } from "../tools/handlers/filesystem/ExecuteCommandHandler";
-import { AITokenHandler } from "../tools/handlers/authoring/AITokenHandler";
-import { EntityHandler } from "../tools/handlers/authoring/EntityHandler";
+} from "@/types/aiTools";
+import { ExecuteCommandHandler } from "@/tools/handlers/filesystem/ExecuteCommandHandler";
+import { AITokenHandler } from "@/tools/handlers/authoring/AITokenHandler";
+import { EntityHandler } from "@/tools/handlers/authoring/EntityHandler";
 
 /**
  * Operation metadata for discovery and planning layers

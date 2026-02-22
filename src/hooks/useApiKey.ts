@@ -6,7 +6,7 @@
  */
 
 import { useCallback, useMemo } from 'react';
-import { useApp } from '../context/AppContext';
+import { useApp } from '@/context/AppContext';
 import {
   ApiKeyType,
   getApiKey,
@@ -15,7 +15,7 @@ import {
   hasApiKey as checkHasApiKey,
   validateApiKeyFormat,
   getConfiguredKeys,
-} from '../utils/apiKeyStorage';
+} from '@/utils/apiKeyStorage';
 
 export type { ApiKeyType };
 

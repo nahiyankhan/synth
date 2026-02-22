@@ -3,7 +3,7 @@
  * Exports helper functions for spacing-specific tools
  */
 
-import { SPACING_VIEW_TOOLS } from '../tools/definitions/spacing.tools';
+import { SPACING_VIEW_TOOLS } from '@/tools/definitions/spacing.tools';
 
 // Re-export the tools array
 export { SPACING_VIEW_TOOLS };

@@ -3,10 +3,10 @@
  * Finds all tokens that reference (depend on) a specific token
  */
 
-import { ToolHandler } from '../../../core/ToolHandler';
-import { FIND_ALL_REFERENCES_TOOL } from '../../definitions/query.tools';
-import { FindAllReferencesParams, FindAllReferencesParamsSchema } from '../../schemas/query.schemas';
-import { StyleGraph } from '../../../core/StyleGraph';
+import { ToolHandler } from '@/core/ToolHandler';
+import { FIND_ALL_REFERENCES_TOOL } from '@/tools/definitions/query.tools';
+import { FindAllReferencesParams, FindAllReferencesParamsSchema } from '@/tools/schemas/query.schemas';
+import { StyleGraph } from '@/core/StyleGraph';
 
 interface ReferenceResult {
   path: string;

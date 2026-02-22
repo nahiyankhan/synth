@@ -1,5 +1,5 @@
 import React from "react";
-import { OKLCHColor } from "../../services/colorScience";
+import { OKLCHColor } from "@/services/colorScience";
 
 interface ColorListItemProps {
   name: string;

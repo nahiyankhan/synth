@@ -14,7 +14,7 @@
  * These tools are kept temporarily for compatibility but will be removed.
  */
 
-import { ToolDefinition } from '../../types/toolRegistry';
+import { ToolDefinition } from '@/types/toolRegistry';
 
 export const QUERY_RELATIONSHIPS_TOOL: ToolDefinition = {
   name: 'queryRelationships',

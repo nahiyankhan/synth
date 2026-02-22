@@ -11,7 +11,7 @@ import {
   ColorScaleProposal,
   ContrastCheckResult,
   HueGroupingResult
-} from '../../types/visualFeedback';
+} from '@/types/visualFeedback';
 
 // Simple SVG icons
 const Sparkles: React.FC<{ className?: string }> = ({ className }) => (

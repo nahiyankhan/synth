@@ -6,7 +6,7 @@
  * https://vercel.com/blog/how-to-build-agents-with-filesystems-and-bash
  */
 
-import { ToolDefinition } from '../../types/toolRegistry';
+import { ToolDefinition } from '@/types/toolRegistry';
 
 export const EXECUTE_COMMAND_TOOL: ToolDefinition = {
   name: 'executeCommand',

@@ -3,9 +3,9 @@
  * Redoes a previously undone change
  */
 
-import { ToolHandler } from '../../../core/ToolHandler';
-import { REDO_CHANGE_TOOL } from '../../definitions/history.tools';
-import { StyleGraph } from '../../../core/StyleGraph';
+import { ToolHandler } from '@/core/ToolHandler';
+import { REDO_CHANGE_TOOL } from '@/tools/definitions/history.tools';
+import { StyleGraph } from '@/core/StyleGraph';
 
 interface RedoResult {
   redone: boolean;

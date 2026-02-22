@@ -3,7 +3,7 @@
  * Operations for exporting the design system
  */
 
-import { ToolDefinition } from '../../types/toolRegistry';
+import { ToolDefinition } from '@/types/toolRegistry';
 
 export const EXPORT_DESIGN_SYSTEM_TOOL: ToolDefinition = {
   name: 'exportDesignSystem',

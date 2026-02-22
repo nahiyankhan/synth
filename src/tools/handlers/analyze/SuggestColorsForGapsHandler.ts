@@ -3,10 +3,10 @@
  * Analyzes color distribution and suggests colors to fill gaps
  */
 
-import { ToolHandler } from '../../../core/ToolHandler';
-import { SUGGEST_COLORS_FOR_GAPS_TOOL } from '../../definitions/colorView.tools';
-import { SuggestColorsForGapsParams, SuggestColorsForGapsParamsSchema } from '../../schemas/analyze.schemas';
-import { StyleGraph } from '../../../core/StyleGraph';
+import { ToolHandler } from '@/core/ToolHandler';
+import { SUGGEST_COLORS_FOR_GAPS_TOOL } from '@/tools/definitions/colorView.tools';
+import { SuggestColorsForGapsParams, SuggestColorsForGapsParamsSchema } from '@/tools/schemas/analyze.schemas';
+import { StyleGraph } from '@/core/StyleGraph';
 
 interface ColorSuggestion {
   suggestedColor: string;

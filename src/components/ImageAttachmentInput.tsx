@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useRef, useCallback } from 'react';
-import type { ImageAttachment } from '../types/multimodal';
+import type { ImageAttachment } from '@/types/multimodal';
 
 interface ImageAttachmentInputProps {
   attachments: ImageAttachment[];

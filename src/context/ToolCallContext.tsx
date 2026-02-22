@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from 'react';
-import { useToolCallDisplay, ToolCallEvent } from '../hooks/useToolCallDisplay';
+import { useToolCallDisplay, ToolCallEvent } from '@/hooks/useToolCallDisplay';
 
 interface ToolCallContextType {
   currentEvent: ToolCallEvent | null;

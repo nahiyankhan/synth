@@ -17,7 +17,7 @@ import {
   type RoleMapping,
   TAILWIND_HUE_RANGES,
   DEFAULT_STATUS_SEEDS,
-} from '../../types/tailwindPalette';
+} from '@/types/tailwindPalette';
 
 import { generateScale, generateGrayScale } from './tailwind-palette-generator';
 

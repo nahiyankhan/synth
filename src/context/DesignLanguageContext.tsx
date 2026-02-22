@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useState, ReactNode, useMemo } from 'react';
-import { StyleGraph } from '../core/StyleGraph';
-import { StyleNode, StyleMode } from '../types/styleGraph';
-import { ToolHandlers } from '../services/toolHandlers';
-import { DesignLanguageMetadata } from '../services/designLanguageDB';
-import { getTokenByPath, getTokensByType, getTokensByLayer } from '../utils/designLanguageTokenMapper';
+import { StyleGraph } from '@/core/StyleGraph';
+import { StyleNode, StyleMode } from '@/types/styleGraph';
+import { ToolHandlers } from '@/services/toolHandlers';
+import { DesignLanguageMetadata } from '@/services/designLanguageDB';
+import { getTokenByPath, getTokensByType, getTokensByLayer } from '@/utils/designLanguageTokenMapper';
 
 interface DesignLanguageContextType {
   selectedLanguage: string | null;

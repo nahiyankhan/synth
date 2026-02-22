@@ -1,4 +1,4 @@
-import { handleToolSearch } from "../types/aiTools";
+import { handleToolSearch } from "@/types/aiTools";
 
 export interface ToolSearchHandler {
   args: any;

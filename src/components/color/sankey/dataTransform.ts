@@ -9,8 +9,8 @@
  * Future: Layer 2 for component usage when CSS parsing is implemented.
  */
 
-import { StyleGraph } from "../../../core/StyleGraph";
-import { StyleNode } from "../../../types/styleGraph";
+import { StyleGraph } from "@/core/StyleGraph";
+import { StyleNode } from "@/types/styleGraph";
 import { SankeyNode, SankeyLink } from "./types";
 
 /**

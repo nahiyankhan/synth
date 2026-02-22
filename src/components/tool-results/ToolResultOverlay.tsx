@@ -1,5 +1,5 @@
 import React from "react";
-import { ToolResult } from "../../types/toolUI";
+import { ToolResult } from "@/types/toolUI";
 import { TokenSearchResults } from "./TokenSearchResults";
 import { TokenModificationResult } from "./TokenModificationResult";
 import { ImpactAnalysisView } from "./ImpactAnalysisView";
@@ -8,7 +8,7 @@ import { NavigationResult } from "./NavigationResult";
 import { ColorProposalView } from "./ColorProposalView";
 import { TypographyAnalysisView } from "./TypographyAnalysisView";
 import { SpacingAnalysisView } from "./SpacingAnalysisView";
-import { XIcon } from "../icons";
+import { XIcon } from "@/components/icons";
 
 interface ToolResultOverlayProps {
   result: ToolResult | null;

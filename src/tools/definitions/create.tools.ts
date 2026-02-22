@@ -3,7 +3,7 @@
  * Operations for generating/creating design system elements
  */
 
-import { ToolDefinition } from '../../types/toolRegistry';
+import { ToolDefinition } from '@/types/toolRegistry';
 
 export const GENERATE_COLOR_SCALE_TOOL: ToolDefinition = {
   name: 'generateColorScale',

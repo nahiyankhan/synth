@@ -3,14 +3,14 @@
  * Extends base ToolHandlers with advanced features
  */
 
-import { StyleGraph } from "../core/StyleGraph";
+import { StyleGraph } from "@/core/StyleGraph";
 import { ToolHandlers } from "./toolHandlers";
-import { ToolResponse } from "../types/toolRegistry";
+import { ToolResponse } from "@/types/toolRegistry";
 import {
   PaginatedResponse,
   FilteredResponse,
   EnhancedExecutionParams,
-} from "../types/enhancedTools";
+} from "@/types/enhancedTools";
 
 export class EnhancedToolHandlers extends ToolHandlers {
   constructor(graph: StyleGraph) {

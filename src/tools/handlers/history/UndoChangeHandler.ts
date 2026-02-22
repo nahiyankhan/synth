@@ -3,9 +3,9 @@
  * Undoes the last change made to the design language
  */
 
-import { ToolHandler } from '../../../core/ToolHandler';
-import { UNDO_CHANGE_TOOL } from '../../definitions/history.tools';
-import { StyleGraph } from '../../../core/StyleGraph';
+import { ToolHandler } from '@/core/ToolHandler';
+import { UNDO_CHANGE_TOOL } from '@/tools/definitions/history.tools';
+import { StyleGraph } from '@/core/StyleGraph';
 
 interface UndoResult {
   undone: boolean;

@@ -7,10 +7,10 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useApp } from '../context/AppContext';
-import { useToolCall } from '../context/ToolCallContext';
-import { useDesignLanguage } from '../context/DesignLanguageContext';
-import { useToolUI } from '../context/ToolUIContext';
+import { useApp } from '@/context/AppContext';
+import { useToolCall } from '@/context/ToolCallContext';
+import { useDesignLanguage } from '@/context/DesignLanguageContext';
+import { useToolUI } from '@/context/ToolUIContext';
 import { useDesignLanguageLoader } from './useDesignLanguageLoader';
 import { useToolCallHandler } from './useToolCallHandler';
 import { useTextSession } from './useTextSession';

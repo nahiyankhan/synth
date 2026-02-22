@@ -1,4 +1,4 @@
-import { HistoryItem, Session } from '../types';
+import { HistoryItem, Session } from '@/types';
 
 const DB_NAME = 'VoicePixelsDB';
 const DB_VERSION = 2;

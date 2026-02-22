@@ -3,10 +3,10 @@
  * Updates the value of an existing design token
  */
 
-import { ToolHandler } from '../../../core/ToolHandler';
-import { UPDATE_TOKEN_TOOL } from '../../definitions/modify.tools';
-import { UpdateTokenParams, UpdateTokenParamsSchema } from '../../schemas/modify.schemas';
-import { StyleGraph } from '../../../core/StyleGraph';
+import { ToolHandler } from '@/core/ToolHandler';
+import { UPDATE_TOKEN_TOOL } from '@/tools/definitions/modify.tools';
+import { UpdateTokenParams, UpdateTokenParamsSchema } from '@/tools/schemas/modify.schemas';
+import { StyleGraph } from '@/core/StyleGraph';
 
 interface UpdateTokenResult {
   path: string;

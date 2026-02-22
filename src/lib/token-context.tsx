@@ -12,7 +12,7 @@
  */
 
 import React, { createContext, useContext, useCallback, useMemo } from 'react';
-import { useDesignLanguage } from '../context/DesignLanguageContext';
+import { useDesignLanguage } from '@/context/DesignLanguageContext';
 import { isTokenValue, isPathValue, type TokenValue } from './token-value';
 
 // =============================================================================

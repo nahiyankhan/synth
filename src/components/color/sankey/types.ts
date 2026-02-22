@@ -6,7 +6,7 @@
  * Future: Add 3rd column for component usage.
  */
 
-import { StyleNode } from "../../../types/styleGraph";
+import { StyleNode } from "@/types/styleGraph";
 
 /**
  * A node in the Sankey diagram

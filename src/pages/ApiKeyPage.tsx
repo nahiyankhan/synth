@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useApiKey } from "../hooks/useApiKey";
+import { useApiKey } from "@/hooks/useApiKey";
 
 export const ApiKeyPage: React.FC = () => {
   const { saveApiKey } = useApiKey();

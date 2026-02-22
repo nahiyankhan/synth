@@ -8,8 +8,8 @@
  * "Well-structured data + file system = tool enough"
  */
 
-import { AIToken, TokenRelationship } from '../types/aiNativeToken';
-import { StyleGraph } from '../core/StyleGraph';
+import { AIToken, TokenRelationship } from '@/types/aiNativeToken';
+import { StyleGraph } from '@/core/StyleGraph';
 import { CommandResult } from './virtualFileSystem';
 
 export class GraphFileSystem {

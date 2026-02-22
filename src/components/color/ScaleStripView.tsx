@@ -6,11 +6,11 @@
  */
 
 import React, { useState, useMemo } from "react";
-import { StyleGraph } from "../../core/StyleGraph";
-import { StyleNode } from "../../types/styleGraph";
+import { StyleGraph } from "@/core/StyleGraph";
+import { StyleNode } from "@/types/styleGraph";
 import { useColorGrouping, ColorItem, PaletteGroup } from "./useColorGrouping";
-import { getAccessibleTextColor } from "../../services/colorScience";
-import { FilterBanner } from "../ui/filter-banner";
+import { getAccessibleTextColor } from "@/services/colorScience";
+import { FilterBanner } from "@/components/ui/filter-banner";
 import { OKLCHDisplay } from "./shared/OKLCHDisplay";
 import { ColorDetailPanel } from "./shared/ColorDetailPanel";
 

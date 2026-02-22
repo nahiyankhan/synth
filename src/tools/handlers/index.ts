@@ -3,8 +3,8 @@
  * Exports all handlers and provides a function to create a registry
  */
 
-import { ToolRegistry } from '../../core/ToolRegistry';
-import { StyleGraph } from '../../core/StyleGraph';
+import { ToolRegistry } from '@/core/ToolRegistry';
+import { StyleGraph } from '@/core/StyleGraph';
 
 // Query handlers
 export { GetTokenHandler } from './query/GetTokenHandler';

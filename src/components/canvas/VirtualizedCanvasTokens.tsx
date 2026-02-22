@@ -6,7 +6,7 @@
  */
 
 import React, { useMemo, useRef, useEffect, useState } from "react";
-import { StyleNode } from "../../types/styleGraph";
+import { StyleNode } from "@/types/styleGraph";
 
 interface VirtualizedCanvasTokensProps {
   nodes: StyleNode[];

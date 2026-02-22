@@ -8,7 +8,7 @@
  * - AI can modify the system using these authoring tools
  */
 
-import { ToolDefinition } from '../../types/toolRegistry';
+import { ToolDefinition } from '@/types/toolRegistry';
 
 export const CREATE_AI_TOKEN_TOOL: ToolDefinition = {
   name: 'createToken',

@@ -3,7 +3,7 @@
  * Tools specific to color palette analysis and manipulation
  */
 
-import { EnhancedToolDefinition } from '../types/enhancedTools';
+import { EnhancedToolDefinition } from '@/types/enhancedTools';
 
 export const COLOR_VIEW_TOOLS: EnhancedToolDefinition[] = [
   {

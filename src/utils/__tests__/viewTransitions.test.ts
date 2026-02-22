@@ -4,7 +4,7 @@ import {
   isViewTransitionSupported,
   createViewTransitionName,
   applyViewTransitionName,
-} from '../viewTransitions';
+} from '@/utils/viewTransitions';
 
 describe('viewTransitions', () => {
   describe('isViewTransitionSupported', () => {

@@ -19,7 +19,7 @@ import { anthropic } from '@ai-sdk/anthropic';
 import { generateText } from 'ai';
 import { ClaudeClient } from './claudeClient';
 import { VirtualFileSystem } from './virtualFileSystem';
-import { StyleGraph } from '../core/StyleGraph';
+import { StyleGraph } from '@/core/StyleGraph';
 
 export interface ModelRouterConfig {
   geminiApiKey: string;

@@ -5,14 +5,14 @@
  * Provides common utilities for working with graph nodes and values.
  */
 
-import { StyleGraph } from '../../core/StyleGraph';
-import { StyleNode } from '../../types/styleGraph';
-import { ToolResponse } from '../../types/toolRegistry';
+import { StyleGraph } from '@/core/StyleGraph';
+import { StyleNode } from '@/types/styleGraph';
+import { ToolResponse } from '@/types/toolRegistry';
 import {
   createSuccessResponse,
   createErrorResponse,
   createNotFoundResponse,
-} from '../../utils/toolResponseHelpers';
+} from '@/utils/toolResponseHelpers';
 
 // Re-export response helpers for convenience
 export { createSuccessResponse, createErrorResponse, createNotFoundResponse };

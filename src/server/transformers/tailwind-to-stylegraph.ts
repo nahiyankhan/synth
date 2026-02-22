@@ -5,10 +5,10 @@
  */
 
 import { nanoid } from "nanoid";
-import type { StyleNode } from "../../types/styleGraph";
-import { TAILWIND_STEPS } from "../../types/tailwindPalette";
+import type { StyleNode } from "@/types/styleGraph";
+import { TAILWIND_STEPS } from "@/types/tailwindPalette";
 import type { ColorSystemOutput } from "./tailwind-color-system";
-import type { TypographyChoices } from "../schemas/llm-schemas";
+import type { TypographyChoices } from "@/server/schemas/llm-schemas";
 import { getSemanticTokenDependencies } from "./semantic-token-mapper";
 import {
   transformTypographyToNodes,

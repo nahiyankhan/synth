@@ -4,7 +4,7 @@
  * Stores multiple design languages with their metadata and full StyleGraph data
  */
 
-import { ContentData } from '../types/content';
+import { ContentData } from '@/types/content';
 
 const DB_NAME = 'design-language-agent';
 const DB_VERSION = 4;

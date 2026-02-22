@@ -1,5 +1,5 @@
 import React from "react";
-import { ToolCallEvent } from "../hooks/useToolCallDisplay";
+import { ToolCallEvent } from "@/hooks/useToolCallDisplay";
 
 interface ToolCallDisplayProps {
   currentEvent: ToolCallEvent | null;

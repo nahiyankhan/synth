@@ -4,8 +4,8 @@
  */
 
 import { nanoid } from 'nanoid';
-import type { StyleNode } from '../../types/styleGraph';
-import type { ColorChoices, TypographyChoices } from '../schemas/llm-schemas';
+import type { StyleNode } from '@/types/styleGraph';
+import type { ColorChoices, TypographyChoices } from '@/server/schemas/llm-schemas';
 import { generateTypographyTokens, type TypographySeedInput } from './typography-generator';
 import { expandBaseColors, formatScaleToTokens, getMiddleShade } from './color-scale-generator';
 

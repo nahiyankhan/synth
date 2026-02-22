@@ -20,25 +20,25 @@ import {
   type TypographyChoices,
   type TailwindColorSeeds,
   type FoundationSeeds as LLMFoundationSeeds,
-} from "../schemas/llm-schemas";
+} from "@/server/schemas/llm-schemas";
 import {
   COMPONENT_CSS_SYSTEM_PROMPT,
   buildComponentCSSUserPrompt,
-} from "../prompts/component-css-prompt";
-import { generateColorSystem, type ColorSeeds, type ColorSystemOutput } from "../transformers/tailwind-color-system";
-import { TAILWIND_STEPS, type TypographySeeds, type ShadowSeeds, type TypographyScaleRatio, type ShadowIntensity, type ShadowColorStyle, type ShadowBlurStyle } from "../../types/tailwindPalette";
+} from "@/server/prompts/component-css-prompt";
+import { generateColorSystem, type ColorSeeds, type ColorSystemOutput } from "@/server/transformers/tailwind-color-system";
+import { TAILWIND_STEPS, type TypographySeeds, type ShadowSeeds, type TypographyScaleRatio, type ShadowIntensity, type ShadowColorStyle, type ShadowBlurStyle } from "@/types/tailwindPalette";
 import {
   generateTypographyTokens,
   typographyTokensToChoices,
-} from "../transformers/foundation-generators";
-import { transformTailwindToStyleGraph } from "../transformers/tailwind-to-stylegraph";
+} from "@/server/transformers/foundation-generators";
+import { transformTailwindToStyleGraph } from "@/server/transformers/tailwind-to-stylegraph";
 import {
   validateAndFixContrast,
   type ContrastFix,
   type ContrastViolation,
-} from "../validators/contrast-validator";
-import type { StyleNode } from "../../types/styleGraph";
-import type { ImageAttachment } from "../../types/multimodal";
+} from "@/server/validators/contrast-validator";
+import type { StyleNode } from "@/types/styleGraph";
+import type { ImageAttachment } from "@/types/multimodal";
 
 /**
  * Helper to simulate streaming for deterministic phases.

@@ -13,8 +13,8 @@
  */
 
 import { describe, it, expect, beforeEach } from 'vitest';
-import { ToolContext } from '../../../core/ToolContext';
-import { createMockGraph } from '../../../test-utils/mockData';
+import { ToolContext } from '@/core/ToolContext';
+import { createMockGraph } from '@/test-utils/mockData';
 
 describe.skip('Tool Routing Integration (DEPRECATED - use executeCommand)', () => {
   let context: ToolContext;

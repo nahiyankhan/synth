@@ -3,7 +3,7 @@
  * Tracks tool execution metrics, performance, and usage patterns
  */
 
-import { ToolMetrics } from '../types/toolRegistry';
+import { ToolMetrics } from '@/types/toolRegistry';
 
 export class ToolAnalytics {
   private metrics = new Map<string, ToolMetrics>();

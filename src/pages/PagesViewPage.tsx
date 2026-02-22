@@ -1,13 +1,13 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { PagesView } from "../components/PagesView";
-import { ToolCallDisplay } from "../components/ToolCallDisplay";
-import { DevPanel } from "../components/DevPanel";
-import { useToolCall } from "../context/ToolCallContext";
-import { useDesignLanguage } from "../context/DesignLanguageContext";
-import { useDesignLanguageLoader } from "../hooks/useDesignLanguageLoader";
-import { useToolCallHandler } from "../hooks/useToolCallHandler";
-import { useTextSession } from "../hooks/useTextSession";
+import { PagesView } from "@/components/PagesView";
+import { ToolCallDisplay } from "@/components/ToolCallDisplay";
+import { DevPanel } from "@/components/DevPanel";
+import { useToolCall } from "@/context/ToolCallContext";
+import { useDesignLanguage } from "@/context/DesignLanguageContext";
+import { useDesignLanguageLoader } from "@/hooks/useDesignLanguageLoader";
+import { useToolCallHandler } from "@/hooks/useToolCallHandler";
+import { useTextSession } from "@/hooks/useTextSession";
 
 export const PagesViewPage: React.FC = () => {
   const navigate = useNavigate();

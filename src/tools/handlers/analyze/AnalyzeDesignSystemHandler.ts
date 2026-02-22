@@ -3,10 +3,10 @@
  * Comprehensive data scientist-style analysis of the design system
  */
 
-import { ToolHandler } from '../../../core/ToolHandler';
-import { ANALYZE_DESIGN_SYSTEM_TOOL } from '../../definitions/analyze.tools';
-import { AnalyzeDesignSystemParams, AnalyzeDesignSystemParamsSchema } from '../../schemas/analyze.schemas';
-import { StyleGraph } from '../../../core/StyleGraph';
+import { ToolHandler } from '@/core/ToolHandler';
+import { ANALYZE_DESIGN_SYSTEM_TOOL } from '@/tools/definitions/analyze.tools';
+import { AnalyzeDesignSystemParams, AnalyzeDesignSystemParamsSchema } from '@/tools/schemas/analyze.schemas';
+import { StyleGraph } from '@/core/StyleGraph';
 
 interface AnalysisInsights {
   executiveSummary: string;

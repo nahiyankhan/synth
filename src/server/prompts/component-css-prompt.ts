@@ -5,7 +5,7 @@
  * CSS for x-* component classes based on visual direction.
  */
 
-import { getClassInventoryForPrompt } from "../../lib/json-render/component-classes";
+import { getClassInventoryForPrompt } from "@/lib/json-render/component-classes";
 
 export const COMPONENT_CSS_SYSTEM_PROMPT = `
 You are generating component CSS for a design system.

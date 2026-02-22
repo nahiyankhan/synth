@@ -4,10 +4,10 @@
  * Handles creation and modification of AI-native tokens with relationships
  */
 
-import { ToolHandler } from '../../../core/ToolHandler';
-import { ToolResponse } from '../../../types/toolRegistry';
-import { StyleGraph } from '../../../core/StyleGraph';
-import { StyleNode, TokenRelationship } from '../../../types/styleGraph';
+import { ToolHandler } from '@/core/ToolHandler';
+import { ToolResponse } from '@/types/toolRegistry';
+import { StyleGraph } from '@/core/StyleGraph';
+import { StyleNode, TokenRelationship } from '@/types/styleGraph';
 import { nanoid } from 'nanoid';
 
 // Re-export for consumers

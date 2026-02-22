@@ -31,11 +31,11 @@ import {
   loadDesignLanguageMetadata,
   initDesignLanguageDB,
   DesignLanguageMetadata,
-} from "../services/designLanguageDB.js";
+} from "@/services/designLanguageDB.js";
 
-import { StyleGraph } from "../core/StyleGraph.js";
-import { GetTokenHandler } from "../tools/handlers/query/GetTokenHandler.js";
-import { SearchTokensHandler } from "../tools/handlers/query/SearchTokensHandler.js";
+import { StyleGraph } from "@/core/StyleGraph.js";
+import { GetTokenHandler } from "@/tools/handlers/query/GetTokenHandler.js";
+import { SearchTokensHandler } from "@/tools/handlers/query/SearchTokensHandler.js";
 
 /**
  * Helper to load StyleGraph from design language ID

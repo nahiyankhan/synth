@@ -4,7 +4,7 @@
  * Voice & tone guidelines display
  */
 
-import { TableOfContentsItem } from '../types/content';
+import { TableOfContentsItem } from '@/types/content';
 
 let markdownContent: string | null = null;
 

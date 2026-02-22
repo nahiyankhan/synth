@@ -76,7 +76,7 @@ export type {
   // Output
   ColorSystemSummary,
   ColorSystemOutput,
-} from '../../types/tailwindPalette';
+} from '@/types/tailwindPalette';
 
 // Constants
 export {
@@ -86,4 +86,4 @@ export {
   TAILWIND_HUE_RANGES,
   STATUS_COLOR_MAPPING,
   DEFAULT_STATUS_SEEDS,
-} from '../../types/tailwindPalette';
+} from '@/types/tailwindPalette';

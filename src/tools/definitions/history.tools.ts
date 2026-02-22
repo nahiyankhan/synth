@@ -3,7 +3,7 @@
  * Operations for managing change history (undo/redo)
  */
 
-import { ToolDefinition } from '../../types/toolRegistry';
+import { ToolDefinition } from '@/types/toolRegistry';
 
 export const UNDO_CHANGE_TOOL: ToolDefinition = {
   name: 'undoChange',

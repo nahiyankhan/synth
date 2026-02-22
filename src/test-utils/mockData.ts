@@ -1,5 +1,5 @@
-import { StyleGraph } from '../core/StyleGraph';
-import { StyleNode } from '../types/styleGraph';
+import { StyleGraph } from '@/core/StyleGraph';
+import { StyleNode } from '@/types/styleGraph';
 import { vi } from 'vitest';
 
 /**

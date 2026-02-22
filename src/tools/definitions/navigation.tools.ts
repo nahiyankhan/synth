@@ -3,7 +3,7 @@
  * Operations for navigating between pages and managing design languages
  */
 
-import { ToolDefinition } from '../../types/toolRegistry';
+import { ToolDefinition } from '@/types/toolRegistry';
 
 // DISABLED: get_design_system_preview
 // export const GET_DESIGN_SYSTEM_PREVIEW_TOOL: ToolDefinition = {

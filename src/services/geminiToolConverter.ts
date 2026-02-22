@@ -4,7 +4,7 @@
  * Implements lazy loading via tool search
  */
 
-import { EnhancedToolDefinition } from '../types/enhancedTools';
+import { EnhancedToolDefinition } from '@/types/enhancedTools';
 import { ENHANCED_OPERATIONS } from './enhancedToolDefinitions';
 import { toolSearchService } from './toolSearchService';
 

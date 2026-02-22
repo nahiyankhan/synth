@@ -4,7 +4,7 @@
  */
 
 import { ToolHandler } from './ToolHandler';
-import { ToolDefinition, ToolResponse } from '../types/toolRegistry';
+import { ToolDefinition, ToolResponse } from '@/types/toolRegistry';
 
 export class ToolRegistry {
   private handlers = new Map<string, ToolHandler>();

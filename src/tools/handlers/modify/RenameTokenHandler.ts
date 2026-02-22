@@ -3,10 +3,10 @@
  * Renames a token and automatically updates all references
  */
 
-import { ToolHandler } from '../../../core/ToolHandler';
-import { RENAME_TOKEN_TOOL } from '../../definitions/modify.tools';
-import { RenameTokenParams, RenameTokenParamsSchema } from '../../schemas/modify.schemas';
-import { StyleGraph } from '../../../core/StyleGraph';
+import { ToolHandler } from '@/core/ToolHandler';
+import { RENAME_TOKEN_TOOL } from '@/tools/definitions/modify.tools';
+import { RenameTokenParams, RenameTokenParamsSchema } from '@/tools/schemas/modify.schemas';
+import { StyleGraph } from '@/core/StyleGraph';
 
 interface RenameTokenResult {
   oldPath: string;

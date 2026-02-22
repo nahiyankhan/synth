@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { AppState } from "../types/app";
-import { getApiKey, setApiKey, hasApiKey as checkHasApiKey } from "../utils/apiKeyStorage";
+import { AppState } from "@/types/app";
+import { getApiKey, setApiKey, hasApiKey as checkHasApiKey } from "@/utils/apiKeyStorage";
 
 interface AppContextType {
   appState: AppState;

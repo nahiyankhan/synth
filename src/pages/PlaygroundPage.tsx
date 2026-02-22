@@ -15,11 +15,11 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Renderer, JSONUIProvider, DataProvider } from '@json-render/react';
 import type { UITree } from '@json-render/core';
-import { useUIGeneration } from '../hooks/useUIGeneration';
-import { componentRegistry, FallbackComponent } from '../lib/json-render';
-import { TokenProvider } from '../lib/token-context';
-import { useDesignLanguage } from '../context/DesignLanguageContext';
-import { useDesignLanguageLoader } from '../hooks/useDesignLanguageLoader';
+import { useUIGeneration } from '@/hooks/useUIGeneration';
+import { componentRegistry, FallbackComponent } from '@/lib/json-render';
+import { TokenProvider } from '@/lib/token-context';
+import { useDesignLanguage } from '@/context/DesignLanguageContext';
+import { useDesignLanguageLoader } from '@/hooks/useDesignLanguageLoader';
 
 // =============================================================================
 // Sample Data for Data Binding
@@ -47,9 +47,9 @@ const SAMPLE_DATA = {
     message: '',
   },
 };
-import { Button } from '../components/ui/button';
-import { Textarea } from '../components/ui/textarea';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '../components/ui/tabs';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Loader2, Sparkles, RefreshCw, Code, Eye } from 'lucide-react';
 
 // =============================================================================

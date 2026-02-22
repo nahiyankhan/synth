@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DesignSystemAnalysis } from '../../types/aiTools';
+import { DesignSystemAnalysis } from '@/types/aiTools';
 import { ToolResultHeader } from './ToolResultHeader';
 
 interface SystemAnalysisViewProps {

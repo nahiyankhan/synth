@@ -5,10 +5,10 @@
  */
 
 import React from "react";
-import { StyleGraph } from "../../core/StyleGraph";
-import { StyleNode, StyleMode, isModeMap } from "../../types/styleGraph";
-import { hexToOKLCH, OKLCHColor } from "../../services/colorScience";
-import { XIcon } from "../icons";
+import { StyleGraph } from "@/core/StyleGraph";
+import { StyleNode, StyleMode, isModeMap } from "@/types/styleGraph";
+import { hexToOKLCH, OKLCHColor } from "@/services/colorScience";
+import { XIcon } from "@/components/icons";
 import { OKLCHDisplay } from "./shared/OKLCHDisplay";
 
 interface PositionedColor {

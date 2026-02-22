@@ -2,16 +2,16 @@ import { useCallback, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import { createGoogleGenerativeAI } from '@ai-sdk/google';
 import { streamText, stepCountIs } from 'ai';
-import { useApp } from "../context/AppContext";
-import { useDesignLanguage } from "../context/DesignLanguageContext";
-import { useToolCall } from "../context/ToolCallContext";
-import { getEnhancedGeminiTools } from "../types/aiTools";
-import { navigationTools } from "../types/navigationAiTools";
-import { generationTools } from "../types/generationAiTools";
-import { getContextAwareSystemInstructions } from "../services/systemInstructions";
-import { getToolsForView } from "../services/toolFilter";
+import { useApp } from "@/context/AppContext";
+import { useDesignLanguage } from "@/context/DesignLanguageContext";
+import { useToolCall } from "@/context/ToolCallContext";
+import { getEnhancedGeminiTools } from "@/types/aiTools";
+import { navigationTools } from "@/types/navigationAiTools";
+import { generationTools } from "@/types/generationAiTools";
+import { getContextAwareSystemInstructions } from "@/services/systemInstructions";
+import { getToolsForView } from "@/services/toolFilter";
 import { useModelRouter } from "./useModelRouter";
-import { getApiKey } from "../utils/apiKeyStorage";
+import { getApiKey } from "@/utils/apiKeyStorage";
 
 export const useTextSession = (
   onToolCall: (toolCall: any, sessionPromiseRef: React.MutableRefObject<any> | null) => Promise<void>,

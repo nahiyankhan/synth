@@ -18,7 +18,7 @@
  * 8. Navigation tools - UI side effects for design system management
  */
 
-import { ToolDefinition } from '../../types/toolRegistry';
+import { ToolDefinition } from '@/types/toolRegistry';
 
 // Core filesystem tool (replaces query, export, and most modify tools)
 import { EXECUTE_COMMAND_TOOL, FILESYSTEM_TOOLS } from './filesystem.tools';

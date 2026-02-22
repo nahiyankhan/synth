@@ -1,16 +1,16 @@
 import { useEffect, useRef } from "react";
-import { useDesignLanguage } from "../context/DesignLanguageContext";
-import { useApp } from "../context/AppContext";
-import { AppState } from "../types/app";
+import { useDesignLanguage } from "@/context/DesignLanguageContext";
+import { useApp } from "@/context/AppContext";
+import { AppState } from "@/types/app";
 import {
   loadDesignLanguageData,
   loadDesignLanguageMetadata,
   loadContentData,
-} from "../services/designLanguageDB";
-import { StyleGraph } from "../core/StyleGraph";
-import { EnhancedToolHandlers } from "../services/enhancedToolHandlers";
-import { initContentService } from "../services/contentService";
-import { applyDesignLanguageCSS } from "../services/themeService";
+} from "@/services/designLanguageDB";
+import { StyleGraph } from "@/core/StyleGraph";
+import { EnhancedToolHandlers } from "@/services/enhancedToolHandlers";
+import { initContentService } from "@/services/contentService";
+import { applyDesignLanguageCSS } from "@/services/themeService";
 
 interface UseDesignLanguageLoaderOptions {
   skipLoading?: boolean;

@@ -7,17 +7,17 @@
 
 import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { GalleryView } from "../components/GalleryView";
-import { ErrorBoundary } from "../components/ErrorBoundary";
-import { EditorLayout } from "../components/layouts/EditorLayout";
-import { useApp } from "../context/AppContext";
-import { useToolCall } from "../context/ToolCallContext";
-import { useDesignLanguage } from "../context/DesignLanguageContext";
-import { useToolUI } from "../context/ToolUIContext";
-import { useDesignLanguageLoader } from "../hooks/useDesignLanguageLoader";
-import { useToolCallHandler } from "../hooks/useToolCallHandler";
-import { useTextSession } from "../hooks/useTextSession";
-import { AppState } from "../types/app";
+import { GalleryView } from "@/components/GalleryView";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { EditorLayout } from "@/components/layouts/EditorLayout";
+import { useApp } from "@/context/AppContext";
+import { useToolCall } from "@/context/ToolCallContext";
+import { useDesignLanguage } from "@/context/DesignLanguageContext";
+import { useToolUI } from "@/context/ToolUIContext";
+import { useDesignLanguageLoader } from "@/hooks/useDesignLanguageLoader";
+import { useToolCallHandler } from "@/hooks/useToolCallHandler";
+import { useTextSession } from "@/hooks/useTextSession";
+import { AppState } from "@/types/app";
 
 export const EditorPage: React.FC = () => {
   const navigate = useNavigate();

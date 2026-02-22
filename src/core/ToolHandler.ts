@@ -3,7 +3,7 @@
  * Provides consistent error handling, validation, and execution flow
  */
 
-import { ToolDefinition, ToolResponse } from '../types/toolRegistry';
+import { ToolDefinition, ToolResponse } from '@/types/toolRegistry';
 
 export abstract class ToolHandler<TParams = any, TResult = any> {
   constructor(protected definition: ToolDefinition) {}

@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { useGlobalChat } from '../context/ChatContext';
+import { useGlobalChat } from '@/context/ChatContext';
 import {
   Conversation,
   ConversationContent,
@@ -26,7 +26,20 @@ import { Tool, ToolHeader, ToolContent, ToolInput, ToolOutput } from './ai-eleme
 import { XIcon, MessageSquareIcon } from 'lucide-react';
 import { Button } from './ui/button';
 import { TooltipProvider } from './ui/tooltip';
+import { AISignal, type AISignalState } from './AISignal';
 import type { UIMessage } from 'ai';
+
+/**
+ * Map chat status to AISignal state
+ */
+const getAISignalState = (status: 'ready' | 'submitted' | 'streaming' | 'error'): AISignalState => {
+  switch (status) {
+    case 'submitted': return 'thinking';
+    case 'streaming': return 'streaming';
+    case 'error': return 'error';
+    default: return 'idle';
+  }
+};
 
 /**
  * Helper to extract text content from UIMessage parts
@@ -150,13 +163,16 @@ export const GlobalChat = () => {
       <div className="fixed bottom-20 right-4 z-50 w-[420px] h-[600px] flex flex-col bg-dark-900 rounded-2xl shadow-2xl border border-dark-700 overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-dark-700">
-          <div className="flex flex-col">
-            <h3 className="text-sm font-medium text-white">Chat</h3>
-            {pageContext.view && (
-              <span className="text-xs text-dark-400">
-                Context: {pageContext.languageName || 'Design System'} / {pageContext.view}
-              </span>
-            )}
+          <div className="flex items-center gap-3">
+            <AISignal state={getAISignalState(status)} size={32} className="text-white" />
+            <div className="flex flex-col">
+              <h3 className="text-sm font-medium text-white">Chat</h3>
+              {pageContext.view && (
+                <span className="text-xs text-dark-400">
+                  Context: {pageContext.languageName || 'Design System'} / {pageContext.view}
+                </span>
+              )}
+            </div>
           </div>
           <Button
             onClick={() => setIsOpen(false)}

@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { SectionHeader } from '../ui/section-header';
+import { SectionHeader } from '@/components/ui/section-header';
 
 interface StrategyData {
   summary?: string;

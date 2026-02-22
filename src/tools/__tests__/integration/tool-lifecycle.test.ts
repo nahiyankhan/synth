@@ -17,9 +17,9 @@
  */
 
 import { describe, it, expect, beforeEach } from 'vitest';
-import { ToolContext } from '../../../core/ToolContext';
-import { createMockGraph } from '../../../test-utils/mockData';
-import { StyleGraph } from '../../../core/StyleGraph';
+import { ToolContext } from '@/core/ToolContext';
+import { createMockGraph } from '@/test-utils/mockData';
+import { StyleGraph } from '@/core/StyleGraph';
 
 describe.skip('Tool Lifecycle Integration (DEPRECATED - use executeCommand)', () => {
   let context: ToolContext;

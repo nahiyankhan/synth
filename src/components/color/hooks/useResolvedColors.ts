@@ -6,9 +6,9 @@
  */
 
 import { useMemo } from "react";
-import { StyleGraph } from "../../../core/StyleGraph";
-import { StyleNode } from "../../../types/styleGraph";
-import { hexToOKLCH, OKLCHColor } from "../../../services/colorScience";
+import { StyleGraph } from "@/core/StyleGraph";
+import { StyleNode } from "@/types/styleGraph";
+import { hexToOKLCH, OKLCHColor } from "@/services/colorScience";
 
 /**
  * A resolved color node with all computed values

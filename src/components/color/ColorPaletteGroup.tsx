@@ -3,7 +3,7 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "../ui/collapsible";
+} from "@/components/ui/collapsible";
 import { PaletteGroup } from "./useColorGrouping";
 import { ColorListItem, ColorSwatch } from "./ColorListItem";
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SearchResult, TokenInfo } from '../../types/aiTools';
+import { SearchResult, TokenInfo } from '@/types/aiTools';
 import { ToolResultHeader } from './ToolResultHeader';
 
 interface TokenSearchResultsProps {

@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { XIcon } from '../icons';
+import { XIcon } from '@/components/icons';
 
 interface ToolResultHeaderProps {
   /** Main title text */

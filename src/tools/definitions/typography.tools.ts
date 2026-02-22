@@ -3,7 +3,7 @@
  * Contextual tools specific to type scale analysis and typography
  */
 
-import { ToolDefinition } from '../../types/toolRegistry';
+import { ToolDefinition } from '@/types/toolRegistry';
 
 export const ANALYZE_TYPE_SCALE_TOOL: ToolDefinition = {
   name: 'analyze_type_scale',

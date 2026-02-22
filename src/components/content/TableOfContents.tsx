@@ -3,7 +3,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { TableOfContentsItem } from '../../types/content';
+import { TableOfContentsItem } from '@/types/content';
 
 interface TableOfContentsProps {
   items: TableOfContentsItem[];

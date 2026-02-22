@@ -62,7 +62,7 @@ export function getNodeDimensions(
 }
 
 // Re-export shortenTokenName as shortenName for backwards compatibility
-export { shortenTokenName as shortenName } from "../utils/token-name-utils";
+export { shortenTokenName as shortenName } from "@/components/color/utils/token-name-utils";
 
 /**
  * Draw a rounded rectangle path

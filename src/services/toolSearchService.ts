@@ -3,7 +3,7 @@
  * Implements on-demand tool discovery for Gemini
  */
 
-import { EnhancedToolDefinition, ToolSearchResult } from '../types/enhancedTools';
+import { EnhancedToolDefinition, ToolSearchResult } from '@/types/enhancedTools';
 
 export class ToolSearchService {
   private tools: Map<string, EnhancedToolDefinition>;

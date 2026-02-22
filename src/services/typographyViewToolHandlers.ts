@@ -3,14 +3,14 @@
  * Implements typography-specific analysis tools
  */
 
-import { StyleGraph } from '../core/StyleGraph';
-import { ToolResponse } from '../types/toolRegistry';
+import { StyleGraph } from '@/core/StyleGraph';
+import { ToolResponse } from '@/types/toolRegistry';
 import {
   TypeScaleAnalysisResult,
   ReadabilityAnalysisResult,
   TypeHierarchyResult,
   LetterSpacingAnalysisResult
-} from '../types/visualFeedback';
+} from '@/types/visualFeedback';
 
 // Common type scale ratios
 const KNOWN_RATIOS = [

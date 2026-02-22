@@ -3,12 +3,12 @@
  * Searches for tokens based on query, layer, type filters
  */
 
-import { ToolHandler } from '../../../core/ToolHandler';
-import { SEARCH_TOKENS_TOOL } from '../../definitions/query.tools';
-import { SearchTokensParams, SearchTokensParamsSchema } from '../../schemas/query.schemas';
-import { SearchResult, TokenInfo } from '../../../types/aiTools';
-import { StyleGraph } from '../../../core/StyleGraph';
-import { StyleNode } from '../../../types/styleGraph';
+import { ToolHandler } from '@/core/ToolHandler';
+import { SEARCH_TOKENS_TOOL } from '@/tools/definitions/query.tools';
+import { SearchTokensParams, SearchTokensParamsSchema } from '@/tools/schemas/query.schemas';
+import { SearchResult, TokenInfo } from '@/types/aiTools';
+import { StyleGraph } from '@/core/StyleGraph';
+import { StyleNode } from '@/types/styleGraph';
 
 export class SearchTokensHandler extends ToolHandler<SearchTokensParams, SearchResult> {
   constructor(private graph: StyleGraph) {

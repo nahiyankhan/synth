@@ -3,7 +3,7 @@
  * Exports helper functions for typography-specific tools
  */
 
-import { TYPOGRAPHY_VIEW_TOOLS } from '../tools/definitions/typography.tools';
+import { TYPOGRAPHY_VIEW_TOOLS } from '@/tools/definitions/typography.tools';
 
 // Re-export the tools array
 export { TYPOGRAPHY_VIEW_TOOLS };

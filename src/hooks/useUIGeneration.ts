@@ -11,9 +11,9 @@
 
 import { useState, useCallback } from 'react';
 import type { UITree } from '@json-render/core';
-import type { StyleGraph } from '../core/StyleGraph';
-import { generateTokenPromptSection } from '../lib/token-prompt-generator';
-import { getApiKeyHeaders } from '../utils/apiKeyStorage';
+import type { StyleGraph } from '@/core/StyleGraph';
+import { generateTokenPromptSection } from '@/lib/token-prompt-generator';
+import { getApiKeyHeaders } from '@/utils/apiKeyStorage';
 
 // =============================================================================
 // Types

@@ -5,9 +5,9 @@
  * These are the entities that tokens can have relationships with
  */
 
-import { ToolHandler } from '../../../core/ToolHandler';
-import { ToolResponse } from '../../../types/toolRegistry';
-import { StyleGraph } from '../../../core/StyleGraph';
+import { ToolHandler } from '@/core/ToolHandler';
+import { ToolResponse } from '@/types/toolRegistry';
+import { StyleGraph } from '@/core/StyleGraph';
 import { nanoid } from 'nanoid';
 
 export interface CreateBrandPrincipleParams {

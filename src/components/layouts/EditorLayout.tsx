@@ -1,7 +1,7 @@
 import React from "react";
-import { ToolCallDisplay } from "../ToolCallDisplay";
-import { DevPanel } from "../DevPanel";
-import { ToolResultOverlay } from "../tool-results";
+import { ToolCallDisplay } from "@/components/ToolCallDisplay";
+import { DevPanel } from "@/components/DevPanel";
+import { ToolResultOverlay } from "@/components/tool-results";
 import { PageHeader, BreadcrumbSegment } from "./PageHeader";
 
 export interface EditorLayoutProps {

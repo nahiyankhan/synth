@@ -16,9 +16,9 @@
  */
 
 import { describe, it, expect, beforeEach } from 'vitest';
-import { ToolContext } from '../../../core/ToolContext';
-import { createMockGraph } from '../../../test-utils/mockData';
-import { formatToolError } from '../../errors';
+import { ToolContext } from '@/core/ToolContext';
+import { createMockGraph } from '@/test-utils/mockData';
+import { formatToolError } from '@/tools/errors';
 
 describe.skip('Error Handling Integration (DEPRECATED - use executeCommand)', () => {
   let context: ToolContext;

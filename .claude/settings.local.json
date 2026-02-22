@@ -63,7 +63,8 @@
       "Bash(ls:*)",
       "WebFetch(domain:www.adhamdannaway.com)",
       "WebFetch(domain:cdn.jsdelivr.net)",
-      "WebFetch(domain:elements.ai-sdk.dev)"
+      "WebFetch(domain:elements.ai-sdk.dev)",
+      "Bash(tree:*)"
     ],
     "deny": [],
     "ask": []

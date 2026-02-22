@@ -6,8 +6,8 @@
  */
 
 import React from "react";
-import { cn } from "../../../lib/utils";
-import type { OKLCHColor } from "../../../services/colorScience";
+import { cn } from "@/lib/utils";
+import type { OKLCHColor } from "@/services/colorScience";
 
 export interface OKLCHDisplayProps {
   /** OKLCH color values */

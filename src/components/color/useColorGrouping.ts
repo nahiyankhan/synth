@@ -1,8 +1,8 @@
 import { useMemo } from "react";
-import { StyleGraph } from "../../core/StyleGraph";
-import { StyleNode } from "../../types/styleGraph";
-import { hexToOKLCH, OKLCHColor } from "../../services/colorScience";
-import { TAILWIND_STEPS, TAILWIND_CHROMATIC_COLORS } from "../../types/tailwindPalette";
+import { StyleGraph } from "@/core/StyleGraph";
+import { StyleNode } from "@/types/styleGraph";
+import { hexToOKLCH, OKLCHColor } from "@/services/colorScience";
+import { TAILWIND_STEPS, TAILWIND_CHROMATIC_COLORS } from "@/types/tailwindPalette";
 
 export interface ColorItem {
   node: StyleNode;

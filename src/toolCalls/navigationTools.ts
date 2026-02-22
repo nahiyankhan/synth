@@ -10,7 +10,7 @@ import {
   getDesignLanguage,
   deleteDesignLanguage,
   DesignLanguageMetadata 
-} from '../services/designLanguageDB';
+} from '@/services/designLanguageDB';
 
 export interface NavigationToolHandler {
   functionCall: any;

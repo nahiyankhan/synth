@@ -6,11 +6,11 @@
  */
 
 import React, { useState, useMemo, useRef, useEffect, useCallback } from "react";
-import { StyleGraph } from "../../core/StyleGraph";
-import { StyleNode } from "../../types/styleGraph";
-import { hexToOKLCH, OKLCHColor } from "../../services/colorScience";
+import { StyleGraph } from "@/core/StyleGraph";
+import { StyleNode } from "@/types/styleGraph";
+import { hexToOKLCH, OKLCHColor } from "@/services/colorScience";
 import { shortenTokenName } from "./utils/token-name-utils";
-import { FilterBanner } from "../ui/filter-banner";
+import { FilterBanner } from "@/components/ui/filter-banner";
 import { ColorDetailPanel } from "./shared/ColorDetailPanel";
 
 interface ColorForceGraphViewProps {

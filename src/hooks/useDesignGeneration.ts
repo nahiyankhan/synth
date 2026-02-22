@@ -6,15 +6,15 @@
 
 import { useCallback, useRef } from "react";
 import { nanoid } from "nanoid";
-import { StyleGraph } from "../core/StyleGraph";
+import { StyleGraph } from "@/core/StyleGraph";
 import {
   saveDesignLanguage,
   type DesignLanguageMetadata,
-} from "../services/designLanguageDB";
-import type { StyleNode } from "../types/styleGraph";
-import type { ImageAttachment } from "../types/multimodal";
-import { oklchToHex } from "../services/colorScience";
-import { applyTailwindColorSystem, applyDesignLanguageCSS } from "../services/themeService";
+} from "@/services/designLanguageDB";
+import type { StyleNode } from "@/types/styleGraph";
+import type { ImageAttachment } from "@/types/multimodal";
+import { oklchToHex } from "@/services/colorScience";
+import { applyTailwindColorSystem, applyDesignLanguageCSS } from "@/services/themeService";
 import {
   useSSEConnection,
   useGenerationPhases,

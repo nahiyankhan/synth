@@ -4,9 +4,9 @@
  */
 
 import { z } from 'zod';
-import { ToolHandler } from '../../../core/ToolHandler';
-import { EXPORT_TAILWIND_CONFIG_TOOL } from '../../definitions/export.tools';
-import { StyleGraph } from '../../../core/StyleGraph';
+import { ToolHandler } from '@/core/ToolHandler';
+import { EXPORT_TAILWIND_CONFIG_TOOL } from '@/tools/definitions/export.tools';
+import { StyleGraph } from '@/core/StyleGraph';
 
 const ExportTailwindConfigParamsSchema = z.object({
   exportType: z.enum(['theme', 'tokens', 'both']).default('both'),

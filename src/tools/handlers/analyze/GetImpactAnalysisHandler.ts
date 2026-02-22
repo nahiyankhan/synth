@@ -3,11 +3,11 @@
  * Analyzes the impact of changing a token
  */
 
-import { ToolHandler } from '../../../core/ToolHandler';
-import { GET_IMPACT_ANALYSIS_TOOL } from '../../definitions/analyze.tools';
-import { GetImpactAnalysisParams, GetImpactAnalysisParamsSchema } from '../../schemas/analyze.schemas';
-import { StyleGraph } from '../../../core/StyleGraph';
-import { ImpactAnalysisResult } from '../../../types/aiTools';
+import { ToolHandler } from '@/core/ToolHandler';
+import { GET_IMPACT_ANALYSIS_TOOL } from '@/tools/definitions/analyze.tools';
+import { GetImpactAnalysisParams, GetImpactAnalysisParamsSchema } from '@/tools/schemas/analyze.schemas';
+import { StyleGraph } from '@/core/StyleGraph';
+import { ImpactAnalysisResult } from '@/types/aiTools';
 
 export class GetImpactAnalysisHandler extends ToolHandler<GetImpactAnalysisParams, ImpactAnalysisResult> {
   constructor(private graph: StyleGraph) {

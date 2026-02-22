@@ -1,22 +1,22 @@
 import { useCallback } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useApp } from "../context/AppContext";
-import { useDesignLanguage } from "../context/DesignLanguageContext";
-import { useToolUI } from "../context/ToolUIContext";
+import { useApp } from "@/context/AppContext";
+import { useDesignLanguage } from "@/context/DesignLanguageContext";
+import { useToolUI } from "@/context/ToolUIContext";
 import {
   handleToolSearchCall,
   handleDesignSystemTool,
   isColorViewTool,
   isTypographyViewTool,
   isSpacingViewTool,
-} from "../toolCalls";
+} from "@/toolCalls";
 import {
   handleNavigationTool,
   isNavigationTool,
-} from "../toolCalls/navigationTools";
-import { ColorViewToolHandlers } from "../services/colorViewToolHandlers";
-import { TypographyViewToolHandlers } from "../services/typographyViewToolHandlers";
-import { SpacingViewToolHandlers } from "../services/spacingViewToolHandlers";
+} from "@/toolCalls/navigationTools";
+import { ColorViewToolHandlers } from "@/services/colorViewToolHandlers";
+import { TypographyViewToolHandlers } from "@/services/typographyViewToolHandlers";
+import { SpacingViewToolHandlers } from "@/services/spacingViewToolHandlers";
 interface UseToolCallHandlerOptions {
   refreshUI: () => void;
   setActiveView?: (

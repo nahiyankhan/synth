@@ -11,8 +11,8 @@
  * - Keep it concise (~50-100 lines)
  */
 
-import type { StyleGraph } from '../core/StyleGraph';
-import type { StyleNode } from '../types/styleGraph';
+import type { StyleGraph } from '@/core/StyleGraph';
+import type { StyleNode } from '@/types/styleGraph';
 import { COMMON_TOKENS } from './token-value';
 
 // =============================================================================

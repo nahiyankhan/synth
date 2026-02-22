@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
-import { ToolResult, ToolUIState } from '../types/toolUI';
+import { ToolResult, ToolUIState } from '@/types/toolUI';
 
 interface ToolUIContextType {
   state: ToolUIState;

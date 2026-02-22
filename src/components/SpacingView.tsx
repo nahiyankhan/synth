@@ -6,8 +6,8 @@
  */
 
 import React, { useState, useRef, useMemo } from "react";
-import { StyleGraph } from "../core/StyleGraph";
-import { StyleNode, StyleMode } from "../types/styleGraph";
+import { StyleGraph } from "@/core/StyleGraph";
+import { StyleNode, StyleMode } from "@/types/styleGraph";
 import { XIcon } from "./icons";
 
 interface SizesViewProps {

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { handleNavigationTool, isNavigationTool } from './navigationTools';
-import { createMockSessionPromiseRef, createMockFunctionCall } from '../test-utils/mockData';
+import { createMockSessionPromiseRef, createMockFunctionCall } from '@/test-utils/mockData';
 
 describe('NavigationTools', () => {
   let addLog: ReturnType<typeof vi.fn>;

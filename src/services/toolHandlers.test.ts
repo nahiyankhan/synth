@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { ToolHandlers } from './toolHandlers';
-import { createMockGraph } from '../test-utils/mockData';
-import { StyleGraph } from '../core/StyleGraph';
+import { createMockGraph } from '@/test-utils/mockData';
+import { StyleGraph } from '@/core/StyleGraph';
 
 describe('ToolHandlers', () => {
   let handlers: ToolHandlers;

@@ -5,8 +5,8 @@
 
 import React, { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { StyleGraph } from "../core/StyleGraph";
-import { StyleMode } from "../types/styleGraph";
+import { StyleGraph } from "@/core/StyleGraph";
+import { StyleMode } from "@/types/styleGraph";
 
 interface GalleryViewProps {
   graph: StyleGraph;

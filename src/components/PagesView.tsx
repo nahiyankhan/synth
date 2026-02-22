@@ -5,8 +5,8 @@
  */
 
 import React from "react";
-import { StyleGraph } from "../core/StyleGraph";
-import { StyleMode } from "../types/styleGraph";
+import { StyleGraph } from "@/core/StyleGraph";
+import { StyleMode } from "@/types/styleGraph";
 
 interface PagesViewProps {
   graph: StyleGraph;

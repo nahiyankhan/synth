@@ -10,9 +10,9 @@
 import React, { useState, useRef } from "react";
 import { ImageAttachmentInput } from "./ImageAttachmentInput";
 import { GenerationFlowChart } from "./GenerationFlowChart";
-import { useImageAttachments } from "../hooks/useImageAttachments";
-import type { GenerationStatus } from "../hooks/useDesignGeneration";
-import type { ImageAttachment } from "../types/multimodal";
+import { useImageAttachments } from "@/hooks/useImageAttachments";
+import type { GenerationStatus } from "@/hooks/useDesignGeneration";
+import type { ImageAttachment } from "@/types/multimodal";
 import { XIcon } from "./icons";
 
 interface GenerationPromptViewProps {

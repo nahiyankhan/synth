@@ -3,14 +3,14 @@
  * Implements spacing/sizing-specific analysis tools
  */
 
-import { StyleGraph } from '../core/StyleGraph';
-import { ToolResponse } from '../types/toolRegistry';
+import { StyleGraph } from '@/core/StyleGraph';
+import { ToolResponse } from '@/types/toolRegistry';
 import {
   SpacingScaleAnalysisResult,
   SpacingConsistencyResult,
   SpacingTokenSuggestionsResult,
   SizeHarmonyResult
-} from '../types/visualFeedback';
+} from '@/types/visualFeedback';
 
 // Common base units for spacing systems
 const COMMON_BASE_UNITS = [4, 8, 5, 6, 10, 12, 16];

@@ -277,4 +277,4 @@ export {
   getGeminiTools as getEnhancedGeminiTools,
   handleToolSearch,
   getToolStats,
-} from "../services/geminiToolConverter";
+} from "@/services/geminiToolConverter";

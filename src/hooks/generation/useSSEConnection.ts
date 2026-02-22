@@ -5,7 +5,7 @@
  */
 
 import { useRef, useEffect, useCallback } from "react";
-import { getApiKeyHeaders } from "../../utils/apiKeyStorage";
+import { getApiKeyHeaders } from "@/utils/apiKeyStorage";
 
 export interface SSEEvent {
   type: string;

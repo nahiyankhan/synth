@@ -5,7 +5,7 @@
  * rather than requiring manual specification.
  */
 
-import { StyleNode, StyleLayer } from "../types/styleGraph";
+import { StyleNode, StyleLayer } from "@/types/styleGraph";
 
 /**
  * Configuration for layer computation thresholds

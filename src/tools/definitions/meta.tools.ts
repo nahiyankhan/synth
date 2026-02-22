@@ -3,7 +3,7 @@
  * These tools allow discovery and execution of other tools
  */
 
-import { ToolDefinition } from '../../types/toolRegistry';
+import { ToolDefinition } from '@/types/toolRegistry';
 
 export const META_TOOLS: ToolDefinition[] = [
   {

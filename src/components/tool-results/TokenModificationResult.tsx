@@ -1,5 +1,5 @@
 import React from 'react';
-import { TokenModificationResult as ModificationResult } from '../../types/toolUI';
+import { TokenModificationResult as ModificationResult } from '@/types/toolUI';
 import { ToolResultHeader } from './ToolResultHeader';
 
 interface TokenModificationResultProps {

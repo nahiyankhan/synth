@@ -6,9 +6,9 @@
  */
 
 import { useMemo } from 'react';
-import { useDesignLanguage } from '../context/DesignLanguageContext';
-import { ModelRouter } from '../services/modelRouter';
-import { getApiKey } from '../utils/apiKeyStorage';
+import { useDesignLanguage } from '@/context/DesignLanguageContext';
+import { ModelRouter } from '@/services/modelRouter';
+import { getApiKey } from '@/utils/apiKeyStorage';
 
 export interface UseModelRouterOptions {
   /** Prefer Claude over Gemini when available */

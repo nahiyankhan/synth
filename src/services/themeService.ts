@@ -13,7 +13,7 @@ import {
   loadDesignLanguageMetadata,
   getAllDesignLanguages,
 } from './designLanguageDB';
-import type { ColorSystemOutput } from '../server/transformers/tailwind-color-system';
+import type { ColorSystemOutput } from '@/server/transformers/tailwind-color-system';
 
 let currentLanguageId: string | null = null;
 

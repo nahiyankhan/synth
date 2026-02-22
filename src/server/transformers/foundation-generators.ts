@@ -16,7 +16,7 @@ import {
   DEFAULT_TYPOGRAPHY_SEEDS,
   DEFAULT_SHADOW_SEEDS,
   MOTION_TOKENS,
-} from '../../types/tailwindPalette';
+} from '@/types/tailwindPalette';
 
 export type { FoundationTokens };
 

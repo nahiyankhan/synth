@@ -1,14 +1,14 @@
 import React, { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { LandingPage as LandingComponent } from "../components/LandingPage";
-import { ToolCallDisplay } from "../components/ToolCallDisplay";
-import { DevPanel } from "../components/DevPanel";
-import { ToolResultOverlay } from "../components/tool-results";
-import { useToolCall } from "../context/ToolCallContext";
-import { useDesignLanguage } from "../context/DesignLanguageContext";
-import { useToolUI } from "../context/ToolUIContext";
-import { useTextSession } from "../hooks/useTextSession";
-import { useToolCallHandler } from "../hooks/useToolCallHandler";
+import { LandingPage as LandingComponent } from "@/components/LandingPage";
+import { ToolCallDisplay } from "@/components/ToolCallDisplay";
+import { DevPanel } from "@/components/DevPanel";
+import { ToolResultOverlay } from "@/components/tool-results";
+import { useToolCall } from "@/context/ToolCallContext";
+import { useDesignLanguage } from "@/context/DesignLanguageContext";
+import { useToolUI } from "@/context/ToolUIContext";
+import { useTextSession } from "@/hooks/useTextSession";
+import { useToolCallHandler } from "@/hooks/useToolCallHandler";
 
 export const LandingPage: React.FC = () => {
   const navigate = useNavigate();

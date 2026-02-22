@@ -9,7 +9,7 @@
  */
 
 import React from "react";
-import { StyleNode } from "../../types/styleGraph";
+import { StyleNode } from "@/types/styleGraph";
 
 interface CanvasTokenCardsProps {
   nodes: StyleNode[];

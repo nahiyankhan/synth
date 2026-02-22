@@ -6,14 +6,14 @@
  */
 
 import React, { useState } from "react";
-import { StyleGraph } from "../core/StyleGraph";
-import { StyleMode } from "../types/styleGraph";
+import { StyleGraph } from "@/core/StyleGraph";
+import { StyleMode } from "@/types/styleGraph";
 import { Renderer, JSONUIProvider } from "@json-render/react";
 import {
   componentRegistry,
   FallbackComponent,
   useInteractiveState,
-} from "../lib/json-render";
+} from "@/lib/json-render";
 
 interface ComponentsViewProps {
   graph: StyleGraph;

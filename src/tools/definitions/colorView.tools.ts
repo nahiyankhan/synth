@@ -3,7 +3,7 @@
  * Contextual tools specific to color palette analysis and manipulation
  */
 
-import { ToolDefinition } from '../../types/toolRegistry';
+import { ToolDefinition } from '@/types/toolRegistry';
 
 export const FIND_SIMILAR_COLORS_TOOL: ToolDefinition = {
   name: 'find_similar_colors',

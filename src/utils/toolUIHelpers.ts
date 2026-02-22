@@ -7,13 +7,13 @@ import {
   ToolResult, 
   TOOL_TO_RESULT_TYPE,
   TokenModificationResult 
-} from '../types/toolUI';
+} from '@/types/toolUI';
 import { 
   SearchResult, 
   TokenInfo, 
   ImpactAnalysisResult, 
   DesignSystemAnalysis 
-} from '../types/aiTools';
+} from '@/types/aiTools';
 
 /**
  * Show a search result in the specialized search UI

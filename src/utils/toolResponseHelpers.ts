@@ -5,7 +5,7 @@
  * Reduces boilerplate and ensures consistent response format.
  */
 
-import { ToolResponse } from '../types/toolRegistry';
+import { ToolResponse } from '@/types/toolRegistry';
 
 /**
  * Create a successful tool response
