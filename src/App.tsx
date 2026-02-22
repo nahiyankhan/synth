@@ -23,6 +23,7 @@ import { SplitPage } from "./pages/SplitPage";
 import { BrandStrategyPage } from "./pages/BrandStrategyPage";
 import { PlaygroundPage } from "./pages/PlaygroundPage";
 import { LoginPage } from "./pages/LoginPage";
+import { AISignalDemo } from "./pages/AISignalDemo";
 
 const AppRoutes: React.FC = () => {
   const { hasApiKey } = useApiKey();
@@ -51,6 +52,7 @@ const AppRoutes: React.FC = () => {
         <Route path="/editor/split" element={<SplitPage />} />
         <Route path="/playground" element={<PlaygroundPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/demo/ai-signal" element={<AISignalDemo />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <GlobalChat />
