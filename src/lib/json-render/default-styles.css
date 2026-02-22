@@ -1,0 +1,544 @@
+/**
+ * Default Component Styles
+ *
+ * Fallback styles for x-* classes when no design language is active.
+ * Uses neutral colors and sensible defaults.
+ */
+
+/* =============================================================================
+   Layout
+   ============================================================================= */
+
+.x-card {
+  @apply bg-white dark:bg-neutral-900 rounded-lg border border-neutral-200 dark:border-neutral-800 p-4;
+}
+
+.x-card-header {
+  @apply font-semibold text-sm mb-1 text-neutral-900 dark:text-neutral-100;
+}
+
+.x-card-description {
+  @apply text-xs text-neutral-500 dark:text-neutral-400 mb-2;
+}
+
+.x-card-body {
+  @apply space-y-2;
+}
+
+.x-card-footer {
+  @apply pt-3 mt-3 border-t border-neutral-200 dark:border-neutral-800;
+}
+
+.x-form {
+  @apply bg-white dark:bg-neutral-900 rounded-lg border border-neutral-200 dark:border-neutral-800 p-4;
+}
+
+.x-form-title {
+  @apply font-semibold text-sm mb-3 text-neutral-900 dark:text-neutral-100;
+}
+
+.x-grid {
+  @apply grid gap-3;
+}
+
+.x-grid-2 {
+  @apply grid-cols-2;
+}
+
+.x-grid-3 {
+  @apply grid-cols-3;
+}
+
+.x-grid-4 {
+  @apply grid-cols-4;
+}
+
+.x-stack {
+  @apply flex flex-col;
+}
+
+.x-stack-horizontal {
+  @apply flex flex-row flex-wrap items-center;
+}
+
+.x-stack-gap-sm {
+  @apply gap-1;
+}
+
+.x-stack-gap-md {
+  @apply gap-2;
+}
+
+.x-stack-gap-lg {
+  @apply gap-3;
+}
+
+.x-divider {
+  @apply border-t border-neutral-200 dark:border-neutral-800 my-2;
+}
+
+/* =============================================================================
+   Form Controls
+   ============================================================================= */
+
+.x-label {
+  @apply text-xs text-neutral-600 dark:text-neutral-400 block mb-1;
+}
+
+.x-input {
+  @apply w-full h-8 px-3 text-sm bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-md;
+  @apply text-neutral-900 dark:text-neutral-100 placeholder-neutral-400;
+  @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+  @apply transition-colors;
+}
+
+.x-input-error {
+  @apply border-red-500 focus:ring-red-500;
+}
+
+.x-textarea {
+  @apply w-full px-3 py-2 text-sm bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-md;
+  @apply text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 resize-none;
+  @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+}
+
+.x-select {
+  @apply h-8 w-full px-3 text-sm bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-md;
+  @apply text-neutral-900 dark:text-neutral-100 cursor-pointer;
+  @apply flex items-center justify-between;
+  @apply hover:border-neutral-400 dark:hover:border-neutral-600 transition-colors;
+}
+
+.x-select-dropdown {
+  @apply mt-1 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 rounded-md shadow-lg overflow-hidden;
+}
+
+.x-select-option {
+  @apply px-3 py-2 text-sm text-neutral-900 dark:text-neutral-100 cursor-pointer;
+  @apply hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors;
+}
+
+.x-select-option-selected {
+  @apply bg-neutral-100 dark:bg-neutral-800;
+}
+
+.x-checkbox {
+  @apply flex items-center gap-2 text-sm cursor-pointer text-neutral-900 dark:text-neutral-100;
+}
+
+.x-checkbox-box {
+  @apply w-4 h-4 border border-neutral-300 dark:border-neutral-600 rounded flex items-center justify-center;
+  @apply bg-white dark:bg-neutral-900 transition-colors;
+}
+
+.x-checkbox-checked {
+  @apply bg-blue-600 border-blue-600 text-white;
+}
+
+.x-radio {
+  @apply space-y-2;
+}
+
+.x-radio-item {
+  @apply flex items-center gap-2 text-sm cursor-pointer text-neutral-900 dark:text-neutral-100;
+}
+
+.x-radio-circle {
+  @apply w-4 h-4 border border-neutral-300 dark:border-neutral-600 rounded-full flex items-center justify-center;
+  @apply bg-white dark:bg-neutral-900 transition-colors;
+}
+
+.x-radio-checked {
+  @apply border-blue-600;
+}
+
+.x-radio-dot {
+  @apply w-2 h-2 rounded-full bg-blue-600;
+}
+
+.x-switch {
+  @apply flex items-center justify-between gap-2 text-sm cursor-pointer text-neutral-900 dark:text-neutral-100;
+}
+
+.x-switch-label {
+  @apply flex-1;
+}
+
+.x-switch-track {
+  @apply w-9 h-5 rounded-full bg-neutral-300 dark:bg-neutral-700 relative transition-colors;
+}
+
+.x-switch-checked {
+  @apply bg-blue-600;
+}
+
+.x-switch-thumb {
+  @apply w-4 h-4 rounded-full bg-white absolute top-0.5 left-0.5 transition-transform shadow-sm;
+}
+
+.x-datepicker {
+  @apply space-y-1;
+}
+
+.x-datepicker-input {
+  @apply w-full h-8 px-3 text-sm bg-white dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-700 rounded-md;
+  @apply text-neutral-900 dark:text-neutral-100;
+  @apply focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+}
+
+/* =============================================================================
+   Buttons & Links
+   ============================================================================= */
+
+.x-btn {
+  @apply px-4 py-2 text-sm font-medium rounded-md transition-colors;
+  @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
+}
+
+.x-btn-primary {
+  @apply bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500;
+}
+
+.x-btn-secondary {
+  @apply bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100;
+  @apply hover:bg-neutral-200 dark:hover:bg-neutral-700 focus:ring-neutral-500;
+}
+
+.x-btn-ghost {
+  @apply bg-transparent text-neutral-700 dark:text-neutral-300;
+  @apply hover:bg-neutral-100 dark:hover:bg-neutral-800 focus:ring-neutral-500;
+}
+
+.x-btn-danger {
+  @apply bg-red-600 text-white hover:bg-red-700 focus:ring-red-500;
+}
+
+.x-btn-disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+.x-link {
+  @apply text-sm text-blue-600 dark:text-blue-400 hover:underline cursor-pointer;
+}
+
+/* =============================================================================
+   Typography
+   ============================================================================= */
+
+.x-heading {
+  @apply font-semibold text-neutral-900 dark:text-neutral-100;
+}
+
+.x-heading-1 {
+  @apply text-xl;
+}
+
+.x-heading-2 {
+  @apply text-lg;
+}
+
+.x-heading-3 {
+  @apply text-base;
+}
+
+.x-heading-4 {
+  @apply text-sm;
+}
+
+.x-text {
+  @apply text-sm text-neutral-900 dark:text-neutral-100;
+}
+
+.x-text-muted {
+  @apply text-sm text-neutral-500 dark:text-neutral-400;
+}
+
+.x-text-caption {
+  @apply text-xs text-neutral-400 dark:text-neutral-500;
+}
+
+/* =============================================================================
+   Feedback
+   ============================================================================= */
+
+.x-badge {
+  @apply inline-flex px-2 py-0.5 text-xs font-medium rounded-full;
+  @apply bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300;
+}
+
+.x-badge-success {
+  @apply bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400;
+}
+
+.x-badge-warning {
+  @apply bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400;
+}
+
+.x-badge-error {
+  @apply bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400;
+}
+
+.x-alert {
+  @apply p-3 rounded-lg border;
+}
+
+.x-alert-title {
+  @apply text-sm font-medium;
+}
+
+.x-alert-message {
+  @apply text-xs mt-1 opacity-80;
+}
+
+.x-alert-info {
+  @apply bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-200;
+}
+
+.x-alert-success {
+  @apply bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800 text-green-800 dark:text-green-200;
+}
+
+.x-alert-warning {
+  @apply bg-yellow-50 dark:bg-yellow-900/20 border-yellow-200 dark:border-yellow-800 text-yellow-800 dark:text-yellow-200;
+}
+
+.x-alert-error {
+  @apply bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800 text-red-800 dark:text-red-200;
+}
+
+.x-progress {
+  @apply h-2 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden;
+}
+
+.x-progress-bar {
+  @apply h-full bg-blue-600 rounded-full transition-all;
+}
+
+.x-progress-label {
+  @apply text-xs text-neutral-500 dark:text-neutral-400 mb-1;
+}
+
+.x-rating {
+  @apply space-y-1;
+}
+
+.x-rating-label {
+  @apply text-xs text-neutral-500 dark:text-neutral-400;
+}
+
+.x-rating-star {
+  @apply text-base;
+}
+
+.x-rating-star-filled {
+  @apply text-yellow-400;
+}
+
+.x-rating-star-empty {
+  @apply text-neutral-300 dark:text-neutral-600;
+}
+
+/* =============================================================================
+   Data Display
+   ============================================================================= */
+
+.x-avatar {
+  @apply rounded-full bg-neutral-200 dark:bg-neutral-700 flex items-center justify-center;
+  @apply text-neutral-600 dark:text-neutral-300 font-medium;
+}
+
+.x-avatar-sm {
+  @apply w-7 h-7 text-xs;
+}
+
+.x-avatar-md {
+  @apply w-9 h-9 text-sm;
+}
+
+.x-avatar-lg {
+  @apply w-11 h-11 text-base;
+}
+
+.x-avatar-initials {
+  @apply uppercase;
+}
+
+.x-image {
+  @apply bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded;
+  @apply flex items-center justify-center text-xs text-neutral-400;
+}
+
+.x-metric {
+  @apply flex flex-col gap-1;
+}
+
+.x-metric-label {
+  @apply text-sm text-neutral-500 dark:text-neutral-400;
+}
+
+.x-metric-value {
+  @apply text-2xl font-semibold text-neutral-900 dark:text-neutral-100;
+}
+
+.x-metric-trend {
+  @apply text-sm text-neutral-500;
+}
+
+.x-metric-trend-up {
+  @apply text-sm text-green-600 dark:text-green-400;
+}
+
+.x-metric-trend-down {
+  @apply text-sm text-red-600 dark:text-red-400;
+}
+
+.x-table {
+  @apply w-full;
+}
+
+.x-table-title {
+  @apply text-sm font-semibold mb-3 text-neutral-900 dark:text-neutral-100;
+}
+
+.x-table-header {
+  @apply border-b border-neutral-200 dark:border-neutral-700;
+}
+
+.x-table-th {
+  @apply text-left text-xs font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider;
+  @apply px-3 py-2;
+}
+
+.x-table-body {
+}
+
+.x-table-row {
+  @apply border-b border-neutral-100 dark:border-neutral-800;
+  @apply hover:bg-neutral-50 dark:hover:bg-neutral-800/50 transition-colors;
+}
+
+.x-table-td {
+  @apply px-3 py-3 text-sm text-neutral-900 dark:text-neutral-100;
+}
+
+.x-table-badge {
+  @apply inline-flex px-2 py-0.5 text-xs font-medium rounded;
+  @apply bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300;
+}
+
+.x-list {
+  @apply space-y-2;
+}
+
+.x-list-item {
+  @apply p-2 rounded hover:bg-neutral-50 dark:hover:bg-neutral-800/50;
+}
+
+.x-empty {
+  @apply text-center py-8 text-neutral-500 dark:text-neutral-400;
+}
+
+.x-empty-title {
+  @apply text-base font-medium text-neutral-700 dark:text-neutral-300 mb-1;
+}
+
+.x-empty-description {
+  @apply text-sm;
+}
+
+/* =============================================================================
+   Charts
+   ============================================================================= */
+
+.x-chart {
+  @apply space-y-3;
+}
+
+.x-chart-title {
+  @apply text-sm font-medium text-neutral-900 dark:text-neutral-100;
+}
+
+.x-chart-bars {
+  @apply flex gap-2 items-end h-28;
+}
+
+.x-chart-bar-container {
+  @apply flex-1 flex flex-col items-center gap-1;
+}
+
+.x-chart-bar {
+  @apply w-full bg-blue-600 rounded-t min-h-[4px];
+}
+
+.x-chart-bar-label {
+  @apply text-xs text-neutral-500 dark:text-neutral-400 truncate;
+}
+
+.x-bargraph {
+  @apply space-y-3;
+}
+
+.x-bargraph-title {
+  @apply text-sm font-medium text-neutral-900 dark:text-neutral-100;
+}
+
+.x-bargraph-bars {
+  @apply flex gap-2 items-end;
+}
+
+.x-bargraph-bar-container {
+  @apply flex-1 flex flex-col items-center gap-1;
+}
+
+.x-bargraph-bar-value {
+  @apply text-xs text-neutral-500 dark:text-neutral-400;
+}
+
+.x-bargraph-bar-wrapper {
+  @apply w-full h-20 flex items-end;
+}
+
+.x-bargraph-bar {
+  @apply w-full bg-blue-600 rounded-t;
+}
+
+.x-bargraph-bar-label {
+  @apply text-xs text-neutral-500 dark:text-neutral-400 truncate text-center w-full;
+}
+
+.x-linegraph {
+  @apply space-y-2;
+}
+
+.x-linegraph-title {
+  @apply text-sm font-medium text-neutral-900 dark:text-neutral-100;
+}
+
+.x-linegraph-svg {
+  @apply h-24;
+}
+
+.x-linegraph-grid {
+  stroke: currentColor;
+  stroke-opacity: 0.1;
+  stroke-width: 1;
+}
+
+.x-linegraph-line {
+  stroke: rgb(37 99 235); /* blue-600 */
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.x-linegraph-point {
+  fill: rgb(37 99 235); /* blue-600 */
+}
+
+.x-linegraph-labels {
+  @apply flex justify-between;
+}
+
+.x-linegraph-label {
+  @apply text-xs text-neutral-500 dark:text-neutral-400 text-center;
+}

@@ -1,0 +1,131 @@
+# Typography Tokens Cube
+# Specialized semantic layer for typography analysis
+
+cube: Typography
+sql: SELECT * FROM design_tokens WHERE type = 'typography'
+
+description: >
+  Typography tokens including font families, sizes, weights, and line heights.
+  Supports type scale analysis and readability checks.
+
+dimensions:
+  - name: id
+    sql: id
+    type: string
+    primary_key: true
+    
+  - name: path
+    sql: name
+    type: string
+    description: Typography token path
+    
+  - name: layer
+    sql: layer
+    type: string
+    
+  - name: font_family
+    sql: "value->>'family'"
+    type: string
+    description: Font family name
+    
+  - name: font_size
+    sql: "(value->>'size')::float"
+    type: number
+    description: Font size in pixels
+    
+  - name: font_weight
+    sql: "(value->>'weight')::int"
+    type: number
+    description: Font weight (100-900)
+    
+  - name: line_height
+    sql: "(value->>'lineHeight')::float"
+    type: number
+    description: Line height
+    
+  - name: letter_spacing
+    sql: "(value->>'letterSpacing')::float"
+    type: number
+    description: Letter spacing
+    
+  - name: text_transform
+    sql: "value->>'textTransform'"
+    type: string
+    description: Text transform (uppercase, lowercase, etc.)
+    
+  - name: usage_category
+    sql: >
+      CASE 
+        WHEN name LIKE '%heading%' OR name LIKE '%h1%' OR name LIKE '%h2%' OR name LIKE '%h3%' THEN 'heading'
+        WHEN name LIKE '%body%' OR name LIKE '%paragraph%' THEN 'body'
+        WHEN name LIKE '%caption%' OR name LIKE '%small%' THEN 'caption'
+        WHEN name LIKE '%label%' THEN 'label'
+        WHEN name LIKE '%button%' THEN 'button'
+        WHEN name LIKE '%code%' OR name LIKE '%mono%' THEN 'code'
+        ELSE 'other'
+      END
+    type: string
+    description: Inferred typography usage category
+    
+  - name: scale_level
+    sql: >
+      CASE 
+        WHEN (value->>'size')::float >= 48 THEN 'xxl'
+        WHEN (value->>'size')::float >= 36 THEN 'xl'
+        WHEN (value->>'size')::float >= 24 THEN 'lg'
+        WHEN (value->>'size')::float >= 18 THEN 'md'
+        WHEN (value->>'size')::float >= 14 THEN 'sm'
+        ELSE 'xs'
+      END
+    type: string
+    description: Size scale level
+
+measures:
+  - name: count
+    type: count
+    
+  - name: avg_font_size
+    sql: "(value->>'size')::float"
+    type: avg
+    description: Average font size
+    
+  - name: min_font_size
+    sql: "(value->>'size')::float"
+    type: min
+    
+  - name: max_font_size
+    sql: "(value->>'size')::float"
+    type: max
+    
+  - name: avg_line_height
+    sql: "(value->>'lineHeight')::float"
+    type: avg
+    
+  - name: avg_font_weight
+    sql: "(value->>'weight')::int"
+    type: avg
+    
+  - name: unique_font_families
+    sql: "value->>'family'"
+    type: countDistinct
+    description: Number of unique font families
+
+segments:
+  - name: headings
+    sql: "name LIKE '%heading%' OR name LIKE '%h1%' OR name LIKE '%h2%' OR name LIKE '%h3%'"
+    description: Heading typography tokens
+    
+  - name: body_text
+    sql: "name LIKE '%body%' OR name LIKE '%paragraph%'"
+    description: Body text typography tokens
+    
+  - name: bold
+    sql: "(value->>'weight')::int >= 700"
+    description: Bold typography tokens
+    
+  - name: readable_size
+    sql: "(value->>'size')::float >= 14"
+    description: Typography tokens with readable font sizes (14px+)
+
+joins: []
+

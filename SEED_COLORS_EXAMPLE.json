@@ -1,0 +1,48 @@
+{
+  "description": "Example of LLM color generation output with seed colors marked",
+  "example": {
+    "baseColors": {
+      "ocean-blue": "#0066CC",
+      "sunset-coral": "#FF6B6B",
+      "forest-green": "#00CC99",
+      "charcoal": "#2D2D2D",
+      "pearl": "#F5F5F5"
+    },
+    "seedColorNames": [
+      "ocean-blue",
+      "sunset-coral"
+    ],
+    "semanticRoles": {
+      "primary": "ocean-blue",
+      "accent": "sunset-coral",
+      "surface": "pearl",
+      "background": "pearl",
+      "text": "charcoal",
+      "success": "forest-green",
+      "error": "sunset-coral",
+      "info": "ocean-blue"
+    },
+    "reasoning": "Ocean blue and sunset coral are the brand's core identity colors, establishing trust and energy. These seed colors drive the entire palette, with supporting neutrals and semantic colors derived to maintain consistency.",
+    "accessibilityTargets": {
+      "textOnSurface": "AA"
+    }
+  },
+  "expectedBehavior": {
+    "uiVisualization": [
+      "ColorPreview: ocean-blue and sunset-coral show 'SEED' badge",
+      "ColorView canvas: ocean-blue and sunset-coral rectangles have circular seed indicator",
+      "ColorView hover: ocean-blue and sunset-coral info cards show 'SEED' badge"
+    ],
+    "graphMetadata": [
+      "All base.color.ocean-blue-* nodes have metadata.isSeed = true",
+      "All base.color.sunset-coral-* nodes have metadata.isSeed = true",
+      "Other color nodes have metadata.isSeed = false or undefined"
+    ],
+    "scaleGeneration": [
+      "Each seed color generates a full 50-900 scale (10 shades)",
+      "Each shade inherits the isSeed metadata from its parent color",
+      "Seed indicator appears on all shades (e.g., ocean-blue-100, ocean-blue-500, etc.)"
+    ]
+  }
+}
+

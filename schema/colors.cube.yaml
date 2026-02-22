@@ -1,0 +1,161 @@
+# Color Tokens Cube
+# Specialized semantic layer for color analysis
+
+cube: Colors
+sql: SELECT * FROM design_tokens WHERE type = 'color'
+
+description: >
+  Color tokens with OKLCH color science data and semantic role analysis.
+  Includes measures for color harmony, contrast, and palette analysis.
+
+dimensions:
+  - name: id
+    sql: id
+    type: string
+    primary_key: true
+    
+  - name: path
+    sql: name
+    type: string
+    description: Color token path
+    
+  - name: layer
+    sql: layer
+    type: string
+    
+  - name: hex_light
+    sql: "CASE WHEN jsonb_typeof(value) = 'object' THEN value->>'light' ELSE value::text END"
+    type: string
+    description: Hex value in light mode
+    
+  - name: hex_dark
+    sql: "CASE WHEN jsonb_typeof(value) = 'object' THEN value->>'dark' ELSE value::text END"
+    type: string
+    description: Hex value in dark mode
+    
+  - name: oklch_lightness
+    sql: "(metadata->'colorScience'->'oklch'->>'l')::float"
+    type: number
+    description: OKLCH lightness (0-100)
+    
+  - name: oklch_chroma
+    sql: "(metadata->'colorScience'->'oklch'->>'c')::float"
+    type: number
+    description: OKLCH chroma (saturation)
+    
+  - name: oklch_hue
+    sql: "(metadata->'colorScience'->'oklch'->>'h')::float"
+    type: number
+    description: OKLCH hue (0-360)
+    
+  - name: hue_family
+    sql: >
+      CASE 
+        WHEN (metadata->'colorScience'->'oklch'->>'h')::float BETWEEN 0 AND 30 THEN 'red'
+        WHEN (metadata->'colorScience'->'oklch'->>'h')::float BETWEEN 30 AND 90 THEN 'orange-yellow'
+        WHEN (metadata->'colorScience'->'oklch'->>'h')::float BETWEEN 90 AND 150 THEN 'yellow-green'
+        WHEN (metadata->'colorScience'->'oklch'->>'h')::float BETWEEN 150 AND 210 THEN 'green-cyan'
+        WHEN (metadata->'colorScience'->'oklch'->>'h')::float BETWEEN 210 AND 270 THEN 'cyan-blue'
+        WHEN (metadata->'colorScience'->'oklch'->>'h')::float BETWEEN 270 AND 330 THEN 'blue-magenta'
+        WHEN (metadata->'colorScience'->'oklch'->>'h')::float BETWEEN 330 AND 360 THEN 'magenta-red'
+        ELSE 'achromatic'
+      END
+    type: string
+    description: Color family based on hue
+    
+  - name: lightness_category
+    sql: >
+      CASE 
+        WHEN (metadata->'colorScience'->'oklch'->>'l')::float < 25 THEN 'very-dark'
+        WHEN (metadata->'colorScience'->'oklch'->>'l')::float < 50 THEN 'dark'
+        WHEN (metadata->'colorScience'->'oklch'->>'l')::float < 75 THEN 'light'
+        ELSE 'very-light'
+      END
+    type: string
+    description: Lightness category
+    
+  - name: saturation_category
+    sql: >
+      CASE 
+        WHEN (metadata->'colorScience'->'oklch'->>'c')::float < 0.05 THEN 'achromatic'
+        WHEN (metadata->'colorScience'->'oklch'->>'c')::float < 0.15 THEN 'low-saturation'
+        WHEN (metadata->'colorScience'->'oklch'->>'c')::float < 0.25 THEN 'medium-saturation'
+        ELSE 'high-saturation'
+      END
+    type: string
+    description: Saturation category
+    
+  - name: semantic_role
+    sql: >
+      CASE 
+        WHEN name LIKE '%primary%' THEN 'primary'
+        WHEN name LIKE '%secondary%' THEN 'secondary'
+        WHEN name LIKE '%accent%' THEN 'accent'
+        WHEN name LIKE '%background%' OR name LIKE '%bg%' THEN 'background'
+        WHEN name LIKE '%foreground%' OR name LIKE '%text%' THEN 'text'
+        WHEN name LIKE '%surface%' THEN 'surface'
+        WHEN name LIKE '%border%' THEN 'border'
+        WHEN name LIKE '%error%' THEN 'error'
+        WHEN name LIKE '%success%' THEN 'success'
+        WHEN name LIKE '%warning%' THEN 'warning'
+        WHEN name LIKE '%info%' THEN 'info'
+        ELSE 'decorative'
+      END
+    type: string
+    
+  - name: is_seed
+    sql: "metadata->>'isSeed'"
+    type: boolean
+
+measures:
+  - name: count
+    type: count
+    
+  - name: avg_lightness
+    sql: "(metadata->'colorScience'->'oklch'->>'l')::float"
+    type: avg
+    description: Average OKLCH lightness
+    
+  - name: avg_chroma
+    sql: "(metadata->'colorScience'->'oklch'->>'c')::float"
+    type: avg
+    description: Average OKLCH chroma
+    
+  - name: min_lightness
+    sql: "(metadata->'colorScience'->'oklch'->>'l')::float"
+    type: min
+    
+  - name: max_lightness
+    sql: "(metadata->'colorScience'->'oklch'->>'l')::float"
+    type: max
+    
+  - name: lightness_range
+    sql: "(metadata->'colorScience'->'oklch'->>'l')::float"
+    type: max
+    description: Lightness range (max - min)
+    filters:
+      - sql: "(metadata->'colorScience'->'oklch'->>'l')::float IS NOT NULL"
+
+segments:
+  - name: achromatic
+    sql: "(metadata->'colorScience'->'oklch'->>'c')::float < 0.05"
+    description: Grayscale colors
+    
+  - name: chromatic
+    sql: "(metadata->'colorScience'->'oklch'->>'c')::float >= 0.05"
+    description: Colorful (non-gray) colors
+    
+  - name: accessible_text_on_white
+    sql: "(metadata->'colorScience'->'oklch'->>'l')::float < 60"
+    description: Colors that meet WCAG AA contrast on white background
+    
+  - name: accessible_background_for_black_text
+    sql: "(metadata->'colorScience'->'oklch'->>'l')::float > 60"
+    description: Colors that meet WCAG AA contrast for black text
+    
+  - name: seed_colors
+    sql: "metadata->>'isSeed' = 'true'"
+    description: Seed colors used for palette generation
+
+joins: []
+

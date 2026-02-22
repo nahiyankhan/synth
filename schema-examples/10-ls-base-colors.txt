@@ -1,0 +1,21 @@
+$ ls tokens/base/color/
+amber
+amber/
+blue
+blue/
+brand
+brand/
+cash-green
+cash-green/
+constant
+constant/
+green
+green/
+grey
+grey/
+purple
+purple/
+red
+red/
+violet
+violet/

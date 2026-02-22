@@ -1,0 +1,127 @@
+# AI-Native Design Tokens Cube
+# Tokens defined by relationships and intent, not paths
+
+cube: AITokens
+sql: SELECT * FROM design_tokens
+
+description: >
+  AI-native design tokens. No path hierarchies - tokens are defined by
+  their relationships, intent, and semantic meaning.
+
+dimensions:
+  - name: id
+    sql: id
+    type: string
+    primary_key: true
+    
+  - name: label
+    sql: label
+    type: string
+    description: Human-readable name (e.g., "Brand Blue", "Heading XL")
+    
+  - name: type
+    sql: type
+    type: string
+    description: Token type (color, typography, size, spacing, etc.)
+    
+  - name: layer
+    sql: "metadata->>'layer'"
+    type: string
+    description: Visual layer (seed, base, semantic, component) - for UI only
+    
+  - name: deprecated
+    sql: "(metadata->>'deprecated')::boolean"
+    type: boolean
+    
+  - name: created_for
+    sql: "context->>'createdFor'"
+    type: string
+    description: What problem this token solves
+    
+  - name: brand_intent
+    sql: "context->>'brandIntent'"
+    type: string
+    description: What brand message this conveys
+    
+  - name: wcag_level
+    sql: "context->'accessibility'->>'wcagLevel'"
+    type: string
+    description: WCAG conformance level
+    
+  - name: modified_by
+    sql: "metadata->>'modifiedBy'"
+    type: string
+    description: Who/what last modified (human, ai, system)
+    
+  # Color-specific
+  - name: oklch_lightness
+    sql: "(colorScience->'oklch'->>'l')::float"
+    type: number
+    description: OKLCH lightness (0-100)
+    
+  - name: oklch_chroma
+    sql: "(colorScience->'oklch'->>'c')::float"
+    type: number
+    
+  - name: oklch_hue
+    sql: "(colorScience->'oklch'->>'h')::float"
+    type: number
+    
+  # Typography-specific
+  - name: font_family
+    sql: "typography->>'family'"
+    type: string
+    
+  - name: font_size
+    sql: "(typography->>'size')::float"
+    type: number
+    
+  - name: type_scale
+    sql: "typography->>'scale'"
+    type: string
+    description: Type scale category
+
+measures:
+  - name: count
+    type: count
+    
+  - name: deprecated_count
+    sql: "CASE WHEN (metadata->>'deprecated')::boolean THEN 1 ELSE 0 END"
+    type: sum
+    description: Number of deprecated tokens
+    
+  - name: ai_created_count
+    sql: "CASE WHEN metadata->>'modifiedBy' = 'ai' THEN 1 ELSE 0 END"
+    type: sum
+    description: Tokens created by AI
+    
+  - name: avg_lightness
+    sql: "(colorScience->'oklch'->>'l')::float"
+    type: avg
+    filters:
+      - sql: "type = 'color'"
+
+segments:
+  - name: colors
+    sql: "type = 'color'"
+    
+  - name: typography
+    sql: "type = 'typography'"
+    
+  - name: sizes
+    sql: "type = 'size' OR type = 'spacing'"
+    
+  - name: not_deprecated
+    sql: "(metadata->>'deprecated')::boolean IS NOT true"
+    
+  - name: wcag_aa_plus
+    sql: "context->'accessibility'->>'wcagLevel' IN ('AA', 'AAA')"
+    
+  - name: has_brand_intent
+    sql: "context->>'brandIntent' IS NOT NULL"
+
+joins:
+  - name: relationships
+    sql: "{AITokens.id} = {TokenRelationships.token_id}"
+    relationship: one_to_many
+

@@ -1,0 +1,83 @@
+# Brand Principles Cube
+# Brand qualities and principles that tokens express
+
+cube: BrandPrinciples
+sql: SELECT * FROM brand_principles
+
+description: >
+  Brand principles, qualities, and values.
+  Tokens EXPRESSES these through relationships.
+
+dimensions:
+  - name: id
+    sql: id
+    type: string
+    primary_key: true
+    
+  - name: name
+    sql: name
+    type: string
+    description: Principle name (e.g., "Trustworthy", "Energetic")
+    
+  - name: description
+    sql: description
+    type: string
+    
+  - name: category
+    sql: >
+      CASE 
+        WHEN name ILIKE '%trust%' OR name ILIKE '%reliable%' THEN 'trust'
+        WHEN name ILIKE '%energy%' OR name ILIKE '%dynamic%' THEN 'energy'
+        WHEN name ILIKE '%minimal%' OR name ILIKE '%simple%' THEN 'simplicity'
+        WHEN name ILIKE '%premium%' OR name ILIKE '%luxury%' THEN 'premium'
+        WHEN name ILIKE '%friendly%' OR name ILIKE '%warm%' THEN 'warmth'
+        ELSE 'other'
+      END
+    type: string
+    description: Principle category
+
+measures:
+  - name: count
+    type: count
+    
+  - name: tokens_expressing
+    sql: >
+      (SELECT COUNT(DISTINCT token_id) 
+       FROM token_relationships 
+       WHERE relationship_type = 'EXPRESSES' 
+       AND target_id = {BrandPrinciples.id})
+    type: number
+    description: Number of tokens expressing this principle
+    
+  - name: avg_expression_strength
+    sql: >
+      (SELECT AVG(strength) 
+       FROM token_relationships 
+       WHERE relationship_type = 'EXPRESSES' 
+       AND target_id = {BrandPrinciples.id})
+    type: number
+    description: Average expression strength
+
+segments:
+  - name: strongly_expressed
+    sql: >
+      EXISTS(
+        SELECT 1 FROM token_relationships 
+        WHERE relationship_type = 'EXPRESSES' 
+        AND target_id = {BrandPrinciples.id}
+        AND strength >= 0.8
+      )
+    description: Principles with strong token expressions
+    
+  - name: under_represented
+    sql: >
+      (SELECT COUNT(*) FROM token_relationships 
+       WHERE relationship_type = 'EXPRESSES' 
+       AND target_id = {BrandPrinciples.id}) < 3
+    description: Principles with few token expressions
+
+joins:
+  - name: relationships
+    sql: "{BrandPrinciples.id} = {TokenRelationships.target_id}"
+    relationship: one_to_many
+

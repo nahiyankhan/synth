@@ -1,0 +1,2 @@
+$ wc schema/tokens.cube.yaml
+168 536 4709 schema/tokens.cube.yaml

@@ -1,0 +1,107 @@
+# Token Dependencies Cube
+# Graph analysis for token relationships
+
+cube: TokenDependencies
+sql: >
+  SELECT 
+    t.id,
+    t.name as token_path,
+    t.layer as token_layer,
+    t.type as token_type,
+    d.value as dependency_id,
+    dt.name as dependency_path,
+    dt.layer as dependency_layer,
+    dt.type as dependency_type
+  FROM design_tokens t
+  CROSS JOIN LATERAL jsonb_array_elements_text(t.dependencies::jsonb) d(value)
+  LEFT JOIN design_tokens dt ON dt.id = d.value
+
+description: >
+  Token dependency relationships for graph analysis.
+  Shows which tokens depend on which other tokens.
+
+dimensions:
+  - name: token_id
+    sql: id
+    type: string
+    description: The token that has the dependency
+    
+  - name: token_path
+    sql: token_path
+    type: string
+    description: Path of the dependent token
+    
+  - name: token_layer
+    sql: token_layer
+    type: string
+    
+  - name: token_type
+    sql: token_type
+    type: string
+    
+  - name: dependency_id
+    sql: dependency_id
+    type: string
+    description: The token being depended upon
+    
+  - name: dependency_path
+    sql: dependency_path
+    type: string
+    description: Path of the dependency
+    
+  - name: dependency_layer
+    sql: dependency_layer
+    type: string
+    
+  - name: dependency_type
+    sql: dependency_type
+    type: string
+    
+  - name: cross_layer
+    sql: "CASE WHEN token_layer != dependency_layer THEN true ELSE false END"
+    type: boolean
+    description: Whether dependency crosses layers
+    
+  - name: cross_type
+    sql: "CASE WHEN token_type != dependency_type THEN true ELSE false END"
+    type: boolean
+    description: Whether dependency crosses types
+
+measures:
+  - name: count
+    type: count
+    description: Total number of dependencies
+    
+  - name: unique_tokens
+    sql: token_id
+    type: countDistinct
+    description: Number of tokens with dependencies
+    
+  - name: unique_dependencies
+    sql: dependency_id
+    type: countDistinct
+    description: Number of unique tokens being depended upon
+    
+  - name: avg_dependencies_per_token
+    type: avg
+    description: Average dependencies per token
+
+segments:
+  - name: primitive_to_utility
+    sql: "token_layer = 'utility' AND dependency_layer = 'primitive'"
+    description: Utility tokens referencing primitives
+    
+  - name: utility_to_composite
+    sql: "token_layer = 'composite' AND dependency_layer = 'utility'"
+    description: Composite tokens referencing utilities
+    
+  - name: cross_layer_dependencies
+    sql: "token_layer != dependency_layer"
+    description: Dependencies that cross layers
+    
+  - name: same_type_dependencies
+    sql: "token_type = dependency_type"
+    description: Dependencies within the same type
+
+joins: []
+

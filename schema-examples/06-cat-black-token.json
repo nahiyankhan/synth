@@ -1,0 +1,49 @@
+{
+  "id": "A1BaiFVXHbzZVKF2ylQns",
+  "name": "base.color.constant.black",
+  "layer": "primitive",
+  "type": "color",
+  "value": {
+    "light": "#000000",
+    "dark": "#000000"
+  },
+  "dependencies": [],
+  "dependents": [
+    "tgEhtUzIPMKPkCF_Od5tz",
+    "wZ-3oQDs3vynfwrazRnqQ",
+    "GuRgJ5fRDeigxyQ-l4R26",
+    "CuErFEraqyUPenlB2C03H",
+    "uLEU0sGzD2AaC01Tu4np6",
+    "jg55qtPZoLraVipafF6tC",
+    "87QDVLqD30Y93mg_-g10C",
+    "YjEEzEoDIZ-Jeps6d92Gz",
+    "sfcQrRWYZUsMskvAhHIBr",
+    "bCgpyxCnTh4gBFAZxovyD",
+    "0aKa3HDJbe8atPTNygTiv",
+    "OdRWjxjzI3FiqxdhTLf6N",
+    "e4da93iopHqy2mIfTXJ6W",
+    "6LW_h7IzJyz6aPN8P1kDY",
+    "HojmalS1apNmqETCa-BD_",
+    "jz7sTm0huy-ewcKstjPi3",
+    "BKhpzO93pGLTnNgsKeOL2",
+    "myYIIktFy-eg4yOR80IK-",
+    "dBvA2riGGDZtWgDrLPlIJ",
+    "fcZtX3zwofYkQ9VgsE74j",
+    "Wcqr-l2TOqRBswyAjA0_M",
+    "dxDfqUHEYhA92uF6NCr7-",
+    "JdodqNkBnFGbibVrW_5cz",
+    "UOMYjqZPqlyX8XG6REdsZ"
+  ],
+  "metadata": {
+    "isSpec": false,
+    "createdFrom": "import",
+    "colorScience": {
+      "oklch": {
+        "l": 0,
+        "c": 0,
+        "h": 0
+      },
+      "computed": true
+    }
+  }
+}

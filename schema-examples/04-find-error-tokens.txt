@@ -1,0 +1,5 @@
+$ find tokens/ -name "*error*"
+tokens/component/mobile/input/border/error.json
+tokens/component/mobile/input/icon/trailing/error.json
+tokens/component/mobile/input/icon/error.json
+tokens/component/mobile/input/helper/text/error.json

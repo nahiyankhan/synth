@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "design-language-agent": {
+      "command": "npm",
+      "args": ["run", "mcp"],
+      "cwd": "/REPLACE/WITH/YOUR/PATH/TO/design-language-agent",
+      "env": {}
+    }
+  }
+}
+
+
+

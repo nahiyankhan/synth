@@ -1,0 +1,20 @@
+{
+  "totalNodes": 836,
+  "byLayer": {
+    "primitive": 185,
+    "utility": 357,
+    "composite": 294
+  },
+  "byType": {
+    "color": 456,
+    "typography": 314,
+    "size": 12,
+    "other": 54
+  },
+  "referenceCount": 505,
+  "primitiveCount": 331,
+  "maxDepth": 3,
+  "circularDependencies": [],
+  "specsCount": 294,
+  "coreTokensCount": 542
+}

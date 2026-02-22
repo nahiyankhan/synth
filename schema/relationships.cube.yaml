@@ -1,0 +1,161 @@
+# Token Relationships Cube
+# The core semantic layer for AI-native design tokens
+# Relationships ARE the data model
+
+cube: TokenRelationships
+sql: >
+  SELECT 
+    t.id as token_id,
+    t.label as token_label,
+    t.type as token_type,
+    r.value->>'type' as relationship_type,
+    r.value->>'target' as target_id,
+    r.value->>'reason' as reason,
+    (r.value->>'strength')::float as strength,
+    r.value->>'since' as since_date,
+    (r.value->>'acknowledged')::boolean as acknowledged,
+    target.label as target_label,
+    target.type as target_type
+  FROM design_tokens t
+  CROSS JOIN LATERAL jsonb_array_elements(t.relationships::jsonb) r(value)
+  LEFT JOIN design_tokens target ON target.id = r.value->>'target'
+
+description: >
+  Core relationship graph for AI-native tokens.
+  Every edge has semantic meaning - this is how the AI reasons about the system.
+
+dimensions:
+  - name: token_id
+    sql: token_id
+    type: string
+    primary_key: true
+    description: Source token ID
+    
+  - name: token_label
+    sql: token_label
+    type: string
+    description: Human-readable token name
+    
+  - name: token_type
+    sql: token_type
+    type: string
+    description: Token type (color, typography, etc.)
+    
+  - name: relationship_type
+    sql: relationship_type
+    type: string
+    description: >
+      Type of relationship: DERIVES_FROM, EXPRESSES, CONSTRAINS, VIOLATES,
+      PREFERRED_FOR, DISALLOWED_IN, ALIASES, OVERRIDES, etc.
+    
+  - name: target_id
+    sql: target_id
+    type: string
+    description: Target of relationship (token, principle, constraint, context)
+    
+  - name: target_label
+    sql: target_label
+    type: string
+    description: Human-readable target name
+    
+  - name: reason
+    sql: reason
+    type: string
+    description: Why this relationship exists
+    
+  - name: strength
+    sql: strength
+    type: number
+    description: Relationship strength (0.0 to 1.0) for weighted reasoning
+    
+  - name: acknowledged
+    sql: acknowledged
+    type: boolean
+    description: Whether a violation is acknowledged
+
+measures:
+  - name: count
+    type: count
+    description: Total number of relationships
+    
+  - name: avg_strength
+    sql: strength
+    type: avg
+    description: Average relationship strength
+    
+  - name: unique_tokens
+    sql: token_id
+    type: countDistinct
+    description: Number of tokens with relationships
+    
+  - name: unique_targets
+    sql: target_id
+    type: countDistinct
+    description: Number of unique relationship targets
+
+segments:
+  # Origin & Derivation
+  - name: derived_tokens
+    sql: "relationship_type = 'DERIVES_FROM'"
+    description: Tokens derived from others (e.g., scales from seeds)
+    
+  - name: aliases
+    sql: "relationship_type = 'ALIASES'"
+    description: Alias relationships
+    
+  - name: overrides
+    sql: "relationship_type = 'OVERRIDES'"
+    description: Tokens that override others
+  
+  # Constraints & Rules
+  - name: has_constraints
+    sql: "relationship_type = 'CONSTRAINS'"
+    description: Tokens with constraints
+    
+  - name: violations
+    sql: "relationship_type = 'VIOLATES'"
+    description: Explicit rule violations
+    
+  - name: acknowledged_violations
+    sql: "relationship_type = 'VIOLATES' AND acknowledged = true"
+    description: Known, accepted violations
+  
+  # Semantic Meaning
+  - name: expresses_brand
+    sql: "relationship_type = 'EXPRESSES'"
+    description: Tokens expressing brand principles
+    
+  - name: strong_brand_expression
+    sql: "relationship_type = 'EXPRESSES' AND strength >= 0.8"
+    description: Strong brand principle expressions
+    
+  - name: preferred_usage
+    sql: "relationship_type = 'PREFERRED_FOR'"
+    description: Tokens with preferred contexts
+    
+  - name: disallowed_usage
+    sql: "relationship_type = 'DISALLOWED_IN'"
+    description: Tokens with disallowed contexts
+  
+  # Component Connections
+  - name: used_by_components
+    sql: "relationship_type = 'USED_BY'"
+    description: Tokens used by components
+    
+  - name: high_impact
+    sql: "relationship_type = 'IMPACTS'"
+    description: High-impact tokens
+
+joins: []
+
+pre_aggregations:
+  - name: relationship_summary
+    measures:
+      - count
+      - unique_tokens
+    dimensions:
+      - relationship_type
+    time_dimension: since_date
+    granularity: day
+    partition_granularity: month
+

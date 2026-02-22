@@ -1,0 +1,10 @@
+$ grep -r primary tokens/
+tokens/component/mobile/modal/button/primary/background/pressed.json:3:"name": "component.mobile.modal.button.primary.background.pressed",
+tokens/component/mobile/modal/button/primary/text/default.json:3:"name": "component.mobile.modal.button.primary.text.default",
+tokens/component/mobile/modal/button/primary/text/disabled.json:3:"name": "component.mobile.modal.button.primary.text.disabled",
+tokens/component/mobile/modal/button/primary/destructive/text/default.json:3:"name": "component.mobile.modal.button.primary.destructive.text.default",
+tokens/component/mobile/modal/button/primary/destructive/text/pressed.json:3:"name": "component.mobile.modal.button.primary.destructive.text.pressed",
+tokens/component/mobile/modal/button/primary/destructive/text/disabled.json:3:"name": "component.mobile.modal.button.primary.destructive.text.disabled",
+tokens/primary-foreground.json:3:"name": "primary-foreground",
+tokens/primary.json:3:"name": "primary",
+tokens/destructive-foreground.json:17:"aliasOf": "primary-foreground"

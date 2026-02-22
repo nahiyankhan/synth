@@ -1,0 +1,58 @@
+/**
+ * Tailwind v4 Theme Configuration
+ * Auto-generated from Design Language Agent
+ * 
+ * This CSS file remaps Tailwind's default theme to your design system tokens.
+ * Import this file in your main CSS after @import "tailwindcss";
+ */
+
+@theme {
+  /* ===================================
+   * Colors
+   * =================================== */
+
+  /* Light Mode Colors */
+  --color-foreground: #0F172A;
+  --color-background: #FFFFFF;
+  --color-blue-500: #3B82F6;
+
+  /* ===================================
+   * Spacing
+   * =================================== */
+
+  --spacing-4: 16px;
+
+  /* Typography - Font Sizes */
+  --font-size-lg: 18px;
+}
+
+@theme dark {
+  /* ===================================
+   * Dark Mode Color Overrides
+   * =================================== */
+
+  --color-foreground: #F8FAFC;
+  --color-background: #0F172A;
+  --color-blue-500: #60A5FA;
+}
+
+/* ===================================
+ * Usage Examples
+ * ===================================
+ * 
+ * Use these remapped classes in your HTML:
+ * 
+ * Colors:
+ *   <div class="bg-primary text-foreground">
+ *   <div class="border border-border">
+ * 
+ * Spacing:
+ *   <div class="p-4 m-2">
+ *   <div class="space-y-4">
+ * 
+ * Typography:
+ *   <h1 class="font-sans text-lg font-bold">
+ * 
+ * The classes work exactly like default Tailwind,
+ * but use your design system values!
+ */

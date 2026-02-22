@@ -1,0 +1,32 @@
+/**
+ * Tailwind Utilities with Design System Tokens
+ * Auto-generated from Design Language Agent
+ * 
+ * These utilities let you use design tokens directly with Tailwind syntax.
+ */
+
+@layer utilities {
+  .text-token-semantic-color-text-primary { color: #0F172A; }
+  .bg-token-semantic-color-text-primary { background-color: #0F172A; }
+  .border-token-semantic-color-text-primary { border-color: #0F172A; }
+  .text-token-semantic-color-background-app { color: #FFFFFF; }
+  .bg-token-semantic-color-background-app { background-color: #FFFFFF; }
+  .border-token-semantic-color-background-app { border-color: #FFFFFF; }
+  .text-token-base-color-blue-500 { color: #3B82F6; }
+  .bg-token-base-color-blue-500 { background-color: #3B82F6; }
+  .border-token-base-color-blue-500 { border-color: #3B82F6; }
+}
+
+@layer utilities {
+  @media (prefers-color-scheme: dark) {
+    .text-token-semantic-color-text-primary { color: #F8FAFC; }
+    .bg-token-semantic-color-text-primary { background-color: #F8FAFC; }
+    .border-token-semantic-color-text-primary { border-color: #F8FAFC; }
+    .text-token-semantic-color-background-app { color: #0F172A; }
+    .bg-token-semantic-color-background-app { background-color: #0F172A; }
+    .border-token-semantic-color-background-app { border-color: #0F172A; }
+    .text-token-base-color-blue-500 { color: #60A5FA; }
+    .bg-token-base-color-blue-500 { background-color: #60A5FA; }
+    .border-token-base-color-blue-500 { border-color: #60A5FA; }
+  }
+}

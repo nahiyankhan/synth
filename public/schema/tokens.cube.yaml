@@ -1,0 +1,167 @@
+# Design System Tokens Cube
+# Main semantic layer for all design tokens
+# Based on Cube.js schema format
+
+cube: Tokens
+sql: SELECT * FROM design_tokens
+
+description: >
+  Core design tokens including colors, typography, spacing, and more.
+  Organized by layer (primitive, utility, composite) and type.
+
+dimensions:
+  - name: id
+    sql: id
+    type: string
+    primary_key: true
+    description: Unique token identifier
+
+  - name: path
+    sql: name
+    type: string
+    description: Token path (e.g., base.color.primary)
+    
+  - name: layer
+    sql: layer
+    type: string
+    description: Token layer (primitive, utility, composite)
+    
+  - name: type
+    sql: type
+    type: string
+    description: Token type (color, typography, size, spacing, other)
+    
+  - name: value_light
+    sql: "CASE WHEN jsonb_typeof(value) = 'object' THEN value->>'light' ELSE value::text END"
+    type: string
+    description: Token value in light mode
+    
+  - name: value_dark
+    sql: "CASE WHEN jsonb_typeof(value) = 'object' THEN value->>'dark' ELSE value::text END"
+    type: string
+    description: Token value in dark mode
+    
+  - name: is_reference
+    sql: "CASE WHEN value::text LIKE '{%}' THEN true ELSE false END"
+    type: boolean
+    description: Whether the token references another token
+    
+  - name: is_spec
+    sql: "metadata->>'isSpec'"
+    type: boolean
+    description: Whether this is a spec token (composite layer)
+    
+  - name: is_seed
+    sql: "metadata->>'isSeed'"
+    type: boolean
+    description: Whether this is a seed color
+    
+  - name: created_from
+    sql: "metadata->>'createdFrom'"
+    type: string
+    description: How the token was created (voice, manual, import)
+    
+  - name: deprecated
+    sql: "metadata->>'deprecated'"
+    type: boolean
+    description: Whether the token is deprecated
+    
+  - name: description
+    sql: "metadata->>'description'"
+    type: string
+    description: Token description
+    
+  - name: semantic_role
+    sql: >
+      CASE 
+        WHEN name LIKE '%primary%' THEN 'primary'
+        WHEN name LIKE '%secondary%' THEN 'secondary'
+        WHEN name LIKE '%accent%' THEN 'accent'
+        WHEN name LIKE '%background%' OR name LIKE '%bg%' THEN 'background'
+        WHEN name LIKE '%foreground%' OR name LIKE '%text%' THEN 'text'
+        WHEN name LIKE '%surface%' THEN 'surface'
+        WHEN name LIKE '%border%' THEN 'border'
+        WHEN name LIKE '%error%' THEN 'error'
+        WHEN name LIKE '%success%' THEN 'success'
+        WHEN name LIKE '%warning%' THEN 'warning'
+        ELSE 'other'
+      END
+    type: string
+    description: Inferred semantic role from token name
+
+measures:
+  - name: count
+    type: count
+    description: Total number of tokens
+    
+  - name: dependency_count
+    sql: "jsonb_array_length(dependencies::jsonb)"
+    type: sum
+    description: Total number of dependencies
+    
+  - name: dependent_count
+    sql: "jsonb_array_length(dependents::jsonb)"
+    type: sum
+    description: Total number of dependents
+    
+  - name: avg_dependencies
+    sql: "jsonb_array_length(dependencies::jsonb)"
+    type: avg
+    description: Average dependencies per token
+    
+  - name: avg_dependents
+    sql: "jsonb_array_length(dependents::jsonb)"
+    type: avg
+    description: Average dependents per token
+    
+  - name: max_dependencies
+    sql: "jsonb_array_length(dependencies::jsonb)"
+    type: max
+    description: Maximum dependencies for a single token
+    
+  - name: unused_tokens
+    sql: "CASE WHEN jsonb_array_length(dependents::jsonb) = 0 THEN 1 ELSE 0 END"
+    type: sum
+    description: Number of tokens with no dependents
+
+segments:
+  - name: primitives
+    sql: "layer = 'primitive'"
+    description: Primitive layer tokens only
+    
+  - name: utilities
+    sql: "layer = 'utility'"
+    description: Utility layer tokens only
+    
+  - name: composites
+    sql: "layer = 'composite'"
+    description: Composite layer tokens only
+    
+  - name: colors
+    sql: "type = 'color'"
+    description: Color tokens only
+    
+  - name: typography
+    sql: "type = 'typography'"
+    description: Typography tokens only
+    
+  - name: with_dependents
+    sql: "jsonb_array_length(dependents::jsonb) > 0"
+    description: Tokens that are used by other tokens
+    
+  - name: with_dependencies
+    sql: "jsonb_array_length(dependencies::jsonb) > 0"
+    description: Tokens that reference other tokens
+    
+  - name: isolated
+    sql: "jsonb_array_length(dependencies::jsonb) = 0 AND jsonb_array_length(dependents::jsonb) = 0"
+    description: Tokens with no dependencies or dependents
+    
+  - name: deprecated_tokens
+    sql: "metadata->>'deprecated' = 'true'"
+    description: Deprecated tokens
+
+joins: []
+
+pre_aggregations: []
+

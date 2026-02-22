@@ -1,0 +1,100 @@
+# Usage Contexts Cube
+# Contexts where tokens are preferred or disallowed
+
+cube: UsageContexts
+sql: SELECT * FROM usage_contexts
+
+description: >
+  Usage contexts (e.g., "primary-action", "error-state", "high-emphasis").
+  Tokens have PREFERRED_FOR or DISALLOWED_IN relationships to these.
+
+dimensions:
+  - name: id
+    sql: id
+    type: string
+    primary_key: true
+    
+  - name: name
+    sql: name
+    type: string
+    description: Context name (e.g., "primary-action", "error-state")
+    
+  - name: description
+    sql: description
+    type: string
+    
+  - name: category
+    sql: >
+      CASE 
+        WHEN name ILIKE '%action%' OR name ILIKE '%cta%' THEN 'action'
+        WHEN name ILIKE '%error%' THEN 'error'
+        WHEN name ILIKE '%success%' THEN 'success'
+        WHEN name ILIKE '%warning%' THEN 'warning'
+        WHEN name ILIKE '%emphasis%' THEN 'emphasis'
+        WHEN name ILIKE '%surface%' OR name ILIKE '%background%' THEN 'surface'
+        ELSE 'other'
+      END
+    type: string
+    description: Context category
+
+measures:
+  - name: count
+    type: count
+    
+  - name: preferred_tokens
+    sql: >
+      (SELECT COUNT(DISTINCT token_id) 
+       FROM token_relationships 
+       WHERE relationship_type = 'PREFERRED_FOR' 
+       AND target_id = {UsageContexts.id})
+    type: number
+    description: Number of tokens preferred for this context
+    
+  - name: disallowed_tokens
+    sql: >
+      (SELECT COUNT(DISTINCT token_id) 
+       FROM token_relationships 
+       WHERE relationship_type = 'DISALLOWED_IN' 
+       AND target_id = {UsageContexts.id})
+    type: number
+    description: Number of tokens disallowed in this context
+    
+  - name: net_tokens
+    sql: >
+      (SELECT COUNT(DISTINCT token_id) 
+       FROM token_relationships 
+       WHERE relationship_type IN ('PREFERRED_FOR', 'DISALLOWED_IN')
+       AND target_id = {UsageContexts.id})
+    type: number
+    description: Total tokens with rules for this context
+
+segments:
+  - name: has_preferences
+    sql: >
+      EXISTS(
+        SELECT 1 FROM token_relationships 
+        WHERE relationship_type = 'PREFERRED_FOR' 
+        AND target_id = {UsageContexts.id}
+      )
+    
+  - name: has_restrictions
+    sql: >
+      EXISTS(
+        SELECT 1 FROM token_relationships 
+        WHERE relationship_type = 'DISALLOWED_IN' 
+        AND target_id = {UsageContexts.id}
+      )
+    
+  - name: undefined_contexts
+    sql: >
+      NOT EXISTS(
+        SELECT 1 FROM token_relationships 
+        WHERE target_id = {UsageContexts.id}
+      )
+    description: Contexts with no token rules yet
+
+joins:
+  - name: relationships
+    sql: "{UsageContexts.id} = {TokenRelationships.target_id}"
+    relationship: one_to_many
+

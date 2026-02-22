@@ -1,0 +1,111 @@
+# Design Constraints Cube
+# Rules and constraints that tokens must follow
+
+cube: DesignConstraints
+sql: SELECT * FROM design_constraints
+
+description: >
+  Design constraints and rules (accessibility, brand guidelines, technical limits).
+  Tokens have CONSTRAINS or VIOLATES relationships to these.
+
+dimensions:
+  - name: id
+    sql: id
+    type: string
+    primary_key: true
+    
+  - name: name
+    sql: name
+    type: string
+    description: Constraint name (e.g., "wcag-aa-contrast", "brand-minimal-palette")
+    
+  - name: type
+    sql: type
+    type: string
+    description: Constraint type (accessibility, brand, technical, ux)
+    
+  - name: rule
+    sql: rule
+    type: string
+    description: The actual rule or requirement
+    
+  - name: required
+    sql: required
+    type: boolean
+    description: Whether this constraint is mandatory
+    
+  - name: testable
+    sql: testable
+    type: boolean
+    description: Whether this constraint can be automatically tested
+
+measures:
+  - name: count
+    type: count
+    
+  - name: required_count
+    sql: "CASE WHEN required THEN 1 ELSE 0 END"
+    type: sum
+    description: Number of required constraints
+    
+  - name: tokens_passing
+    sql: >
+      (SELECT COUNT(DISTINCT token_id) 
+       FROM token_relationships 
+       WHERE relationship_type = 'CONSTRAINS' 
+       AND target_id = {DesignConstraints.id})
+    type: number
+    description: Tokens that pass this constraint
+    
+  - name: tokens_violating
+    sql: >
+      (SELECT COUNT(DISTINCT token_id) 
+       FROM token_relationships 
+       WHERE relationship_type = 'VIOLATES' 
+       AND target_id = {DesignConstraints.id})
+    type: number
+    description: Tokens that violate this constraint
+    
+  - name: unacknowledged_violations
+    sql: >
+      (SELECT COUNT(DISTINCT token_id) 
+       FROM token_relationships 
+       WHERE relationship_type = 'VIOLATES' 
+       AND target_id = {DesignConstraints.id}
+       AND acknowledged = false)
+    type: number
+    description: Violations that haven't been acknowledged
+
+segments:
+  - name: accessibility_constraints
+    sql: "type = 'accessibility'"
+    
+  - name: brand_constraints
+    sql: "type = 'brand'"
+    
+  - name: required_constraints
+    sql: "required = true"
+    
+  - name: has_violations
+    sql: >
+      EXISTS(
+        SELECT 1 FROM token_relationships 
+        WHERE relationship_type = 'VIOLATES' 
+        AND target_id = {DesignConstraints.id}
+      )
+    
+  - name: has_unacknowledged_violations
+    sql: >
+      EXISTS(
+        SELECT 1 FROM token_relationships 
+        WHERE relationship_type = 'VIOLATES' 
+        AND target_id = {DesignConstraints.id}
+        AND acknowledged = false
+      )
+    description: Constraints with unacknowledged violations
+
+joins:
+  - name: relationships
+    sql: "{DesignConstraints.id} = {TokenRelationships.target_id}"
+    relationship: one_to_many
+
