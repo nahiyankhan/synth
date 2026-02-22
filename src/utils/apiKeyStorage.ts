@@ -6,11 +6,12 @@
  * For React components, use the useApiKey hook instead.
  */
 
-export type ApiKeyType = 'gemini' | 'claude';
+export type ApiKeyType = 'gemini' | 'claude' | 'openai';
 
 const API_KEY_STORAGE_KEYS: Record<ApiKeyType, string> = {
   gemini: 'gemini_api_key',
   claude: 'claude_api_key',
+  openai: 'openai_api_key',
 };
 
 /**
@@ -65,6 +66,12 @@ export function validateApiKeyFormat(type: ApiKeyType, key: string): { valid: bo
         return { valid: false, error: 'Claude API key appears invalid' };
       }
       break;
+    case 'openai':
+      // OpenAI keys typically start with "sk-"
+      if (!trimmedKey.startsWith('sk-') && trimmedKey.length < 20) {
+        return { valid: false, error: 'OpenAI API key appears invalid' };
+      }
+      break;
   }
 
   return { valid: true };
@@ -81,15 +88,34 @@ export function getPrimaryApiKey(): string | null {
  * Check if any API key is configured
  */
 export function hasAnyApiKey(): boolean {
-  return hasApiKey('gemini') || hasApiKey('claude');
+  return hasApiKey('gemini') || hasApiKey('claude') || hasApiKey('openai');
 }
 
 /**
  * Get all configured API keys
  */
-export function getConfiguredKeys(): { gemini: boolean; claude: boolean } {
+export function getConfiguredKeys(): { gemini: boolean; claude: boolean; openai: boolean } {
   return {
     gemini: hasApiKey('gemini'),
     claude: hasApiKey('claude'),
+    openai: hasApiKey('openai'),
   };
+}
+
+/**
+ * Get API key headers for fetch requests
+ * Returns headers object with X-*-Key headers for configured keys
+ */
+export function getApiKeyHeaders(): Record<string, string> {
+  const headers: Record<string, string> = {};
+
+  const geminiKey = getApiKey('gemini');
+  const claudeKey = getApiKey('claude');
+  const openaiKey = getApiKey('openai');
+
+  if (geminiKey) headers['X-Gemini-Key'] = geminiKey;
+  if (claudeKey) headers['X-Anthropic-Key'] = claudeKey;
+  if (openaiKey) headers['X-OpenAI-Key'] = openaiKey;
+
+  return headers;
 }

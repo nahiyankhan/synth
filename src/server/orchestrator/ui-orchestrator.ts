@@ -7,7 +7,7 @@
  */
 
 import { streamText } from 'ai';
-import { anthropic } from '@ai-sdk/anthropic';
+import { createAnthropic } from '@ai-sdk/anthropic';
 import type { UITree, UIElement } from '@json-render/core';
 
 // =============================================================================
@@ -148,13 +148,21 @@ function parseJSONL(content: string): UITree {
 
 export class UIOrchestrator {
   private model: string;
+  private apiKey: string;
 
-  constructor() {
-    const apiKey = process.env.ANTHROPIC_API_KEY;
-    if (!apiKey) {
-      throw new Error('ANTHROPIC_API_KEY environment variable is required');
+  /**
+   * Create a new UIOrchestrator
+   * @param apiKey - Anthropic API key (required)
+   * @param model - Optional model name override
+   */
+  constructor(apiKey?: string, model?: string) {
+    // Support both direct API key and environment variable fallback
+    const resolvedKey = apiKey || process.env.ANTHROPIC_API_KEY;
+    if (!resolvedKey) {
+      throw new Error('Anthropic API key is required for UI generation');
     }
-    this.model = process.env.ANTHROPIC_MODEL || DEFAULT_MODEL;
+    this.apiKey = resolvedKey;
+    this.model = model || process.env.ANTHROPIC_MODEL || DEFAULT_MODEL;
   }
 
   /**
@@ -174,8 +182,11 @@ export class UIOrchestrator {
         userPrompt = `${tokenContext}\n\nUSER REQUEST: ${prompt}`;
       }
 
+      // Create Anthropic client with the provided API key
+      const anthropicClient = createAnthropic({ apiKey: this.apiKey });
+
       const result = streamText({
-        model: anthropic(this.model),
+        model: anthropicClient(this.model),
         system: SYSTEM_PROMPT,
         prompt: userPrompt,
         temperature: 0.7,

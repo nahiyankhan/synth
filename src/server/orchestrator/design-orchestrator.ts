@@ -364,17 +364,23 @@ export class DesignOrchestrator {
   private openaiModel: ReturnType<ReturnType<typeof createOpenAI>>;
   private anthropicModel: ReturnType<ReturnType<typeof createAnthropic>>;
 
-  constructor() {
-    const openaiApiKey = process.env.OPENAI_API_KEY || "";
+  /**
+   * Create a new DesignOrchestrator
+   * @param openaiApiKey - OpenAI API key (required)
+   * @param anthropicApiKey - Anthropic API key (optional, for future use)
+   */
+  constructor(openaiApiKey?: string, anthropicApiKey?: string) {
+    // Support both direct API key and environment variable fallback
+    const resolvedOpenaiKey = openaiApiKey || process.env.OPENAI_API_KEY || "";
 
-    if (!openaiApiKey) {
-      throw new Error("OPENAI_API_KEY must be configured in your .env file");
+    if (!resolvedOpenaiKey) {
+      throw new Error("OpenAI API key is required for design generation");
     }
 
-    const openaiClient = createOpenAI({ apiKey: openaiApiKey });
+    const openaiClient = createOpenAI({ apiKey: resolvedOpenaiKey });
     // Keep anthropic client for future use (currently unused)
     const anthropicClient = createAnthropic({
-      apiKey: process.env.ANTHROPIC_API_KEY || "dummy",
+      apiKey: anthropicApiKey || process.env.ANTHROPIC_API_KEY || "dummy",
     });
 
     // Use gpt-5.2 (latest flagship model)

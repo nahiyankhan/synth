@@ -13,6 +13,7 @@ import { useState, useCallback } from 'react';
 import type { UITree } from '@json-render/core';
 import type { StyleGraph } from '../core/StyleGraph';
 import { generateTokenPromptSection } from '../lib/token-prompt-generator';
+import { getApiKeyHeaders } from '../utils/apiKeyStorage';
 
 // =============================================================================
 // Types
@@ -79,9 +80,12 @@ export function useUIGeneration(): UseUIGenerationReturn {
     });
 
     try {
-      const response = await fetch('/api/generate-ui', {
+      const response = await fetch('/api/generate/ui', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...getApiKeyHeaders(),
+        },
         body: JSON.stringify({ prompt, tokenContext }),
       });
 

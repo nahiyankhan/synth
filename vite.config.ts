@@ -50,36 +50,25 @@ function copyDataPlugin() {
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, ".", "");
-  
-  // Set environment variables for server-side code (middleware)
-  if (env.OPENAI_API_KEY) process.env.OPENAI_API_KEY = env.OPENAI_API_KEY;
-  if (env.ANTHROPIC_API_KEY) process.env.ANTHROPIC_API_KEY = env.ANTHROPIC_API_KEY;
-  if (env.GEMINI_API_KEY) process.env.GEMINI_API_KEY = env.GEMINI_API_KEY;
-  
+
   return {
     server: {
       port: 3000,
       host: "0.0.0.0",
+      // Proxy API requests to the Hono server in development
+      proxy: {
+        "/api": {
+          target: "http://localhost:3001",
+          changeOrigin: true,
+        },
+      },
     },
     plugins: [
       copyDataPlugin(),
       react(),
       tailwindcss(),
-      {
-        name: 'api-middleware',
-        async configureServer(server) {
-          // Import and register API middleware
-          const { createApiMiddleware } = await import('./src/server/api.ts');
-          server.middlewares.use(createApiMiddleware());
-        },
-      },
     ],
-    define: {
-      "process.env.API_KEY": JSON.stringify(env.GEMINI_API_KEY),
-      "process.env.GEMINI_API_KEY": JSON.stringify(env.GEMINI_API_KEY),
-      "process.env.OPENAI_API_KEY": JSON.stringify(env.OPENAI_API_KEY),
-      "process.env.ANTHROPIC_API_KEY": JSON.stringify(env.ANTHROPIC_API_KEY),
-    },
+    // No API keys exposed to client - keys are passed via headers from localStorage
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "./src"),
