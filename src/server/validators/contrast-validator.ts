@@ -12,7 +12,7 @@
 
 import { wcagContrast } from 'culori';
 import { TAILWIND_STEPS, type ColorSystemOutput, type TailwindStep, type ColorScale11 } from '@/types/tailwindPalette';
-import { toKebabCase } from '@/lib/utils/string-utils';
+import { toKebabCase } from '@/toolCalls/lib/utils/string-utils';
 
 // =============================================================================
 // Types

@@ -4,7 +4,7 @@
  * Shared utilities for generating CSS custom properties and blocks.
  */
 
-import { toKebabCase } from "@/lib/utils/string-utils";
+import { toKebabCase } from "@/toolCalls/lib/utils/string-utils";
 
 export interface CSSVariableOptions {
   /** Indentation prefix (default: "  ") */

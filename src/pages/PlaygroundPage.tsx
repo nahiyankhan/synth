@@ -16,8 +16,8 @@ import { useNavigate } from 'react-router-dom';
 import { Renderer, JSONUIProvider, DataProvider } from '@json-render/react';
 import type { UITree } from '@json-render/core';
 import { useUIGeneration } from '@/hooks/useUIGeneration';
-import { componentRegistry, FallbackComponent } from '@/lib/json-render';
-import { TokenProvider } from '@/lib/token-context';
+import { componentRegistry, FallbackComponent } from '@/toolCalls/lib/json-render';
+import { TokenProvider } from '@/toolCalls/lib/token-context';
 import { useDesignLanguage } from '@/context/DesignLanguageContext';
 import { useDesignLanguageLoader } from '@/hooks/useDesignLanguageLoader';
 

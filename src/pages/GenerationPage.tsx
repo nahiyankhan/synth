@@ -1,17 +1,14 @@
 /**
- * GenerationPage - Dedicated page for design system generation
+ * GenerationPage - Circular generation experience
  *
- * Handles the full generation flow including prompt input, phase visualization,
- * and navigation to editor after completion.
+ * Full-screen circular UI for design system generation.
+ * Auto-starts generation if prompt is passed via router state.
  */
 
-import React, { useState, useCallback, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { GenerationPromptView } from "@/components/GenerationPromptView";
-import { GenerationErrorBoundary } from "@/components/GenerationErrorBoundary";
-import { EditorLayout } from "@/components/layouts/EditorLayout";
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { CircularGenerationView } from "@/components/CircularGenerationView";
 import { useApp } from "@/context/AppContext";
-import { useToolCall } from "@/context/ToolCallContext";
 import { useDesignLanguage } from "@/context/DesignLanguageContext";
 import { useDesignGeneration } from "@/hooks/useDesignGeneration";
 import { AppState } from "@/types/app";
@@ -19,8 +16,9 @@ import { ToolRegistryAdapter } from "@/services/ToolRegistryAdapter";
 
 export const GenerationPage: React.FC = () => {
   const navigate = useNavigate();
-  const { appState, setAppState, addLog } = useApp();
-  const { currentEvent, previousEvent } = useToolCall();
+  const location = useLocation();
+  const { setAppState, addLog } = useApp();
+  const hasStartedRef = useRef(false);
   const [isVisible, setIsVisible] = useState(false);
 
   const {
@@ -31,36 +29,29 @@ export const GenerationPage: React.FC = () => {
     setFilteredNodes,
   } = useDesignLanguage();
 
-  // Fade in effect on mount
+  // Get prompt from router state (passed from LandingPage)
+  const initialPrompt = (location.state as { prompt?: string })?.prompt;
+
+  // Fade in on mount
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
   // Design generation hook
-  const {
-    status: generationStatus,
-    generate,
-    cancel,
-  } = useDesignGeneration({
+  const { status, generate, cancel } = useDesignGeneration({
     onComplete: (languageId) => {
-      try {
-        console.log("Generation complete! Language ID:", languageId);
-        addLog("Design language generated successfully");
-        setSelectedLanguage(languageId);
-        setAppState(AppState.IDLE);
-        // Delay navigation to let user see the completed generation results
-        setTimeout(() => {
-          navigate(`/editor?language=${languageId}`, { replace: true });
-        }, 3000);
-      } catch (error) {
-        console.error("Error in onComplete:", error);
-        addLog(
-          `Error after generation: ${
-            error instanceof Error ? error.message : "Unknown error"
-          }`
-        );
-        setAppState(AppState.ERROR);
-      }
+      console.log("Generation complete! Language ID:", languageId);
+      addLog("Design language generated successfully");
+      setSelectedLanguage(languageId);
+      setAppState(AppState.IDLE);
+
+      // Navigate to editor after a brief delay to show success
+      setTimeout(() => {
+        navigate(`/editor?language=${languageId}`, {
+          replace: true,
+          viewTransition: true,
+        });
+      }, 2000);
     },
     onError: (error) => {
       console.error("Generation error:", error);
@@ -77,36 +68,51 @@ export const GenerationPage: React.FC = () => {
     },
   });
 
-  const handleExecutePrompt = useCallback(
-    async (prompt: string) => {
-      generate(prompt);
-    },
-    [generate]
-  );
+  // Auto-start generation if prompt provided
+  // Note: Only attempt once - don't retry on error
+  useEffect(() => {
+    if (initialPrompt && !hasStartedRef.current) {
+      hasStartedRef.current = true;
+      console.log("Auto-starting generation with prompt:", initialPrompt);
+      generate(initialPrompt);
+    }
+  }, [initialPrompt, generate]);
 
-  const segments = [
-    { label: "home", href: "/" },
-    { label: "create new" },
-  ];
+  // Handle back navigation
+  const handleBack = () => {
+    if (status.isGenerating) {
+      cancel();
+    }
+    navigate("/", { viewTransition: true });
+  };
 
   return (
-    <EditorLayout
-      segments={segments}
-      isVisible={isVisible}
-      dark
-      currentEvent={currentEvent}
-      previousEvent={previousEvent}
-      onExecutePrompt={handleExecutePrompt}
-      isProcessing={generationStatus.isGenerating}
-      currentView="generate"
+    <div
+      className={`min-h-screen w-full bg-cream-100 transition-opacity duration-500 ${
+        isVisible ? "opacity-100" : "opacity-0"
+      }`}
     >
-      <GenerationErrorBoundary onRetry={cancel}>
-        <GenerationPromptView
-          status={generationStatus}
-          onSubmitPrompt={generate}
-          isVoiceActive={false}
-        />
-      </GenerationErrorBoundary>
-    </EditorLayout>
+      {/* Back button */}
+      <div className="fixed top-6 left-6 z-10">
+        <button
+          onClick={handleBack}
+          className="px-4 py-2 text-sm text-cream-600 hover:text-cream-800 transition-colors"
+        >
+          {status.isGenerating ? "Cancel" : "Back"}
+        </button>
+      </div>
+
+      {/* Main content */}
+      <CircularGenerationView status={status} />
+
+      {/* Prompt display */}
+      {initialPrompt && (
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 max-w-md">
+          <p className="text-sm text-cream-500 text-center truncate">
+            "{initialPrompt}"
+          </p>
+        </div>
+      )}
+    </div>
   );
 };

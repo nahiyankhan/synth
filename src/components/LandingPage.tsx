@@ -165,14 +165,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({
 
   return (
     <div
-      className={`min-h-screen w-full bg-cream-100 transition-opacity duration-300 ${
+      className={`h-screen w-full bg-cream-100 overflow-hidden transition-opacity duration-300 ${
         isTransitioning ? "opacity-0" : "opacity-100"
       }`}
     >
       {/* Centered orbital layout */}
-      <div className="h-screen w-full flex items-center justify-center">
-        <div className="relative">
-          {/* Center: AISignal + Create/Close button */}
+      <div className="relative h-full w-full">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          {/* Center: AISignal + Create/Close button or Chat input */}
           <div className="relative flex items-center justify-center">
             <div
               className="text-cream-400"
@@ -185,22 +185,50 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               />
             </div>
             <div className="absolute inset-0 flex items-center justify-center">
+              {/* Plus button - fades out */}
               <button
                 onClick={handleToggleCreateMode}
-                className={`w-14 h-14 rounded-full flex items-center justify-center transition-all ${
-                  isCreateMode
-                    ? "bg-cream-300 hover:bg-cream-400"
-                    : "bg-cream-800 hover:bg-cream-700"
+                className={`absolute w-14 h-14 rounded-full bg-cream-800 hover:bg-cream-700 flex items-center justify-center transition-all duration-300 ${
+                  isCreateMode ? "opacity-0 scale-90 pointer-events-none" : "opacity-100 scale-100"
                 }`}
                 style={{ viewTransitionName: "center-action" }}
-                title={isCreateMode ? "Cancel" : "Create new design language"}
+                title="Create new design language"
               >
-                {isCreateMode ? (
-                  <X className="w-6 h-6 text-cream-700" />
-                ) : (
-                  <Plus className="w-6 h-6 text-cream-100" />
-                )}
+                <Plus className="w-6 h-6 text-cream-100" />
               </button>
+
+              {/* Chat input bar - blur fades in */}
+              <div
+                className={`absolute flex items-center gap-2 bg-white rounded-full shadow-lg border border-cream-200 pl-5 pr-2 py-2 transition-all duration-300 ${
+                  isCreateMode
+                    ? "opacity-100 blur-0 scale-100"
+                    : "opacity-0 blur-sm scale-95 pointer-events-none"
+                }`}
+              >
+                <input
+                  ref={inputRef}
+                  type="text"
+                  value={prompt}
+                  onChange={(e) => setPrompt(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder="Describe your design language..."
+                  className="w-80 bg-transparent outline-none text-cream-900 placeholder:text-cream-400 text-sm"
+                />
+                <button
+                  onClick={() => handleSubmitPrompt()}
+                  disabled={!prompt.trim()}
+                  className="w-9 h-9 rounded-full bg-cream-800 hover:bg-cream-700 disabled:bg-cream-300 flex items-center justify-center transition-colors flex-shrink-0"
+                >
+                  <ArrowRight className="w-4 h-4 text-cream-100" />
+                </button>
+                <button
+                  onClick={handleToggleCreateMode}
+                  className="w-9 h-9 rounded-full bg-cream-200 hover:bg-cream-300 flex items-center justify-center transition-colors flex-shrink-0"
+                  title="Cancel"
+                >
+                  <X className="w-4 h-4 text-cream-600" />
+                </button>
+              </div>
             </div>
           </div>
 
@@ -271,36 +299,6 @@ export const LandingPage: React.FC<LandingPageProps> = ({
               </div>
             );
           })}
-        </div>
-      </div>
-
-      {/* Chat input bar - shown in create mode */}
-      <div
-        className={`fixed bottom-0 left-0 right-0 p-6 transition-all duration-300 ${
-          isCreateMode
-            ? "opacity-100 translate-y-0"
-            : "opacity-0 translate-y-full pointer-events-none"
-        }`}
-      >
-        <div className="max-w-2xl mx-auto">
-          <div className="flex items-center gap-3 bg-white rounded-full shadow-lg border border-cream-200 pl-6 pr-2 py-2">
-            <input
-              ref={inputRef}
-              type="text"
-              value={prompt}
-              onChange={(e) => setPrompt(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="Describe your design language..."
-              className="flex-1 bg-transparent outline-none text-cream-900 placeholder:text-cream-400"
-            />
-            <button
-              onClick={() => handleSubmitPrompt()}
-              disabled={!prompt.trim()}
-              className="w-10 h-10 rounded-full bg-cream-800 hover:bg-cream-700 disabled:bg-cream-300 flex items-center justify-center transition-colors"
-            >
-              <ArrowRight className="w-5 h-5 text-cream-100" />
-            </button>
-          </div>
         </div>
       </div>
 

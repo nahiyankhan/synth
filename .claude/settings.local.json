@@ -64,7 +64,9 @@
       "WebFetch(domain:www.adhamdannaway.com)",
       "WebFetch(domain:cdn.jsdelivr.net)",
       "WebFetch(domain:elements.ai-sdk.dev)",
-      "Bash(tree:*)"
+      "Bash(tree:*)",
+      "Bash(timeout 8 pnpm dev:*)",
+      "Bash(timeout 10 pnpm dev:*)"
     ],
     "deny": [],
     "ask": []

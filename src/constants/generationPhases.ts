@@ -39,6 +39,8 @@ export interface PhaseConfig {
   loadingMessage: string;
   /** Full title for phase details */
   title: string;
+  /** Theme colors for this phase [primary, secondary, tertiary] */
+  colors: [string, string, string];
 }
 
 /**
@@ -52,6 +54,7 @@ export const GENERATION_PHASES: readonly PhaseConfig[] = [
     stepNumber: 1,
     loadingMessage: "Developing visual direction...",
     title: "Visual Direction",
+    colors: ["#6366f1", "#8b5cf6", "#a78bfa"],
   },
   {
     key: "tailwind-colors",
@@ -60,6 +63,7 @@ export const GENERATION_PHASES: readonly PhaseConfig[] = [
     stepNumber: 2,
     loadingMessage: "Generating Tailwind colors...",
     title: "Tailwind Colors",
+    colors: ["#f472b6", "#fb7185", "#fbbf24"],
   },
   {
     key: "foundations",
@@ -68,6 +72,7 @@ export const GENERATION_PHASES: readonly PhaseConfig[] = [
     stepNumber: 3,
     loadingMessage: "Creating foundation tokens...",
     title: "Design Foundations",
+    colors: ["#64748b", "#94a3b8", "#cbd5e1"],
   },
   {
     key: "tailwind-system",
@@ -76,6 +81,7 @@ export const GENERATION_PHASES: readonly PhaseConfig[] = [
     stepNumber: 4,
     loadingMessage: "Building color system...",
     title: "Tailwind System",
+    colors: ["#3b82f6", "#60a5fa", "#93c5fd"],
   },
   {
     key: "typography",
@@ -84,6 +90,7 @@ export const GENERATION_PHASES: readonly PhaseConfig[] = [
     stepNumber: 5,
     loadingMessage: "Generating typography scale...",
     title: "Typography",
+    colors: ["#1f2937", "#374151", "#6b7280"],
   },
   {
     key: "design-tokens",
@@ -92,6 +99,7 @@ export const GENERATION_PHASES: readonly PhaseConfig[] = [
     stepNumber: 6,
     loadingMessage: "Building design tokens...",
     title: "Design Tokens",
+    colors: ["#8b5cf6", "#a78bfa", "#c4b5fd"],
   },
   {
     key: "component-css",
@@ -100,6 +108,7 @@ export const GENERATION_PHASES: readonly PhaseConfig[] = [
     stepNumber: 7,
     loadingMessage: "Generating component styles...",
     title: "Component CSS",
+    colors: ["#10b981", "#34d399", "#6ee7b7"],
   },
   {
     key: "contrast-validation",
@@ -108,6 +117,7 @@ export const GENERATION_PHASES: readonly PhaseConfig[] = [
     stepNumber: 8,
     loadingMessage: "Validating contrast ratios...",
     title: "Contrast Validation",
+    colors: ["#22c55e", "#f59e0b", "#ef4444"],
   },
 ] as const;
 
@@ -215,3 +225,11 @@ export function getNextPhase(currentPhase: PhaseState): PhaseState {
 
   return GENERATION_PHASES[currentIndex + 1].key;
 }
+
+/**
+ * Phase colors for UI theming
+ * Derived from GENERATION_PHASES - single source of truth
+ */
+export const PHASE_COLORS: Record<PhaseKey, [string, string, string]> = Object.fromEntries(
+  GENERATION_PHASES.map((phase) => [phase.key, phase.colors])
+) as Record<PhaseKey, [string, string, string]>;

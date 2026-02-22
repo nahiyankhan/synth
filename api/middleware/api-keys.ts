@@ -12,16 +12,16 @@ export interface ApiKeys {
 }
 
 /**
- * Middleware to extract API keys from request headers
- * Keys are passed in X-*-Key headers and stored in context
+ * Middleware to extract API keys from request headers or environment
+ * Keys are passed in X-*-Key headers, with fallback to environment variables
  */
 export const extractApiKeys = createMiddleware<{
   Variables: { apiKeys: ApiKeys };
 }>(async (c, next) => {
   const apiKeys: ApiKeys = {
-    gemini: c.req.header('X-Gemini-Key') || undefined,
-    openai: c.req.header('X-OpenAI-Key') || undefined,
-    anthropic: c.req.header('X-Anthropic-Key') || undefined,
+    gemini: c.req.header('X-Gemini-Key') || process.env.GEMINI_API_KEY || undefined,
+    openai: c.req.header('X-OpenAI-Key') || process.env.OPENAI_API_KEY || undefined,
+    anthropic: c.req.header('X-Anthropic-Key') || process.env.ANTHROPIC_API_KEY || undefined,
   };
 
   c.set('apiKeys', apiKeys);

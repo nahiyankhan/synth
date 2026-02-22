@@ -19,3 +19,4 @@ export function cn(...inputs: ClassValue[]): string {
 export function getComponentName(name: string): string {
   return name.replace(/-/g, ' ');
 }
+

@@ -67,29 +67,29 @@
   }
 }
 
-/* Rotation animations */
+/* Rotation animations - slow and smooth */
 .rotate-slow {
-  animation: rotateSlow 20s linear infinite;
+  animation: rotateCW 60s linear infinite;
 }
 
 .rotate-slow-reverse {
-  animation: rotateSlowReverse 25s linear infinite;
+  animation: rotateCCW 70s linear infinite;
 }
 
 .rotate-medium {
-  animation: rotateMedium 8s linear infinite;
+  animation: rotateCW 45s linear infinite;
 }
 
 .rotate-medium-reverse {
-  animation: rotateMediumReverse 10s linear infinite;
+  animation: rotateCCW 50s linear infinite;
 }
 
 .rotate-fast {
-  animation: rotateFast 4s linear infinite;
+  animation: rotateCW 30s linear infinite;
 }
 
 .rotate-pulse {
-  animation: rotatePulse 2s ease-in-out infinite;
+  animation: rotateCW 40s linear infinite;
 }
 
 .rotate-bloom {
@@ -100,34 +100,14 @@
   animation: rotateShake 0.5s ease-in-out infinite;
 }
 
-@keyframes rotateSlow {
+@keyframes rotateCW {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
-@keyframes rotateSlowReverse {
-  from { transform: rotate(360deg); }
-  to { transform: rotate(0deg); }
-}
-
-@keyframes rotateMedium {
+@keyframes rotateCCW {
   from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes rotateMediumReverse {
-  from { transform: rotate(360deg); }
-  to { transform: rotate(0deg); }
-}
-
-@keyframes rotateFast {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes rotatePulse {
-  0%, 100% { transform: rotate(0deg) scale(1); }
-  50% { transform: rotate(180deg) scale(1.05); }
+  to { transform: rotate(-360deg); }
 }
 
 @keyframes rotateBloom {

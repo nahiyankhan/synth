@@ -78,7 +78,12 @@ export class StyleGraph implements IStyleGraph {
     );
     const exportedData = await loadStaticDesignSystem();
 
-    // Populate graph from exported nodes
+    // Populate graph from exported nodes (handle empty/missing data)
+    if (!exportedData.nodes || !Array.isArray(exportedData.nodes)) {
+      console.warn("No nodes found in static design system");
+      return;
+    }
+
     for (const exportedNode of exportedData.nodes) {
       const node = hydrateNode(exportedNode);
       this.nodes.set(node.id, node);

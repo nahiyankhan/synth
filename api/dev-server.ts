@@ -3,6 +3,7 @@
  * Run with: tsx watch api/dev-server.ts
  */
 
+import 'dotenv/config';
 import { serve } from '@hono/node-server';
 import app from './index';
 

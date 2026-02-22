@@ -13,7 +13,7 @@ import {
   componentRegistry,
   FallbackComponent,
   useInteractiveState,
-} from "@/lib/json-render";
+} from "@/toolCalls/lib/json-render";
 
 interface ComponentsViewProps {
   graph: StyleGraph;

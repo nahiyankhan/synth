@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generation Wheel POC - Streaming Content</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #FAF9F7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .stage {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ========== CENTER CIRCLE (AISignal) ========== */
+    .center-circle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: #E8E4DE;
+      overflow: hidden;
+      z-index: 50;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+    }
+
+    .center-visualization {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .viz-gradient {
+      position: absolute;
+      inset: -50%;
+      background: conic-gradient(
+        from 0deg,
+        var(--phase-color-1, #6366f1),
+        var(--phase-color-2, #8b5cf6),
+        var(--phase-color-3, #a78bfa),
+        var(--phase-color-1, #6366f1)
+      );
+      opacity: 0.6;
+      transition: opacity 0.3s ease;
+    }
+
+    .viz-gradient.spinning {
+      animation: rotateGradient 3s linear infinite;
+    }
+
+    @keyframes rotateGradient {
+      to { transform: rotate(360deg); }
+    }
+
+    .center-label {
+      position: relative;
+      z-index: 5;
+      font-size: 42px;
+      font-weight: 700;
+      color: rgba(0,0,0,0.3);
+      font-variant-numeric: tabular-nums;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .center-circle.morphing .center-label {
+      transform: scale(0.85);
+    }
+
+    .center-circle.morphing .viz-gradient {
+      opacity: 0.9;
+    }
+
+    /* ========== STREAMING CONTENT CONTAINER ========== */
+    .stream-container {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      pointer-events: none;
+      z-index: 20;
+      /* Center the container on its position */
+      transform: translate(-50%, -50%);
+    }
+
+    /* Individual streamed elements */
+    .stream-element {
+      position: absolute;
+      border-radius: 8px;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .stream-element.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Different element types */
+    .stream-element.color-swatch {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .stream-element.text-sample {
+      padding: 8px 16px;
+      background: white;
+      font-weight: 600;
+      font-size: 14px;
+      color: #333;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      white-space: nowrap;
+    }
+
+    .stream-element.token-chip {
+      padding: 6px 12px;
+      background: rgba(255,255,255,0.9);
+      font-family: monospace;
+      font-size: 11px;
+      color: #666;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 16px;
+    }
+
+    .stream-element.icon-block {
+      width: 48px;
+      height: 48px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    /* ========== INFO PANEL ========== */
+    .info-panel {
+      position: absolute;
+      top: calc(50% + 140px);
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 60;
+    }
+
+    .phase-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #2D2D2D;
+      margin-bottom: 8px;
+      transition: opacity 0.3s ease;
+    }
+
+    .phase-status {
+      font-size: 14px;
+      color: #888;
+      transition: opacity 0.3s ease;
+    }
+
+    .progress-dots {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 24px;
+    }
+
+    .progress-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #D4CFC7;
+      transition: all 0.3s ease;
+    }
+
+    .progress-dot.active {
+      width: 24px;
+      border-radius: 4px;
+      background: #2D2D2D;
+    }
+
+    .progress-dot.complete {
+      background: #22c55e;
+    }
+
+    /* ========== CONTROLS ========== */
+    .controls {
+      position: fixed;
+      bottom: 40px;
+      display: flex;
+      gap: 12px;
+      z-index: 100;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: #2D2D2D;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #444;
+    }
+
+    .btn-secondary {
+      background: #E8E4DE;
+      color: #2D2D2D;
+    }
+
+    .btn-secondary:hover {
+      background: #D4CFC7;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <div class="center-circle" id="centerCircle">
+      <div class="center-visualization">
+        <div class="viz-gradient" id="vizGradient"></div>
+      </div>
+      <span class="center-label" id="centerLabel">0</span>
+    </div>
+
+    <!-- Two stream containers for seamless transitions -->
+    <div class="stream-container" id="streamContainerA"></div>
+    <div class="stream-container" id="streamContainerB"></div>
+
+    <div class="info-panel">
+      <div class="phase-title" id="phaseTitle">Ready</div>
+      <div class="phase-status" id="phaseStatus">Click "Start" to begin generation</div>
+      <div class="progress-dots" id="progressDots"></div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <button class="btn btn-primary" id="startBtn">Start Generation</button>
+    <button class="btn btn-secondary" id="resetBtn">Reset</button>
+  </div>
+
+  <script>
+    // ========== CONFIGURATION ==========
+    const WHEEL_RADIUS = 900;
+    const WHEEL_CENTER_Y_OFFSET = 600;
+
+    const ANGLE_OFFSCREEN_RIGHT = 130;
+    const ANGLE_ACTIVE = 0;
+    const ANGLE_OFFSCREEN_LEFT = -130;
+
+    const ARC_DURATION = 1000;
+    const TRANSITION_OVERLAP = 450;
+    const STREAM_INTERVAL = 150; // ms between streamed elements
+
+    // ========== PHASE DEFINITIONS ==========
+    const PHASES = [
+      {
+        key: 'visual-direction',
+        title: 'Visual Direction',
+        status: 'Developing visual direction...',
+        colors: ['#6366f1', '#8b5cf6', '#a78bfa'],
+        elements: [
+          { type: 'color-swatch', color: '#6366f1' },
+          { type: 'text-sample', text: 'Modern' },
+          { type: 'color-swatch', color: '#8b5cf6' },
+          { type: 'text-sample', text: 'Minimal' },
+          { type: 'icon-block', icon: '◆' },
+          { type: 'color-swatch', color: '#a78bfa' },
+          { type: 'text-sample', text: 'Clean' },
+          { type: 'token-chip', text: 'brand.primary' },
+        ]
+      },
+      {
+        key: 'tailwind-colors',
+        title: 'Tailwind Colors',
+        status: 'Generating color palette...',
+        colors: ['#f472b6', '#fb7185', '#fbbf24'],
+        elements: [
+          { type: 'color-swatch', color: '#fce7f3' },
+          { type: 'color-swatch', color: '#fbcfe8' },
+          { type: 'color-swatch', color: '#f9a8d4' },
+          { type: 'color-swatch', color: '#f472b6' },
+          { type: 'color-swatch', color: '#ec4899' },
+          { type: 'token-chip', text: 'pink-300' },
+          { type: 'token-chip', text: 'pink-400' },
+          { type: 'color-swatch', color: '#fbbf24' },
+        ]
+      },
+      {
+        key: 'foundations',
+        title: 'Foundations',
+        status: 'Creating foundation tokens...',
+        colors: ['#64748b', '#94a3b8', '#cbd5e1'],
+        elements: [
+          { type: 'token-chip', text: 'spacing.4' },
+          { type: 'token-chip', text: 'spacing.8' },
+          { type: 'token-chip', text: 'radius.lg' },
+          { type: 'color-swatch', color: '#64748b' },
+          { type: 'token-chip', text: 'shadow.md' },
+          { type: 'color-swatch', color: '#94a3b8' },
+          { type: 'token-chip', text: 'border.1' },
+          { type: 'color-swatch', color: '#cbd5e1' },
+        ]
+      },
+      {
+        key: 'tailwind-system',
+        title: 'Color System',
+        status: 'Building color system...',
+        colors: ['#3b82f6', '#60a5fa', '#93c5fd'],
+        elements: [
+          { type: 'color-swatch', color: '#1e40af' },
+          { type: 'color-swatch', color: '#3b82f6' },
+          { type: 'color-swatch', color: '#60a5fa' },
+          { type: 'color-swatch', color: '#93c5fd' },
+          { type: 'token-chip', text: 'blue-600' },
+          { type: 'token-chip', text: 'blue-400' },
+          { type: 'color-swatch', color: '#dbeafe' },
+          { type: 'token-chip', text: 'semantic.info' },
+        ]
+      },
+      {
+        key: 'typography',
+        title: 'Typography',
+        status: 'Generating typography scale...',
+        colors: ['#1f2937', '#374151', '#6b7280'],
+        elements: [
+          { type: 'text-sample', text: 'Heading 1', style: 'font-size:28px' },
+          { type: 'text-sample', text: 'Heading 2', style: 'font-size:22px' },
+          { type: 'text-sample', text: 'Body Text', style: 'font-size:16px' },
+          { type: 'token-chip', text: 'font.sans' },
+          { type: 'text-sample', text: 'Caption', style: 'font-size:12px' },
+          { type: 'token-chip', text: 'leading.tight' },
+          { type: 'token-chip', text: 'tracking.wide' },
+          { type: 'text-sample', text: 'Label', style: 'font-size:14px;font-weight:500' },
+        ]
+      },
+      {
+        key: 'design-tokens',
+        title: 'Design Tokens',
+        status: 'Building design tokens...',
+        colors: ['#8b5cf6', '#a78bfa', '#c4b5fd'],
+        elements: [
+          { type: 'token-chip', text: 'color.primary' },
+          { type: 'token-chip', text: 'color.secondary' },
+          { type: 'color-swatch', color: '#8b5cf6' },
+          { type: 'token-chip', text: 'space.unit' },
+          { type: 'token-chip', text: 'radius.base' },
+          { type: 'color-swatch', color: '#a78bfa' },
+          { type: 'token-chip', text: 'font.body' },
+          { type: 'token-chip', text: 'shadow.card' },
+        ]
+      },
+      {
+        key: 'component-css',
+        title: 'Component CSS',
+        status: 'Generating component styles...',
+        colors: ['#10b981', '#34d399', '#6ee7b7'],
+        elements: [
+          { type: 'token-chip', text: '.btn-primary' },
+          { type: 'color-swatch', color: '#10b981' },
+          { type: 'token-chip', text: '.card' },
+          { type: 'token-chip', text: '.input' },
+          { type: 'color-swatch', color: '#34d399' },
+          { type: 'token-chip', text: '.badge' },
+          { type: 'token-chip', text: '.avatar' },
+          { type: 'color-swatch', color: '#6ee7b7' },
+        ]
+      },
+      {
+        key: 'contrast-validation',
+        title: 'Validation',
+        status: 'Validating contrast ratios...',
+        colors: ['#22c55e', '#f59e0b', '#ef4444'],
+        elements: [
+          { type: 'icon-block', icon: '✓', style: 'color:#22c55e' },
+          { type: 'token-chip', text: 'AA Pass' },
+          { type: 'icon-block', icon: '✓', style: 'color:#22c55e' },
+          { type: 'token-chip', text: '4.5:1' },
+          { type: 'icon-block', icon: '✓', style: 'color:#22c55e' },
+          { type: 'token-chip', text: 'AAA Pass' },
+          { type: 'token-chip', text: '7.2:1' },
+          { type: 'icon-block', icon: '✓', style: 'color:#22c55e' },
+        ]
+      }
+    ];
+
+    // ========== STATE ==========
+    let currentPhase = -1;
+    let isGenerating = false;
+    let activeContainer = 'A';
+    let streamingInterval = null;
+
+    // ========== DOM ELEMENTS ==========
+    const centerCircle = document.getElementById('centerCircle');
+    const vizGradient = document.getElementById('vizGradient');
+    const centerLabel = document.getElementById('centerLabel');
+    const streamContainerA = document.getElementById('streamContainerA');
+    const streamContainerB = document.getElementById('streamContainerB');
+    const phaseTitle = document.getElementById('phaseTitle');
+    const phaseStatus = document.getElementById('phaseStatus');
+    const progressDots = document.getElementById('progressDots');
+    const startBtn = document.getElementById('startBtn');
+    const resetBtn = document.getElementById('resetBtn');
+
+    function getStreamContainer(which) {
+      return which === 'A' ? streamContainerA : streamContainerB;
+    }
+
+    // ========== WHEEL POSITIONING ==========
+    function getWheelCenter() {
+      return {
+        x: window.innerWidth / 2,
+        y: window.innerHeight / 2 + WHEEL_CENTER_Y_OFFSET
+      };
+    }
+
+    function getPositionOnArc(angleDeg) {
+      const angleRad = (angleDeg - 90) * Math.PI / 180;
+      const center = getWheelCenter();
+      return {
+        x: center.x + Math.cos(angleRad) * WHEEL_RADIUS,
+        y: center.y + Math.sin(angleRad) * WHEEL_RADIUS
+      };
+    }
+
+    function setContainerPosition(container, angleDeg) {
+      const pos = getPositionOnArc(angleDeg);
+      container.style.left = `${pos.x}px`;
+      container.style.top = `${pos.y}px`;
+    }
+
+    function easeInOutCubic(t) {
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    function animateArc(container, fromAngle, toAngle, duration) {
+      return new Promise(resolve => {
+        const startTime = performance.now();
+
+        function tick(now) {
+          const elapsed = now - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const easedProgress = easeInOutCubic(progress);
+          const angle = fromAngle + (toAngle - fromAngle) * easedProgress;
+          setContainerPosition(container, angle);
+
+          if (progress < 1) {
+            requestAnimationFrame(tick);
+          } else {
+            resolve();
+          }
+        }
+
+        requestAnimationFrame(tick);
+      });
+    }
+
+    // ========== STREAMING ELEMENTS ==========
+    function generateElementPosition(index, total) {
+      // Distribute elements in a ring around center, avoiding the middle
+      const minRadius = 120; // Stay outside AISignal
+      const maxRadius = 260;
+
+      // Use golden angle for nice distribution
+      const goldenAngle = Math.PI * (3 - Math.sqrt(5));
+      const angle = index * goldenAngle;
+      const radius = minRadius + (maxRadius - minRadius) * (0.3 + 0.7 * Math.random());
+
+      const x = 300 + Math.cos(angle) * radius; // 300 = center of 600px container
+      const y = 300 + Math.sin(angle) * radius;
+
+      return { x, y };
+    }
+
+    function createElement(config, index, total) {
+      const el = document.createElement('div');
+      el.className = `stream-element ${config.type}`;
+
+      const pos = generateElementPosition(index, total);
+      el.style.left = `${pos.x}px`;
+      el.style.top = `${pos.y}px`;
+      el.style.transform = 'translate(-50%, -50%) scale(0.5)';
+
+      if (config.style) {
+        el.style.cssText += config.style;
+      }
+
+      switch (config.type) {
+        case 'color-swatch':
+          el.style.backgroundColor = config.color;
+          break;
+        case 'text-sample':
+          el.textContent = config.text;
+          break;
+        case 'token-chip':
+          el.textContent = config.text;
+          break;
+        case 'icon-block':
+          el.textContent = config.icon;
+          break;
+      }
+
+      return el;
+    }
+
+    function startStreaming(container, phase) {
+      const elements = phase.elements;
+      let index = 0;
+
+      // Clear any existing elements
+      container.innerHTML = '';
+
+      streamingInterval = setInterval(() => {
+        if (index >= elements.length) {
+          clearInterval(streamingInterval);
+          streamingInterval = null;
+          return;
+        }
+
+        const el = createElement(elements[index], index, elements.length);
+        container.appendChild(el);
+
+        // Trigger animation
+        requestAnimationFrame(() => {
+          el.classList.add('visible');
+          el.style.transform = 'translate(-50%, -50%) scale(1)';
+        });
+
+        index++;
+      }, STREAM_INTERVAL);
+    }
+
+    function stopStreaming() {
+      if (streamingInterval) {
+        clearInterval(streamingInterval);
+        streamingInterval = null;
+      }
+    }
+
+    // ========== INIT ==========
+    function init() {
+      progressDots.innerHTML = PHASES.map((_, i) => `<div class="progress-dot" data-phase="${i}"></div>`).join('');
+
+      // Position containers off-screen
+      setContainerPosition(streamContainerA, ANGLE_OFFSCREEN_RIGHT);
+      setContainerPosition(streamContainerB, ANGLE_OFFSCREEN_RIGHT);
+
+      updateUI();
+    }
+
+    // ========== UI UPDATE ==========
+    function updateUI() {
+      document.querySelectorAll('.progress-dot').forEach((dot, i) => {
+        dot.classList.remove('active', 'complete');
+        if (i < currentPhase) dot.classList.add('complete');
+        else if (i === currentPhase) dot.classList.add('active');
+      });
+
+      if (currentPhase >= 0 && currentPhase < PHASES.length) {
+        const phase = PHASES[currentPhase];
+        phaseTitle.textContent = phase.title;
+        phaseStatus.textContent = phase.status;
+      } else if (currentPhase >= PHASES.length) {
+        centerLabel.textContent = '✓';
+        phaseTitle.textContent = 'Complete';
+        phaseStatus.textContent = 'Design language generated successfully';
+        vizGradient.classList.remove('spinning');
+      } else {
+        centerLabel.textContent = '0';
+        phaseTitle.textContent = 'Ready';
+        phaseStatus.textContent = 'Click "Start" to begin generation';
+      }
+
+      startBtn.disabled = isGenerating || currentPhase >= 0;
+    }
+
+    // ========== AISIGNAL MORPHING ==========
+    function morphAISignal(phase) {
+      const colors = phase.colors;
+
+      centerCircle.classList.add('morphing');
+
+      vizGradient.style.setProperty('--phase-color-1', colors[0]);
+      vizGradient.style.setProperty('--phase-color-2', colors[1]);
+      vizGradient.style.setProperty('--phase-color-3', colors[2]);
+
+      centerLabel.textContent = currentPhase + 1;
+      vizGradient.classList.add('spinning');
+
+      setTimeout(() => {
+        centerCircle.classList.remove('morphing');
+      }, 400);
+    }
+
+    // ========== PHASE TRANSITIONS ==========
+    async function enterFirstPhase() {
+      const container = getStreamContainer(activeContainer);
+      const phase = PHASES[currentPhase];
+
+      setContainerPosition(container, ANGLE_OFFSCREEN_RIGHT);
+
+      // Start arc animation
+      const arcPromise = animateArc(container, ANGLE_OFFSCREEN_RIGHT, ANGLE_ACTIVE, ARC_DURATION);
+
+      // Start morph partway through
+      setTimeout(() => morphAISignal(phase), ARC_DURATION * 0.4);
+
+      // Start streaming when container arrives
+      setTimeout(() => startStreaming(container, phase), ARC_DURATION * 0.6);
+
+      await arcPromise;
+    }
+
+    async function transitionToNextPhase() {
+      stopStreaming();
+
+      const exitingContainer = getStreamContainer(activeContainer);
+      activeContainer = activeContainer === 'A' ? 'B' : 'A';
+      const enteringContainer = getStreamContainer(activeContainer);
+
+      const nextPhase = PHASES[currentPhase + 1];
+
+      // Prepare entering container
+      enteringContainer.innerHTML = '';
+      setContainerPosition(enteringContainer, ANGLE_OFFSCREEN_RIGHT);
+
+      // Start exit animation
+      const exitPromise = animateArc(exitingContainer, ANGLE_ACTIVE, ANGLE_OFFSCREEN_LEFT, ARC_DURATION);
+
+      // After overlap delay, start enter animation
+      await sleep(TRANSITION_OVERLAP);
+
+      currentPhase++;
+      updateUI();
+      morphAISignal(nextPhase);
+
+      // Start entering
+      const enterPromise = animateArc(enteringContainer, ANGLE_OFFSCREEN_RIGHT, ANGLE_ACTIVE, ARC_DURATION);
+
+      // Start streaming for new phase
+      setTimeout(() => startStreaming(enteringContainer, nextPhase), ARC_DURATION * 0.4);
+
+      await Promise.all([exitPromise, enterPromise]);
+
+      // Clear exited container
+      exitingContainer.innerHTML = '';
+    }
+
+    async function exitLastPhase() {
+      stopStreaming();
+      const container = getStreamContainer(activeContainer);
+      await animateArc(container, ANGLE_ACTIVE, ANGLE_OFFSCREEN_LEFT, ARC_DURATION);
+      container.innerHTML = '';
+    }
+
+    function sleep(ms) {
+      return new Promise(r => setTimeout(r, ms));
+    }
+
+    // ========== CONTROL ==========
+    async function startGeneration() {
+      isGenerating = true;
+      currentPhase = 0;
+      updateUI();
+
+      await enterFirstPhase();
+    }
+
+    function reset() {
+      stopStreaming();
+      isGenerating = false;
+      currentPhase = -1;
+      activeContainer = 'A';
+
+      streamContainerA.innerHTML = '';
+      streamContainerB.innerHTML = '';
+      setContainerPosition(streamContainerA, ANGLE_OFFSCREEN_RIGHT);
+      setContainerPosition(streamContainerB, ANGLE_OFFSCREEN_RIGHT);
+
+      centerCircle.classList.remove('morphing');
+      vizGradient.classList.remove('spinning');
+
+      updateUI();
+    }
+
+    async function autoGenerate() {
+      await startGeneration();
+
+      for (let i = 0; i < PHASES.length - 1; i++) {
+        await sleep(1800 + Math.random() * 400);
+        await transitionToNextPhase();
+      }
+
+      await sleep(1800);
+      currentPhase++;
+      await exitLastPhase();
+      isGenerating = false;
+      updateUI();
+    }
+
+    // ========== EVENT LISTENERS ==========
+    startBtn.addEventListener('click', autoGenerate);
+    resetBtn.addEventListener('click', reset);
+
+    // ========== INIT ==========
+    init();
+  </script>
+</body>
+</html>

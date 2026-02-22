@@ -26,7 +26,7 @@ import {
   DEFAULT_STRUCTURAL_SEEDS,
 } from '@/types/tailwindPalette';
 
-import { toKebabCase } from '@/lib/utils/string-utils';
+import { toKebabCase } from '@/toolCalls/lib/utils/string-utils';
 import { resolveColorSeeds } from './tailwind-color-mapper';
 import { generateSemanticTokens } from './semantic-token-mapper';
 import {

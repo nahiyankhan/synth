@@ -14,6 +14,7 @@ interface AISignalProps {
   state?: AISignalState;
   size?: number;
   className?: string;
+  showOrbitCircles?: boolean;
 }
 
 interface OrbitCircle {
@@ -133,6 +134,7 @@ export function AISignal({
   state = "idle",
   size = 120,
   className,
+  showOrbitCircles = true,
 }: AISignalProps) {
   const [circles, setCircles] = useState<OrbitCircle[]>([]);
   const regenerateKey = useRef(0);
@@ -141,23 +143,6 @@ export function AISignal({
   useEffect(() => {
     regenerateKey.current++;
     setCircles(generateOrbitCircles(state));
-  }, [state]);
-
-  // Periodically add randomness during active states
-  useEffect(() => {
-    if (state !== "thinking" && state !== "processing") return;
-
-    const interval = setInterval(() => {
-      setCircles((prev) =>
-        prev.map((c) => ({
-          ...c,
-          // Subtle angle drift
-          angle: c.angle + (Math.random() * 4 - 2),
-        }))
-      );
-    }, 3000);
-
-    return () => clearInterval(interval);
   }, [state]);
 
   const center = size / 2;
@@ -211,24 +196,8 @@ export function AISignal({
           />
         ))}
 
-        {/* Center core */}
-        <circle
-          cx={center}
-          cy={center}
-          r={size * 0.12}
-          className="ai-signal__core"
-        />
-
-        {/* Inner glow */}
-        <circle
-          cx={center}
-          cy={center}
-          r={size * 0.08}
-          className="ai-signal__core-inner"
-        />
-
         {/* Orbiting circles grouped by orbit for rotation */}
-        {ORBIT_RADII.map((radius, orbitIndex) => {
+        {showOrbitCircles && ORBIT_RADII.map((radius, orbitIndex) => {
           const orbitCircles = circles.filter(
             (c) => c.orbitIndex === orbitIndex
           );
